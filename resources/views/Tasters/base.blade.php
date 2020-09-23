@@ -6,12 +6,8 @@
 
 @section('content')
 <div class="mt-3 justify-content-center" id="">
-    @include('Test.components.' . $view)
+    @include('Tasters.components.' . $view)
 </div>
-@endsection
-
-@section('scripts')
-
 @endsection
 
 @section('style')

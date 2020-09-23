@@ -23,9 +23,8 @@
             <input type="number" name="number_of_repeats" id="number_of_repeats" class="form-control col-2" min="0">
         </div>
 
-        @include('Test.components.formTest.checkLabels')
-
-        @include('layouts.cancel_and_accept')
-
+        @include('Test.components.forms.checkLabels')
     </div>
+
+    @include('_layouts.cancel_or_accept')
 </form>

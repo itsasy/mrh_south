@@ -13,5 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'Test.base');
-Route::resource('test', 'testController');
+Route::view('/', 'index');
+
+
+Route::resource('test', 'TestsController')->except(['show']);
+Route::resource('taster', 'TastersController')->except(['show']);
+Route::resource('preparing', 'preparingTestController')->only(['index']);

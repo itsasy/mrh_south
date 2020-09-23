@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Test;
 use Illuminate\Http\Request;
 
-class testController extends Controller
+class TestsController extends Controller
 {
     public function index()
     {
-        return view('Test.base')->with(
-            ['type' => 'Preparación',
-            'view' => 'preparingTest.table']
-        );
+        return view('Test.base')->with([
+            'title' => 'Preparación de Pruebas',
+            'view' => 'list.tests'
+        ]);
     }
 
     //formulario
     public function create()
     {
         return view('Test.base')->with([
-            'type' => 'Creación',
-            'view' => 'formTest.form'
+            'title' => 'Creación de Pruebas',
+            'view' => 'forms.form'
         ]);
     }
 
@@ -39,7 +39,7 @@ class testController extends Controller
     public function edit(Test $test)
     {
         return view('Test.FormTest')->with([
-            'type' => 'Edición'
+            'title' => 'Edición de Pruebas'
         ]);
     }
 

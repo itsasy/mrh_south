@@ -35,7 +35,6 @@
             <td>
                 <a href="#" target="_blank" rel="noopener noreferrer" role="button">
                     <i class="fas fa-external-link-square-alt fa-lg"></i>
-                    {{-- <i class="fas external-link-square-alt fa-lg"></i> --}}
                 </a>
             </td>
             <td>
