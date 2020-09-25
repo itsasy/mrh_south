@@ -7,21 +7,20 @@ use Illuminate\Http\Request;
 
 class TestsController extends Controller
 {
+    public function manage()
+    {
+        return view('Tests.manage')->with([]);
+    }
+
     public function index()
     {
-        return view('Test.base')->with([
-            'title' => 'Preparación de Pruebas',
-            'view' => 'list.tests'
-        ]);
+        return view('Tests.index')->with([]);
     }
 
     //formulario
     public function create()
     {
-        return view('Test.base')->with([
-            'title' => 'Creación de Pruebas',
-            'view' => 'forms.form'
-        ]);
+        return view('Tests.create')->with([]);
     }
 
     public function store(Request $request)
@@ -38,9 +37,7 @@ class TestsController extends Controller
     //Formulario de recurso
     public function edit(Test $test)
     {
-        return view('Test.FormTest')->with([
-            'title' => 'Edición de Pruebas'
-        ]);
+        return view('Test.edit')->with([]);
     }
 
     //Actualizar recurso
