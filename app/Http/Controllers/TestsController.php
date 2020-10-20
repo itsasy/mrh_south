@@ -59,7 +59,7 @@ class TestsController extends Controller
                 $choiceTest = new ChoiceTestSample();
                 $choiceTest->id_muestra      =  $codigo;
                 $choiceTest->id_tipo_prueba  =  $request->get('check_lista')[$c];
-                $choiceTest->estado          =  "ACTIVO";
+                $choiceTest->estado          =  "CREADA";
 
                 $choiceTest->save();
 
@@ -106,9 +106,9 @@ class TestsController extends Controller
          try {
             $sample = Sample::where('id_muestra', $test)->first();
 
-            $sample->nro_parametros_estudio        =  $request->get('nro_parametros_estudio');
-            $sample->nro_modelos_ortogonales       =  $request->get('nro_modelos_ortogonales');
-            $sample->nro_repeticiones              =  $request->get('nro_repeticiones');
+            $sample->nro_parametros_estudio        =  $request->get('study_parameter');
+            $sample->nro_modelos_ortogonales       =  $request->get('number_of_models');
+            $sample->nro_repeticiones              =  $request->get('number_of_repeats');
             $sample->save();
 
             return redirect()->route('Tests.index');
