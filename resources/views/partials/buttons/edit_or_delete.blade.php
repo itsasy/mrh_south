@@ -3,8 +3,6 @@
     <i class="fas fa-pen"></i>
 </a>
 
-
-<a name="" id="" class="btn btn-primary rounded-circle ml-1" href="{{route($object.  '.destroy', [$object => $id])}}"
-    role="button">
+<a href="#" name="" id="" class="btn btn-danger rounded-circle ml-1 delete">
     <i class="fas fa-trash-alt"></i>
 </a>

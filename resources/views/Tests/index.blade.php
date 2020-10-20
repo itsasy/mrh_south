@@ -5,9 +5,6 @@
 @section('content')
 <div class="mt-3 justify-content-center" id="">
     @include('partials.tables.list.tests')
+    @include('partials.modals.delete_confirm')
 </div>
-@endsection
-
-@section('scripts')
-
 @endsection
