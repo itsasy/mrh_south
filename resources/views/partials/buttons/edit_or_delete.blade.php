@@ -3,6 +3,6 @@
     <i class="fas fa-pen"></i>
 </a>
 
-<a href="#" name="" id="" class="btn btn-danger rounded-circle ml-1 delete">
+<button type="button" name="" id="" class="btn btn-danger rounded-circle ml-1 delete">
     <i class="fas fa-trash-alt"></i>
-</a>
+</button>
