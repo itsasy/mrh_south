@@ -3,20 +3,20 @@
     <div class="row">
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="" id="" value="checkedValue">
+                <input class="form-check-input" type="checkbox" name="check_lista[]" id="" value="1">
                 Dúo - Trío
             </label>
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="" id="" value="checkedValue">
+                <input class="form-check-input" type="checkbox" name="check_lista[]" id="" value="2">
                 QDA
             </label>
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="" id="" value="checkedValue">
-                Aceptabilidad
+                <input class="form-check-input" type="checkbox" name="check_lista[]" id="" value="3">
+                Perfil de consumidores
             </label>
         </div>
     </div>

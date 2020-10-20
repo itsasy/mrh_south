@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mt-3 justify-content-center" id="">
-    <form class="{{route('test.update')}}" action="" method="post">
+    <form action="" method="post">
         @method('PUT')
 
         @include('partials.forms.create_or_edit.tests')
