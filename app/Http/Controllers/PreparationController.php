@@ -13,7 +13,7 @@ class PreparationController extends Controller
 
     public function create()
     {
-        //
+        return view('Preparation.create')->with([]);
     }
 
     public function store(Request $request)

@@ -9,7 +9,7 @@
             parámetros de estudio</label>
         <input type="number" name="study_parameter" id="study_parameter" class="form-control col-2" min="0" required>
     </div>
-
+    
     <div class="form-group col-12">
         <label class="col-10 justify-content-start" for="number_of_models">Número de modelos
             ortogonales</label>

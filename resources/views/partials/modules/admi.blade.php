@@ -20,7 +20,7 @@
                 <h4 class="card-title">Administración de Jurados</h4>
             </div>
             <div class="card-footer text-center">
-                <a name="#" id="" class="btn btn-lg btn-success btn-block text-uppercase" href="{{route('manageTest')}}" role="button">Ingresar</a>
+                <a name="#" id="" class="btn btn-lg btn-success btn-block text-uppercase" href="{{route('manageTaster')}}" role="button">Ingresar</a>
             </div>
        
     </div>

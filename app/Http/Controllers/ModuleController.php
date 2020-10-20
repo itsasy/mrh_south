@@ -7,6 +7,7 @@ class ModuleController extends Controller
     public function index()
     {
         $type_user = Request::path();
+
         if ($type_user == 'admin') {
             return view('modules.admi');
         }

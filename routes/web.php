@@ -2,20 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', 'LoginController@index')->name('mainGeneral');;
 Route::post('login', 'LoginController@login')->name('logeo');
 Route::get('logout', 'LoginController@logout')->name('cerrar-sesion');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'ModuleController@index')->name('mainAdmin');
@@ -26,6 +16,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('preparation', 'PreparationController')->only(['index']);
     Route::resource('results', 'ResultsController')->only(['index']);
 
+
+    /* Route::get('/', 'ModuleController@index');
+    Route::resource('preparation', 'PreparationController')->except(['show']);*/
 });
 
 
