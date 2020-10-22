@@ -10,8 +10,8 @@ class AnswerQda extends Model
 	public $timestamps      = false;
 	protected $primaryKey   = 'id_respuestas_qda';
 
-    public function DetailQda(){
-        return $this->hasOne(DetailQda::class,'id_detalle_qda','id_detalle_qda');
+    public function DetailAttributes(){
+        return $this->hasOne(DetailAttributes::class,'id_detalle_atributos','id_detalle_atributos');
     }
     public function Evaluation(){
         return $this->hasOne(Evaluation::class,'id_evaluacion','id_evaluacion');

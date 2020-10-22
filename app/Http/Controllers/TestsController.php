@@ -34,7 +34,7 @@ class TestsController extends Controller
 
     public function store(Request $request)
     {
-        
+       // dd($request->get('nom_muestra'));
         try {
             
             $codigo = $this->randomString();
@@ -49,6 +49,7 @@ class TestsController extends Controller
             $sample->nro_parametros_estudio        =  $request->get('study_parameter');
             $sample->nro_modelos_ortogonales       =  $request->get('number_of_models');
             $sample->nro_repeticiones              =  $request->get('number_of_repeats');
+            $sample->estado_modelos                =  1;
             $sample->estado_muestra                =  'ACTIVO';
             $sample->fecha_registro                =  $dateActual;
             $sample->save();
@@ -65,14 +66,14 @@ class TestsController extends Controller
 
             }
             
-           /* for($s = 0 ; $s < count($request->get('check_lista')) ; $s++){
+            for($s = 0 ; $s < count($request->get('nom_muestra')) ; $s++){
                 
                 $sampleStudy = new SampleStudyParameters();
                 $sampleStudy->id_muestra   =  $codigo;
-                $sampleStudy->parametro    =  $request->get('nro_parametros_estudio')[$s];
+                $sampleStudy->parametro    =  $request->get('nom_muestra')[$s+1];
                 $sampleStudy->save();
 
-            }*/
+            }
 
             return redirect()->route('manageTest');     
             
