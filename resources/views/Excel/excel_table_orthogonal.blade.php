@@ -33,65 +33,93 @@
         <table class="table">
           <thead>
             <tr>
-              <td colspan="1"
-                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
-                Bloque
-              </td>
-              <td colspan="1"
-                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
-                Item
+              <td colspan="5"
+                style="vertical-align: middle; height:35px;font-weight: bold;font-size: 20px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
+                Preparación de la prueba
               </td>
 
-              @for($parametros = 0 ;$parametros < 3 ;$parametros++) <td colspan="1"
-                style="vertical-align: middle; height:30px;width:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
-                Parametros {{$parametros +1}}
-                </td>
-
-                @endfor
             </tr>
-          </thead>
 
-          <tbody>
             <tr>
-              <td colspan="1" rowspan="1"
-                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; ">
+              <td colspan="5" style="height:30px;">
+              </td>
+            </tr>
+
+            <tr>
+              <td rowspan="1"
+                style="vertical-align: middle; width:20px;height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center;border: 5px solid #878783;background-color: #EFEDEC; ">
                 Parámetro
               </td>
 
-              <td colspan="1" rowspan="1"
-                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; ">
+              <td rowspan="1"
+                style="vertical-align: middle; width:20px; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; border: 5px solid #878783;background-color: #EFEDEC;">
                 Nombre
               </td>
-              <td colspan="1" rowspan="1"></td> <td colspan="1" rowspan="1"></td>
             </tr>
+
+
             @for($parametros = 0 ;$parametros < 3 ;$parametros++) <tr>
-              <td colspan="1" rowspan="1"
-                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
+              <td rowspan="1"
+                style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
                 Parametros {{$parametros +1}}
               </td>
 
-              <td colspan="1" rowspan="1"
-                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
+              <td rowspan="1"
+                style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
                 Texto {{$parametros +1}}
               </td>
               </tr>
               @endfor
+              <tr>
+                <td colspan="1"  style="height:30px;">
+                </td>
+              </tr>
+             
+          </thead>
 
-              @for($num_repeticion = 0 ;$num_repeticion < 3 ;$num_repeticion++) @for($num_mod_hortogonales=0
-                ;$num_mod_hortogonales < 5 ;$num_mod_hortogonales++) <tr>
-                <td colspan="1" rowspan="1"
-                  style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
-                  A
+          <tbody>
+
+            <tr>
+              <td
+                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC; border: 5px solid #878783;">
+                Bloque
+              </td>
+              <td
+                style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC; border: 5px solid #878783;">
+                Item
+              </td>
+
+              @for($parametros = 0 ;$parametros < 3 ;$parametros++) <td
+                style="vertical-align: middle; height:30px;width:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC; border: 5px solid #878783;">
+                Parametros {{$parametros +1}}
                 </td>
 
-                <td colspan="1" rowspan="1"
-                  style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC;">
-                  {{$num_mod_hortogonales+1}}
-                </td>
-                </tr>
                 @endfor
+            </tr>
+        
 
-                @endfor
+            @for($num_repeticion = 0 ;$num_repeticion < 3 ;$num_repeticion++) 
+            @for($num_mod_hortogonales=0;$num_mod_hortogonales < 5 ;$num_mod_hortogonales++) <tr>
+              <td rowspan="1"
+                style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center; border: 5px solid #878783; ">
+                A+{{$num_repeticion+1}}
+              </td>
+
+              <td rowspan="1"
+                style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
+                {{$num_mod_hortogonales+1}}
+              </td>
+                
+                 @for($parametros = 0 ;$parametros < 3 ;$parametros++) 
+                  <td rowspan="1"
+                    style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
+                    
+                  </td>
+                 @endfor
+              </tr>
+              @endfor
+
+              @endfor
 
           </tbody>
 
