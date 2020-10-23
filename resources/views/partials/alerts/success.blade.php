@@ -1,4 +1,5 @@
-{{-- Uso en cualquier vista: @includeWhen(Session::has('success'), 'partials.alerts.success') --}}
+{{-- Uso en cualquier vista: @include('partials.alerts.success') --}}
+@if(Session::has('success'))
 <div class="col-12 mt-4">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>¡Éxito!</strong> {{Session::get('success')}}
@@ -7,3 +8,4 @@
         </button>
     </div>
 </div>
+@endif

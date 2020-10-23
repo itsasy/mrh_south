@@ -4,6 +4,8 @@
 
 @section('content')
 <div class="mt-3 justify-content-center" id="">
+    @include('partials.alerts.success')
+    @include('partials.alerts.error')
     @include('partials.tables.list.tasters')
     @include('partials.modals.delete_confirm')
 </div>

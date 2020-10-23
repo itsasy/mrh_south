@@ -9,6 +9,7 @@ class User extends Authenticatable
 	public $timestamps      = false;
 	protected $primaryKey   = 'id_usuario';
 	protected $hidden = ['password'];
+    public $incrementing = false;
 
     public function Roles(){
         return $this->hasOne(Roles::class,'id_roles','id_roles');

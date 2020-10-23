@@ -9,8 +9,8 @@
             </div>
 
             <form action="#" method="POST" id="delete_form">
-                @csrf
                 @method('DELETE')
+                @csrf
                 <div class="modal-body">
                     ¿Realmente estás seguro de eliminar estos datos? Este proceso no se puede deshacer. Por favor confirme su decisión pulsando en uno de los botones:
                 </div>

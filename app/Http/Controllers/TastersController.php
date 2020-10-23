@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Taster;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TastersController extends Controller
@@ -14,36 +14,61 @@ class TastersController extends Controller
 
     public function index()
     {
-        return view('Tasters.index')->with([]);
+        $user_list = User::paginate(10);
+        return view('Tasters.index', compact('user_list'));
     }
 
     public function create()
     {
-        return view('Tasters.create')->with([]);
+        return view('Tasters.create');
     }
 
     public function store(Request $request)
     {
+        try {
+            //
+            return $this->success_message('taster.index', 'creó');
+        } catch (\Exception $e) {
+            return $this->error_message();
+        }
     }
 
-    public function edit(Taster $taster)
+    public function edit(User $taster)
     {
-        return view('Tasters.edit')->with([]);
+        return view('Tasters.edit', compact('taster'));
     }
 
-    public function update(Request $request, Taster $taster)
+    public function update(Request $request, User $taster)
     {
-        return view('')->with([]);
+        try {
+            //method update
+
+            //$taster->atributo = $request->campo;
+
+            //$taster->save();
+            return $this->success_message('taster.index', 'actualizó');
+        } catch (\Exception $e) {
+            return $this->error_message();
+        }
     }
 
-    public function destroy(Taster $taster)
+    public function destroy(User $taster)
     {
         try {
             $taster->delete();
-
-            return back();
-        } catch (\Throwable $th) {
-            return back()->with([]);
+            return $this->success_message('taster.index', 'eliminó');
+        } catch (\Exception $e) {
+            return $this->error_message();
         }
+    }
+
+    public function success_message($route, $type)
+    {
+        return redirect()->route($route)->withSuccess("Se {$type} correctamente");
+    }
+
+    public function error_message()
+    {
+        return redirect()->back()->withError('Ocurrió un error inesperado.');
     }
 }

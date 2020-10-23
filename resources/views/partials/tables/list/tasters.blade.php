@@ -11,16 +11,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(range(1,10) as $rango)
-        <tr class="text-center" value="{{$rango}}">
-            <td>Nombre {{$rango}}</td>
-            <td>Apellido {{$rango}}</td>
-            <td>DNI {{$rango}}</td>
-            <td>Grado {{$rango}}</td>
-            <td>Correo {{$rango}}</td>
-            <td>12345678-{{$rango}}</td>
+        @foreach($user_list as $user)
+        <tr class="text-center" value="{{$user->id_usuario}}">
+            <td>{{$user->nombres}}</td>
+            <td>{{$user->apellidos}}</td>
+            <td>{{$user->nro_documento}}</td>
+            <td>{{$user->grado}}</td>
+            {{-- Se cambiará el campo username por correo --}}
+            <td>{{$user->username}}</td>
+            <td>{{$user->celular}}</td>
             <td>
-                @include('partials.buttons.edit_or_delete', ['object' =>'taster', 'id' => $rango])
+                @include('partials.buttons.edit_or_delete', ['object' =>'taster', 'id' => $user->id_usuario])
             </td>
         </tr>
         @endforeach

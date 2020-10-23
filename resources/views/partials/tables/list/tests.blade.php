@@ -1,3 +1,7 @@
+{{-- Paginate --}}
+{{ $listSample->links() }}
+{{-- {{ $listSample->render("pagination::default") }} --}}
+
 <table id="data_table" class="table table-striped table-inverse">
     <thead class="thead-inverse">
         <tr class="text-center">
@@ -8,15 +12,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(range(1,10) as $rango)
-        <tr class="text-center" value="{{$rango}}">
-            <td scope="row">ABC123</td>
-            <td>08/09/2020</td>
-            <td>Quinua Roja</td>
+        @foreach($listSample as $sample)
+        <tr class="text-center" value="{{$sample->id_muestra}}">
+            <td scope="row">{{$sample->id_muestra}}</td>
+            <td>{{$sample->fecha_registro}}</td>
+            <td>{{$sample->nombre}}</td>
             <td>
-                @include('partials.buttons.edit_or_delete', ['object' =>'taster', 'id' => $rango])
+                @include('partials.buttons.edit_or_delete', ['object' =>'test', 'id' => $sample->id_muestra])
             </td>
         </tr>
         @endforeach
+
     </tbody>
 </table>
