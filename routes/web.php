@@ -15,6 +15,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('taster', 'TastersController')->except(['show']);
     Route::resource('preparation', 'PreparationController')->only(['index']);
     Route::resource('results', 'ResultsController')->only(['index']);
+    Route::resource('orthogonal', 'OrthogonalController')->except(['index']);
+
 });
 
 

@@ -16,7 +16,7 @@
         <tr class="text-center" value="{{$sample->id_muestra}}">
             <td scope="row">{{$sample->id_muestra}}</td>
             <td>{{$sample->fecha_registro}}</td>
-            <td>{{$sample->nombre}}</td>
+            <td>{{$sample->nombre_muestra}}</td>
             <td>
                 @include('partials.buttons.edit_or_delete', ['object' =>'test', 'id' => $sample->id_muestra])
             </td>

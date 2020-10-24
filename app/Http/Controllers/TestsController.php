@@ -42,14 +42,20 @@ class TestsController extends Controller
 
             $sample = new Sample();
 
-            $sample->id_muestra                    =  $codigo;
-            $sample->id_usuario                    =  session('user')->id_usuario;
-            $sample->nro_parametros_estudio        =  $request->get('study_parameter');
-            $sample->nro_modelos_ortogonales       =  $request->get('number_of_models');
-            $sample->nro_repeticiones              =  $request->get('number_of_repeats');
-            $sample->estado_modelos                =  1;
-            $sample->estado_muestra                =  'ACTIVO';
-            $sample->fecha_registro                =  $dateActual;
+            $sample->id_muestra               =  $codigo;
+            $sample->nombre_muestra           =  $request->get('sample_name');
+            $sample->variedad                 =  $request->get('variety');
+            $sample->procedencia              =  $request->get('origin');
+            $sample->humedad                  =  $request->get('humidity');
+            $sample->tamanio_grano            =  $request->get('grain_size');
+            $sample->responsable              =  $request->get('responsable');
+            $sample->id_usuario               =  session('user')->id_usuario;
+            $sample->nro_parametros_estudio   =  $request->get('study_parameter');
+            $sample->nro_modelos_ortogonales  =  $request->get('number_of_models');
+            $sample->nro_repeticiones         =  $request->get('number_of_repeats');
+            $sample->estado_modelos           =  1;
+            $sample->estado_muestra           =  'ACTIVO';
+            $sample->fecha_registro           =  $dateActual;
             $sample->save();
 
 
@@ -59,7 +65,6 @@ class TestsController extends Controller
                 $choiceTest->id_muestra      =  $codigo;
                 $choiceTest->id_tipo_prueba  =  $request->get('check_lista')[$c];
                 $choiceTest->estado          =  "CREADA";
-
                 $choiceTest->save();
             }
 
@@ -70,7 +75,7 @@ class TestsController extends Controller
                 $sampleStudy->parametro    =  $request->get('nom_muestra')[$s + 1];
                 $sampleStudy->save();
             }
-            return $this->success_message('test.index', 'creó');
+            return $this->success_message('manageTest', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
         }
@@ -90,13 +95,25 @@ class TestsController extends Controller
         return view('Tests.edit', compact('test'));
     }
 
+
+  
+
     //Actualizar recurso
-    public function update(Request $request, Sample $test)
+    public function update(Request $request, $tests)
     {
         try {
-            $test->nro_parametros_estudio        =  $request->get('study_parameter');
-            $test->nro_modelos_ortogonales       =  $request->get('number_of_models');
-            $test->nro_repeticiones              =  $request->get('number_of_repeats');
+            
+            $test = Sample::where('id_muestra', $tests)->first();
+            
+            $test->nombre_muestra           =  $request->get('sample_name');
+            $test->variedad                 =  $request->get('variety');
+            $test->procedencia              =  $request->get('origin');
+            $test->humedad                  =  $request->get('humidity');
+            $test->tamanio_grano            =  $request->get('grain_size');
+            $test->responsable              =  $request->get('responsable');
+            $test->nro_parametros_estudio   =  $request->get('study_parameter');
+            $test->nro_modelos_ortogonales  =  $request->get('number_of_models');
+            $test->nro_repeticiones         =  $request->get('number_of_repeats');
             $test->save();
 
             return $this->success_message('test.index', 'actualizó');

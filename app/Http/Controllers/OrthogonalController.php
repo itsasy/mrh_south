@@ -29,10 +29,10 @@ class OrthogonalController extends Controller {
     }
     
     //Vista de la tabla ortogonal
-    public function create($idMuestra)
+    public function show($idMuestra)
     {
-        $sample = Sample::where('idMuestra',$idMuestra)->first();
-        $sampleStudyParameters = SampleStudyParameters::where('idMuestra',$idMuestra)->get();
+        $sample = Sample::where('id_muestra',$idMuestra)->first();
+        $sampleStudyParameters = SampleStudyParameters::where('id_muestra',$idMuestra)->get();
         
         return view('Preparation.Orthogonal.create',compact('sample','sampleStudyParameters'));
     }
