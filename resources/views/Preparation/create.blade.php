@@ -10,7 +10,3 @@
     @include('partials.buttons.cancel_or_accept')
 </div>
 @endsection
-
-@section('scripts')
-
-@endsection

@@ -22,7 +22,7 @@
 
     <div class="form-inline justify-content-between mb-3">
         <div class="form-group col-4">
-            <label class="justify-content-start col-9" for="nro_jueces"> Número de jueces</label>
+            <label class="justify-content-start col-9" for="nro_jueces">Número de jueces</label>
             <input type="number" name="nro_jueces" id="nro_jueces" class="form-control col-3" min="0">
         </div>
     </div>

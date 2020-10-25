@@ -14,7 +14,7 @@ class TastersController extends Controller
 
     public function index()
     {
-        $user_list = User::paginate(10);
+        $user_list = User::Orderby('id_usuario', 'asc')->paginate(10);
         return view('Tasters.index', compact('user_list'));
     }
 
@@ -26,7 +26,19 @@ class TastersController extends Controller
     public function store(Request $request)
     {
         try {
-            //
+            $taster = new User();
+            $taster->nombres = $request->name;
+            $taster->apellidos = $request->lastname;
+            $taster->username = ''; //cambiar
+            $taster->password = ''; //cambiar
+            $taster->nro_documento = $request->dni;
+            $taster->tipo_documento = $request->type_document;
+            $taster->id_roles = 1; //cambiar
+            $taster->genero = $request->gender;
+            $taster->grado = 2; //cambiar
+            $taster->celular = $request->cellphone;
+
+            $taster->save();
             return $this->success_message('taster.index', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
@@ -41,11 +53,18 @@ class TastersController extends Controller
     public function update(Request $request, User $taster)
     {
         try {
-            //method update
+            $taster->nombres = $request->name;
+            $taster->apellidos = $request->lastname;
+            $taster->username = ''; //cambiar
+            $taster->password = ''; //cambiar
+            $taster->nro_documento = $request->dni;
+            $taster->tipo_documento = $request->type_document;
+            $taster->id_roles = 1; //cambiar
+            $taster->genero = $request->gender;
+            $taster->grado = 2; //cambiar
+            $taster->celular = $request->cellphone;
 
-            //$taster->atributo = $request->campo;
-
-            //$taster->save();
+            $taster->save();
             return $this->success_message('taster.index', 'actualizó');
         } catch (\Exception $e) {
             return $this->error_message();
@@ -60,15 +79,5 @@ class TastersController extends Controller
         } catch (\Exception $e) {
             return $this->error_message();
         }
-    }
-
-    public function success_message($route, $type)
-    {
-        return redirect()->route($route)->withSuccess("Se {$type} correctamente");
-    }
-
-    public function error_message()
-    {
-        return redirect()->back()->withError('Ocurrió un error inesperado.');
     }
 }

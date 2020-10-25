@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Test;
 use Illuminate\Http\Request;
 use App\Models\Sample;
 use App\Models\ChoiceTestSample;
@@ -18,13 +17,12 @@ class TestsController extends Controller
     //--- SECCION LIST SAMPLE ---//
     public function index()
     {
-        $listSample = Sample::paginate(10);
+        $listSample = Sample::OrderBy('fecha_registro', 'asc')->paginate(10);
 
         return view('Tests.index', compact('listSample'));
     }
 
     //--- SECCION CREATE SAMPLE ---//
-
     public function create()
     {
         return view('Tests.create')->with([]);
@@ -32,9 +30,7 @@ class TestsController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->get('nom_muestra'));
         try {
-
             $codigo = $this->randomString();
 
             date_default_timezone_set('America/Lima');
@@ -58,24 +54,22 @@ class TestsController extends Controller
             $sample->fecha_registro           =  $dateActual;
             $sample->save();
 
-
-            for ($c = 0; $c < count($request->get('check_lista')); $c++) {
-
+            foreach ($request->check_lista as $check) {
                 $choiceTest = new ChoiceTestSample();
                 $choiceTest->id_muestra      =  $codigo;
-                $choiceTest->id_tipo_prueba  =  $request->get('check_lista')[$c];
+                $choiceTest->id_tipo_prueba  =  $check;
                 $choiceTest->estado          =  "CREADA";
                 $choiceTest->save();
             }
 
-            for ($s = 0; $s < count($request->get('nom_muestra')); $s++) {
-
+            foreach ($request->attribute as $attribute) {
                 $sampleStudy = new SampleStudyParameters();
                 $sampleStudy->id_muestra   =  $codigo;
-                $sampleStudy->parametro    =  $request->get('nom_muestra')[$s + 1];
+                $sampleStudy->parametro    =  $attribute;
                 $sampleStudy->save();
             }
-            return $this->success_message('manageTest', 'creó');
+
+            return $this->success_message('test.index', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
         }
@@ -84,7 +78,7 @@ class TestsController extends Controller
     //--- FIN SECCION CREATE SAMPLE ---//
 
     //Ver recurso
-    public function show(Test $test)
+    public function show(Sample $test)
     {
         return view();
     }
@@ -92,19 +86,14 @@ class TestsController extends Controller
     //Formulario de recurso
     public function edit(Sample $test)
     {
+        /* $sample = ChoiceTestSample::where('id_muestra', $test->id_muestra)->get(); */
         return view('Tests.edit', compact('test'));
     }
 
-
-  
-
     //Actualizar recurso
-    public function update(Request $request, $tests)
+    public function update(Request $request, Sample $test)
     {
         try {
-            
-            $test = Sample::where('id_muestra', $tests)->first();
-            
             $test->nombre_muestra           =  $request->get('sample_name');
             $test->variedad                 =  $request->get('variety');
             $test->procedencia              =  $request->get('origin');
@@ -153,15 +142,5 @@ class TestsController extends Controller
         //Retorno del string aleatorio.
         $codigo = $rand . "" . $numeroAleatorio;
         return $codigo;
-    }
-
-    public function success_message($route, $type)
-    {
-        return redirect()->route($route)->withSuccess("Se {$type} correctamente");
-    }
-
-    public function error_message()
-    {
-        return redirect()->back()->withError('Ocurrió un error inesperado.');
     }
 }
