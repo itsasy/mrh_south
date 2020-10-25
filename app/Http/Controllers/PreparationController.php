@@ -2,42 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sample;
 use Illuminate\Http\Request;
 
 class PreparationController extends Controller
 {
     public function index()
     {
-        return view('Preparation.index')->with([]);
+        $samples = Sample::OrderBy('fecha_registro', 'asc')->paginate(10);
+
+        return view('Preparation.index', compact('samples'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('Preparation.create')->with([]);
+        $type = $request->type;
+        return view('Preparation.create', compact('type'));
     }
 
     public function store(Request $request)
     {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }
