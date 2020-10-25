@@ -21,9 +21,10 @@ class EvaluationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $type = $request->type;
+        return view('Evaluation.create', compact('type'));
     }
 
     /**
