@@ -1,12 +1,14 @@
 @extends('_layouts.admi')
 
-@section('title', "Preparación de Pruebas")
+@section('title')
+Preparación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
+@endsection
 
 @section('content')
 <div class="mt-3 justify-content-center" id="">
-    {{-- @include('partials.forms.preparation.qda') --}}
-    @include('partials.forms.preparation.duo_trio')
-    {{-- @include('partials.forms.preparation.aceptabilidad') --}}
+    @includeWhen($type == 'QDA', 'partials.forms.preparation.qda')
+    @includeWhen($type == 'Duo-Trio', 'partials.forms.preparation.duo_trio')
+    @includeWhen($type == 'Aceptabilidad', 'partials.forms.preparation.aceptabilidad')
     @include('partials.buttons.cancel_or_accept')
 </div>
 @endsection
