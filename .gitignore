@@ -10,5 +10,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-resources/views/createTest.html
-resources/views/createTestcopy.html
+composer.json
+storage/logs/laravel.log
+public/excel

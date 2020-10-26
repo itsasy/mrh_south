@@ -2,57 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Taster;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class tasterController extends Controller
+class TastersController extends Controller
 {
+    public function manage()
+    {
+        return view('Tasters.manage')->with([]);
+    }
+
     public function index()
     {
-        return view('Tasters.base')->with([
-            'title' => 'Lista de jurados',
-            'view' => 'list.tasters',
-        ]);
+        $user_list = User::Orderby('id_usuario', 'asc')->paginate(10);
+        return view('Tasters.index', compact('user_list'));
     }
 
     public function create()
     {
-        return view('Tasters.base')->with([
-            'title' => 'Nuevo jurado',
-            'view' => 'forms.form',
-            'action' => 'taster.store'
-        ]);
+        return view('Tasters.create');
     }
 
     public function store(Request $request)
     {
-       
+        try {
+            $taster = new User();
+            $taster->nombres = $request->name;
+            $taster->apellidos = $request->lastname;
+            $taster->username = ''; //cambiar
+            $taster->password = ''; //cambiar
+            $taster->nro_documento = $request->dni;
+            $taster->tipo_documento = $request->type_document;
+            $taster->id_roles = 1; //cambiar
+            $taster->genero = $request->gender;
+            $taster->grado = 2; //cambiar
+            $taster->celular = $request->cellphone;
+
+            $taster->save();
+            return $this->success_message('taster.index', 'creó');
+        } catch (\Exception $e) {
+            return $this->error_message();
+        }
     }
 
-    public function edit(Taster $taster)
+    public function edit(User $taster)
     {
-        return view('Tasters.base')->with([
-            'title' => 'Editar jurado',
-            'view' => 'forms.form',
-            'taster' => $taster
-        ]);
+        return view('Tasters.edit', compact('taster'));
     }
 
-    public function update(Request $request, Taster $taster)
+    public function update(Request $request, User $taster)
     {
-        return view('')->with([
-            ''
-        ]);
+        try {
+            $taster->nombres = $request->name;
+            $taster->apellidos = $request->lastname;
+            $taster->username = ''; //cambiar
+            $taster->password = ''; //cambiar
+            $taster->nro_documento = $request->dni;
+            $taster->tipo_documento = $request->type_document;
+            $taster->id_roles = 1; //cambiar
+            $taster->genero = $request->gender;
+            $taster->grado = 2; //cambiar
+            $taster->celular = $request->cellphone;
+
+            $taster->save();
+            return $this->success_message('taster.index', 'actualizó');
+        } catch (\Exception $e) {
+            return $this->error_message();
+        }
     }
 
-    public function destroy(Taster $taster)
+    public function destroy(User $taster)
     {
         try {
             $taster->delete();
-            
-            return back();
-        } catch (\Throwable $th) {
-            return back()->with([]);
+            return $this->success_message('taster.index', 'eliminó');
+        } catch (\Exception $e) {
+            return $this->error_message();
         }
     }
 }
