@@ -36,7 +36,7 @@ $letras= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R
         </tr>
       </thead>
       <tbody>
-        @for ($r = 0; $r < $sample->nro_repeticiones; $r++)
+        @for ($r = 0; $r < $sample->nro_repeticiones +1; $r++)
 
           <tr class="text-center">
 
@@ -48,7 +48,7 @@ $letras= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R
               <td class="text-center">{{$o+1}}</td>
                @foreach($sampleStudyParameters as $p => $ssp)
                   <td>
-                    <input type="text" name="valor_{{$r}}_{{$o}}_{{$p}}" id="valor_{{$r}}_{{$o}}_{{$p}}">
+                    <input type="text" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}">
                   </td>
               @endforeach
              

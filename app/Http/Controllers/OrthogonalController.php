@@ -41,31 +41,59 @@ class OrthogonalController extends Controller {
     public function store(Request $request){
          
          try {
-     
-            $dataOrthogonal = new DataOrthogonal();
-            
-            $dataOrthogonal->id_muestra_parametros_estudio = $request->get('id_muestra_parametros_estudio');
-            $dataOrthogonal->bloque                        = $request->get('bloque');
-            $dataOrthogonal->item                          = $request->get('item');
-            $dataOrthogonal->respuesta                     = $request->get('respuesta');
-            $dataOrthogonal->save();
-            
-            
+             
+            $sampleStudyParameters = SampleStudyParameters::where('id_muestra',$request->get('idMuestra'))->get();
+
+            for ($r = 0; $r < $sampleStudyParameters[0]->Sample->nro_repeticiones + 1; $r++){
+                for ($o = 0; $o < $sampleStudyParameters[0]->Sample->nro_modelos_ortogonales; $o++){
+                    foreach($sampleStudyParameters as $p => $ssp){
+                        
+                        $text  = 'valor_'.$r.'_'.$o.'_'.$ssp->id_muestra_parametros_estudio;
+                        
+                        $dataOrthogonal = new DataOrthogonal();
+                        $dataOrthogonal->id_muestra_parametros_estudio = $ssp->id_muestra_parametros_estudio;
+                        $dataOrthogonal->bloque                        = $r + 1;
+                        $dataOrthogonal->item                          = $o + 1;
+                        
+                        if($request->get($text) != null){
+                            $dataOrthogonal->respuesta            = $request->get($text);
+                        }else{
+                            $dataOrthogonal->respuesta            = 0;
+                        }
+                        
+                        $dataOrthogonal->save();
+                                    
+                    }
+                }
+            }
+
            date_default_timezone_set('America/Lima');
            $fecha = date("Y").date("m").date("d").'_'.(date('H')).date('i').date('s');
     
-           $filename = 'Excel_45'.$fecha.'.xlsx';
+           $filename = 'Excel_'.$request->get('idMuestra').'.xlsx';
            $exc = Excel::store(new ExcelOrthogonalExport(),$filename,'excel');
             
-            return redirect()->route('manageTest');     
-            
+              return $this->success_message('preparation.index', 'creó');
+              
         } catch (\Exception $e) {
-            return response()->json(['type' => 'error', 'message' => $e->getMessage()], 500);
+            return $this->error_message();
+            
+           
         }
         
         
 
        // return view('Tasters.index')->with([]);
+    }
+    
+    public function success_message($route, $type)
+    {
+        return redirect()->route($route)->withSuccess("Se {$type} correctamente");
+    }
+
+    public function error_message()
+    {
+        return redirect()->back()->withError('Ocurrió un error inesperado.');
     }
 
 }
