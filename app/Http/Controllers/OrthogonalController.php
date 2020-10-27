@@ -13,59 +13,50 @@ use Illuminate\Support\Facades\File;
 use App\Models\DataOrthogonal;
 use App\Models\Sample;
 use App\Models\SampleStudyParameters;
+use Carbon\Carbon;
 
-
-class OrthogonalController extends Controller {
-   
+class OrthogonalController extends Controller
+{
     public function index()
     {
-       date_default_timezone_set('America/Lima');
-       $fecha = date("Y").date("m").date("d").'_'.(date('H')).date('i').date('s');
-
-       $filename = 'Excel_45'.$fecha.'.xlsx';
-       $exc = Excel::store(new ExcelOrthogonalExport(),$filename,'excel');
-
-       // return view('Tasters.index')->with([]);
+        $fecha = Carbon::now()->format("Ymd_His");
+        $filename = 'Excel_45' . $fecha . '.xlsx';
+        $exc = Excel::store(new ExcelOrthogonalExport(), $filename, 'excel');
     }
-    
+
     //Vista de la tabla ortogonal
     public function show($idMuestra)
     {
-        $sample = Sample::where('id_muestra',$idMuestra)->first();
-        $sampleStudyParameters = SampleStudyParameters::where('id_muestra',$idMuestra)->get();
-        
-        return view('Preparation.Orthogonal.create',compact('sample','sampleStudyParameters'));
+        $sample = Sample::where('id_muestra', $idMuestra)->first();
+        $sampleStudyParameters = SampleStudyParameters::where('id_muestra', $idMuestra)->get();
+
+        return view('Preparation.Orthogonal.create', compact('sample', 'sampleStudyParameters'));
     }
-    
+
     //Registro de la tabla ortogonal
-    public function store(Request $request){
-         
-         try {
-     
-            $dataOrthogonal = new DataOrthogonal();
-            
-            $dataOrthogonal->id_muestra_parametros_estudio = $request->get('id_muestra_parametros_estudio');
-            $dataOrthogonal->bloque                        = $request->get('bloque');
-            $dataOrthogonal->item                          = $request->get('item');
-            $dataOrthogonal->respuesta                     = $request->get('respuesta');
-            $dataOrthogonal->save();
-            
-            
-           date_default_timezone_set('America/Lima');
-           $fecha = date("Y").date("m").date("d").'_'.(date('H')).date('i').date('s');
-    
-           $filename = 'Excel_45'.$fecha.'.xlsx';
-           $exc = Excel::store(new ExcelOrthogonalExport(),$filename,'excel');
-            
-            return redirect()->route('manageTest');     
-            
+    public function store(Request $request)
+    {
+        try {
+            for ($r = 0; $r < $request->nro_repeticion; $r++) {
+                for ($o = 0; $o < $request->nro_modelos; $o++) {
+                    for ($p = 0; $p < $request->parameter; $p++) {
+                        $dataOrthogonal = new DataOrthogonal();
+                        $dataOrthogonal->id_muestra_parametros_estudio = $request->parametro[$p];
+                        $dataOrthogonal->bloque = $request->bloque[$r];
+                        $dataOrthogonal->item = $request->item[$o];
+                        $dataOrthogonal->respuesta =  $request->get("valor_{$r}_{$o}_{$p}");
+                        $dataOrthogonal->save();
+                    }
+                }
+            }
+
+            $fecha = Carbon::now()->format("Ymd_His");
+
+            $filename = 'Excel_45' . $fecha . '.xlsx';
+            $exc = Excel::store(new ExcelOrthogonalExport(), $filename, 'excel');
+            return $this->success_message('preparation.index', 'creó');
         } catch (\Exception $e) {
-            return response()->json(['type' => 'error', 'message' => $e->getMessage()], 500);
+            return $this->error_message();
         }
-        
-        
-
-       // return view('Tasters.index')->with([]);
     }
-
 }
