@@ -33,7 +33,6 @@ class TestsController extends Controller
         try {
             $codigo = $this->randomString();
 
-            date_default_timezone_set('America/Lima');
             $dateActual = Carbon::now()->format('Y-m-d H:i:s');
 
             $sample = new Sample();
