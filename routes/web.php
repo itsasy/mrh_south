@@ -13,8 +13,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('test', 'TestsController')->except(['show']);
     Route::get('tasters', 'TastersController@manage')->name('manageTaster');
     Route::resource('taster', 'TastersController')->except(['show']);
-    Route::resource('preparation', 'PreparationController')->only(['index','show']);
-    Route::get('preparation/show/{tipo_prueba}/{id_muestra}', 'PreparationController@show')->name('preparation.show');;
+
+    Route::resource('preparation', 'PreparationController');
 
     Route::resource('results', 'ResultsController')->only(['index']);
     Route::resource('orthogonal', 'OrthogonalController')->except(['index']);

@@ -5,7 +5,7 @@ const inputs = (valor) =>
     `<div class="form-group col-lg-2 col-md-3 col-xs-12 col-12 mr-4">
         <input 
         type="text" 
-        name="nom_muestra[${valor}]" 
+        name="attribute[${valor}]" 
         id="muestras_${valor}" 
         class="form-control mt-1 muestras_${valor}"
         placeholder="Atributo ${valor}"  

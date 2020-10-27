@@ -5,7 +5,8 @@
 @section('content')
 
 <div class="mt-3 justify-content-center" id="">
-    <form class="{{route('taster.update', ['taster' => $taster->id_usuario])}}" action="" method="post">
+    @include('partials.alerts.error')
+    <form action="{{route('taster.update', ['taster' => $taster->id_usuario])}}" method="POST">
         @method('PUT')
         @csrf
         @include('partials.forms.create_or_edit.tasters')

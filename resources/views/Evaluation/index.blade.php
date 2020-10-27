@@ -1,4 +1,4 @@
-@extends('_layouts.admi')
+@extends('_layouts.taster')
 
 @section('title', "Evaluación de Pruebas")
 

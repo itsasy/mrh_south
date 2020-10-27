@@ -1,5 +1,5 @@
 @php
-$letras= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U"];
+$letras = range('A','Z');
 @endphp
 <div class="row">
   <div class="col-4">
@@ -15,6 +15,7 @@ $letras= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R
         <tr class="text-center">
           <td> {{$index+1}}</td>
           <td>{{$ssp->parametro}}</td>
+          <input type="hidden" name="parametro[]" value="{{$ssp->id_muestra_parametros_estudio}}">
         </tr>
         @endforeach
       </tbody>
@@ -28,38 +29,40 @@ $letras= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R
           <th class="text-nowrap">Item</th>
           @foreach($sampleStudyParameters as $index => $ssp)
           <th class="text-nowrap">{{$ssp->parametro}}</th>
-
           @endforeach
-
         </tr>
         <tr>
         </tr>
       </thead>
       <tbody>
-        @for ($r = 0; $r < $sample->nro_repeticiones +1; $r++)
+
+        @for ($r = 0; $r < $sample->nro_repeticiones; $r++)
 
           <tr class="text-center">
-
+            {{-- Bloque --}}
             <td class="align-middle" rowspan="{{$sample->nro_modelos_ortogonales}}">{{$letras[$r]}}</td>
-
+            <input type="hidden" name="bloque[]" value="{{$letras[$r]}}">
+            {{-- ITEM --}}
             @for ($o = 0; $o < $sample->nro_modelos_ortogonales; $o++)
-
-
               <td class="text-center">{{$o+1}}</td>
-               @foreach($sampleStudyParameters as $p => $ssp)
-                  <td>
-                    <input type="text" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}">
-                  </td>
+
+              <input type="hidden" name="item[]" value="{{$o+1}}">
+
+              {{-- parámetro --}}
+              @foreach($sampleStudyParameters as $p => $ssp)
+              <td>
+                <input type="number" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" required min="0">
+              </td>
               @endforeach
-             
           </tr>
           @endfor
-
-          </tr>
-
           @endfor
-
       </tbody>
     </table>
   </div>
 </div>
+
+
+<input type="hidden" name="nro_repeticion" value="{{$sample->nro_repeticiones}}">
+<input type="hidden" name="nro_modelos" value="{{$sample->nro_modelos_ortogonales}}">
+<input type="hidden" name="parameter" value="{{count($sampleStudyParameters)}}">

@@ -10,22 +10,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(range(1,10) as $rango)
+        @foreach(range(1,10) as $sample)
         <tr class="text-center">
             <td scope="row">ABC123</td>
             <td>08/09/2020</td>
             <td>Quinua Roja</td>
             <td>
-                <a href="#" target="_blank" rel="noopener noreferrer" role="button">
+                <a href="{{route('evaluation.create', ['evaluation'=> $sample, 'type' => 'Duo-Trio'])}}" role="button">
                     <i class="fas fa-check-circle fa-lg"></i>
                 </a></td>
             <td>
-                <a href="#" target="_blank" rel="noopener noreferrer" role="button">
+                <a href="{{route('evaluation.create', ['evaluation'=> $sample, 'type' => 'QDA'])}}" role="button">
                     <i class="fas fa-check-circle fa-lg"></i>
                 </a>
             </td>
             <td>
-                <a href="#" target="_blank" rel="noopener noreferrer" role="button">
+                <a href="{{route('evaluation.create', ['evaluation'=> $sample, 'type' => 'Aceptabilidad'])}}" role="button">
                     <i class="fas fa-check-circle fa-lg"></i>
                 </a>
             </td>

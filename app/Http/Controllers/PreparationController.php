@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sample;
 use Illuminate\Http\Request;
 use App\Models\Sample;
 use App\Models\ChoiceTestSample;
@@ -15,10 +16,12 @@ class PreparationController extends Controller
         return view('Preparation.index', compact('listSample'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $type = $request->type;
+        return view('Preparation.create', compact('type'));
     }
-
+  
     //Registro de eleccion_prueba_muestra
     public function store(Request $request)
     {
@@ -42,9 +45,9 @@ class PreparationController extends Controller
     }
 
 
-    public function show($tipo_prueba,$id_muestra)
+    public function show($id)
     {
-       return view('Preparation.create',compact('tipo_prueba','id_muestra'));
+       //
 
     }
 
@@ -60,6 +63,6 @@ class PreparationController extends Controller
 
     public function destroy($id)
     {
-        //
+      //
     }
 }
