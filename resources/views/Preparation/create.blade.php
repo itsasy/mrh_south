@@ -10,5 +10,6 @@ Preparación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
     @includeWhen($type == 'Duo-Trio', 'partials.forms.preparation.duo_trio')
     @includeWhen($type == 'Aceptabilidad', 'partials.forms.preparation.aceptabilidad')
     @include('partials.buttons.cancel_or_accept')
+
 </div>
 @endsection
