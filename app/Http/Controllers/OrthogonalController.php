@@ -22,6 +22,8 @@ class OrthogonalController extends Controller
         $fecha = Carbon::now()->format("Ymd_His");
         $filename = 'Excel_45' . $fecha . '.xlsx';
         $exc = Excel::store(new ExcelOrthogonalExport(), $filename, 'excel');
+        
+        
     }
 
     //Vista de la tabla ortogonal
@@ -54,36 +56,37 @@ class OrthogonalController extends Controller
                         
                         if($request->get($text) != null){
                             $dataOrthogonal->respuesta            = $request->get($text);
+                            $dataOrthogonalExcel[$r][$o][$ssp->id_muestra_parametros_estudio]  = $request->get($text);
                         }else{
                             $dataOrthogonal->respuesta            = 0;
+                            $dataOrthogonalExcel[$r][$o][$ssp->id_muestra_parametros_estudio]  = 0;
+
                         }
                         
-                        $dataOrthogonal->save();
-                                    
+                            $dataOrthogonal->save();           
                     }
                 }
             }
-
-            $fecha = Carbon::now()->format("Ymd_His");
-
-            $filename = 'Excel_45' . $fecha . '.xlsx';
-            $exc = Excel::store(new ExcelOrthogonalExport(), $filename, 'excel');
+            
+            $fecha    = Carbon::now()->format("Ymd_His");
+            $filename = 'Excel_'.$request->get('idMuestra').'_' . $fecha . '.xlsx';
+            $exc      = Excel::store(new ExcelOrthogonalExport($dataOrthogonalExcel,$sampleStudyParameters), $filename, 'excel');
+            
+            $sample = Sample::find($request->get('idMuestra'));
+            $sample->estado_modelos       = 2;
+            $sample->codificacion_muestra = $filename;
+            $sample->save();
+            
             return $this->success_message('preparation.index', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
         }
     }
 
-    
-    public function success_message($route, $type)
-    {
-        return redirect()->route($route)->withSuccess("Se {$type} correctamente");
+    public function downloadExcelOrthogonal($filename){
+            $file = public_path()."/excel/".$filename;
+            return response()->download($file);
+     
     }
-
-    public function error_message()
-    {
-        return redirect()->back()->withError('Ocurrió un error inesperado.');
-    }
-
-
+  
 }
