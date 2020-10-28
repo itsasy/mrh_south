@@ -5,9 +5,7 @@
 </div>
 
 <div class="inputs_container col-12">
-    <div class="row">
-
-    </div>
+    
 </div>
 
 @section('scripts')
