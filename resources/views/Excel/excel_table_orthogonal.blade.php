@@ -25,7 +25,9 @@
     }
   </style>
 </head>
-
+@php
+$letras = range('A','Z');
+@endphp
 <body>
   <div class="header-pdf" style="padding: 15px !important;">
     <div class="row">
@@ -58,18 +60,19 @@
             </tr>
 
 
-            @for($parametros = 0 ;$parametros < 3 ;$parametros++) <tr>
+            @foreach($sampleStudyParameters as $p => $parametros){
+            <tr>
               <td rowspan="1"
                 style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
-                Parametros {{$parametros +1}}
+                {{$p +1}}
               </td>
 
               <td rowspan="1"
                 style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
-                Texto {{$parametros +1}}
+                 {{$parametros->parametro}}
               </td>
               </tr>
-              @endfor
+              @endforeach
               <tr>
                 <td colspan="1"  style="height:30px;">
                 </td>
@@ -88,21 +91,21 @@
                 style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC; border: 5px solid #878783;">
                 Item
               </td>
+              @foreach($sampleStudyParameters as $p => $parametros)
 
-              @for($parametros = 0 ;$parametros < 3 ;$parametros++) <td
-                style="vertical-align: middle; height:30px;width:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC; border: 5px solid #878783;">
-                Parametros {{$parametros +1}}
+               <td style="vertical-align: middle; height:30px;width:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #EFEDEC; border: 5px solid #878783;">
+                {{$parametros->parametro}}
                 </td>
 
-                @endfor
+              @endforeach
             </tr>
         
 
-            @for($num_repeticion = 0 ;$num_repeticion < 3 ;$num_repeticion++) 
-            @for($num_mod_hortogonales=0;$num_mod_hortogonales < 5 ;$num_mod_hortogonales++) <tr>
+            @for($num_repeticion = 0 ;$num_repeticion < $sampleStudyParameters[0]->Sample->nro_repeticiones + 1 ;$num_repeticion++) 
+            @for($num_mod_hortogonales=0;$num_mod_hortogonales < $sampleStudyParameters[0]->Sample->nro_modelos_ortogonales ;$num_mod_hortogonales++) <tr>
               <td rowspan="1"
                 style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center; border: 5px solid #878783; ">
-                A+{{$num_repeticion+1}}
+                {{$letras[$num_repeticion]}}
               </td>
 
               <td rowspan="1"
@@ -110,12 +113,11 @@
                 {{$num_mod_hortogonales+1}}
               </td>
                 
-                 @for($parametros = 0 ;$parametros < 3 ;$parametros++) 
-                  <td rowspan="1"
-                    style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
-                    
+                @foreach($sampleStudyParameters as $p => $parametros)
+                  <td rowspan="1" style="vertical-align: middle; height:30px;font-size: 15px !important; text-transform: uppercase;  text-align: center;  border: 5px solid #878783;">
+                    {{$dataOrthogonalExcel[$num_repeticion][$num_mod_hortogonales][$parametros->id_muestra_parametros_estudio]}}
                   </td>
-                 @endfor
+                 @endforeach
               </tr>
               @endfor
 
