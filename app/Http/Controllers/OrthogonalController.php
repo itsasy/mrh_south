@@ -34,18 +34,32 @@ class OrthogonalController extends Controller
     }
 
     //Registro de la tabla ortogonal
-    public function store(Request $request)
-    {
-        try {
-            for ($r = 0; $r < $request->nro_repeticion; $r++) {
-                for ($o = 0; $o < $request->nro_modelos; $o++) {
-                    for ($p = 0; $p < $request->parameter; $p++) {
+
+    public function store(Request $request){
+         
+         try {
+             
+            $sampleStudyParameters = SampleStudyParameters::where('id_muestra',$request->get('idMuestra'))->get();
+
+            for ($r = 0; $r < $sampleStudyParameters[0]->Sample->nro_repeticiones + 1; $r++){
+                for ($o = 0; $o < $sampleStudyParameters[0]->Sample->nro_modelos_ortogonales; $o++){
+                    foreach($sampleStudyParameters as $p => $ssp){
+                        
+                        $text  = 'valor_'.$r.'_'.$o.'_'.$ssp->id_muestra_parametros_estudio;
+                        
                         $dataOrthogonal = new DataOrthogonal();
-                        $dataOrthogonal->id_muestra_parametros_estudio = $request->parametro[$p];
-                        $dataOrthogonal->bloque = $request->bloque[$r];
-                        $dataOrthogonal->item = $request->item[$o];
-                        $dataOrthogonal->respuesta =  $request->get("valor_{$r}_{$o}_{$p}");
+                        $dataOrthogonal->id_muestra_parametros_estudio = $ssp->id_muestra_parametros_estudio;
+                        $dataOrthogonal->bloque                        = $r + 1;
+                        $dataOrthogonal->item                          = $o + 1;
+                        
+                        if($request->get($text) != null){
+                            $dataOrthogonal->respuesta            = $request->get($text);
+                        }else{
+                            $dataOrthogonal->respuesta            = 0;
+                        }
+                        
                         $dataOrthogonal->save();
+                                    
                     }
                 }
             }
@@ -59,4 +73,17 @@ class OrthogonalController extends Controller
             return $this->error_message();
         }
     }
+
+    
+    public function success_message($route, $type)
+    {
+        return redirect()->route($route)->withSuccess("Se {$type} correctamente");
+    }
+
+    public function error_message()
+    {
+        return redirect()->back()->withError('Ocurrió un error inesperado.');
+    }
+
+
 }
