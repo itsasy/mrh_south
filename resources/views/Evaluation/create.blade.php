@@ -6,16 +6,13 @@ Evaluación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
 
 @section('content')
 <div class="mt-3" id="">
-    <form action="#" method="POST">
-        <div class="d-flex justify-content-center align-items-center container">
-            @csrf
-            @includeWhen($type == 'QDA', 'partials.forms.evaluation.qda')
-            @includeWhen($type == 'Duo-Trio', 'partials.forms.evaluation.duo_trio')
-            @includeWhen($type == 'Aceptabilidad', 'partials.forms.evaluation.aceptabilidad')
-        </div>
+    <div class="d-flex justify-content-center align-items-center container">
+        @csrf
+        @includeWhen($type == 'QDA', 'partials.forms.evaluation.qda')
+        {{-- @includeWhen($type == 'QDA', 'partials.steppers.qda') --}}
 
-    <h1 class="text-center">FALTA IMPLEMENTAR LOS BOTONES</h1>
-
-    </form>
+        @includeWhen($type == 'Duo-Trio', 'partials.forms.evaluation.duo_trio')
+        @includeWhen($type == 'Aceptabilidad', 'partials.forms.evaluation.aceptabilidad')
+    </div>
 </div>
 @endsection

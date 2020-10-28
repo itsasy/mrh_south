@@ -1,19 +1,26 @@
-<table class="table table-striped table-inverse">
-    <thead class="thead-inverse">
-        <tr class="text-center">
-            <th class="text-nowrap">Id</th>
-            <th class="text-nowrap">Juez</th>
-            <th class="text-nowrap">Acción</th>
+<div class="form-group col-12">
+    <label for="catadores_selected">Seleccionar catadores</label>
+    <div class="input-container">
+        <select class="ui fluid search dropdown" multiple="" name="catadores_selected[]" id="catadores_selected"
+            required="required">
+            <option value="" disabled="disabled">Catadores expertos</option>
+            @foreach (range(1,10) as $range)
+            <option value="{{$range}}">{{$range}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(range(1,10) as $rango)
-        <tr class="text-center">
-            <td>Id {{$rango}}</td>
-            <td>Juez {{$rango}}</td>
-            <td>Acción {{$rango}}</td>
-        </tr>
-       @endforeach
-    </tbody>
-</table>
+@section('style')
+<link rel="stylesheet" href="{{asset('css/judge-picker/semantic.css')}}">
+@endsection
+
+@section('scripts')
+<script src="{{asset('js/judge-picker/semantic.js')}}"></script>
+<script>
+    $('.ui.fluid.search.dropdown')
+    .dropdown({
+      maxSelections:10
+    });
+</script>
+@endsection

@@ -1,14 +1,15 @@
 const number = document.querySelector('#study_parameter');
-const objetive = document.querySelector('.inputs_container .row');
+const objetive = document.querySelector('.inputs_container');
 
 const inputs = (valor) =>
-    `<div class="form-group col-lg-2 col-md-3 col-xs-12 col-12 mr-4">
+    `<div class="form-group">
+        <label class="col-10 justify-content-start" for="muestras_${valor}">Atributo ${valor}</label>
         <input 
         type="text" 
         name="attribute[${valor}]" 
         id="muestras_${valor}" 
-        class="form-control mt-1 muestras_${valor}"
-        placeholder="Atributo ${valor}"  
+        class="form-control col-2 muestras_${valor}"
+        placeholder=""  
         required>
     </div>`;
 
