@@ -51,7 +51,7 @@ $letras = range('A','Z');
               {{-- parámetro --}}
               @foreach($sampleStudyParameters as $p => $ssp)
               <td>
-                <input type="number" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" required min="0">
+                <input type="number" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" value = "5" required min="0">
               </td>
               @endforeach
           </tr>

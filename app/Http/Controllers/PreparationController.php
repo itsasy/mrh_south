@@ -14,6 +14,9 @@ class PreparationController extends Controller
     public function index()
     {
         $samples = Sample::paginate(10);
+        foreach($samples as $index => $sample){
+           $sample->ChoiceTestSample = ChoiceTestSample::select('id_tipo_prueba')->where('id_muestra',$sample->id_muestra)->get();
+        }
 
         return view('Preparation.index', compact('samples'));
     }
