@@ -1,32 +1,22 @@
 <div class="col-12">
     <div class="form-inline justify-content-between">
-
         @include('partials.calendary.start_and_end')
 
         <div class="form-group col-6 mt-3">
-            <label class="justify-content-start col-6" for="number_of_atributes">Número de atributos</label>
-            <input type="number" name="number_of_atributes" id="number_of_atributes" class="form-control col-6" value="{{$number_of_attributes}}" readonly>
+            <label class="justify-content-start col-6" for="nro_jueces"> Número de jueces</label>
+            <input type="number" name="nro_jueces" id="nro_jueces" class="form-control col-6" min="0">
         </div>
-
-    </div>
-
-    {{-- dudo si dejarlo aquí --}}
-    <!-- Autogenerado -->
-    <div class="form-inline justify-content-between mb-3">
-        @for ($i = 1; $i <= $number_of_attributes; $i++)
         <div class="form-group col-6 mt-3">
-        <label class="justify-content-start col-6" for="nombre_atributo_{{$i}}"> Atributo {{$i}}</label>
-        <input type="text" name="nombre_atributo[]" id="nombre_atributo_{{$i}}" class="form-control col-6" min="0">
-        </div>    
-        @endfor
+            <label class="justify-content-start col-6" for="number_of_atributes">Número de atributos</label>
+            <input type="number" name="number_of_atributes" id="number_of_atributes" class="form-control col-6" value=""
+                min="0">
+        </div>
     </div>
 
-   {{--  <div class="form-inline justify-content-between mb-3">
-        <div class="form-group col-4">
-            <label class="justify-content-start col-9" for="nro_jueces"> Número de jueces</label>
-            <input type="number" name="nro_jueces" id="nro_jueces" class="form-control col-3" min="0">
-        </div>
-    </div> --}}
+    <!-- Autogenerado -->
+    <div class="inputs_container form-inline justify-content-between mb-3">
+
+    </div>
 </div>
 
 @section('style')
@@ -35,4 +25,5 @@
 
 @section('scripts')
 <script src="{{asset('js/actions/start_and_end_validator.js')}}"></script>
+<script src="{{asset('js/actions/generate_inputs_to_preparation.js')}}"></script>
 @endsection

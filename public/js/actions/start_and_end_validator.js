@@ -1,6 +1,6 @@
-const start = document.querySelector('#fecha_inicio_evaluacion');
+const start = document.querySelector('#evaluation_start_date');
 
-const end = document.querySelector('#fecha_fin_evaluacion');
+const end = document.querySelector('#evaluation_end_date');
 
 start.addEventListener('change', function () {
     if (start.value)
