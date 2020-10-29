@@ -11,7 +11,7 @@
        
         <div class="form-group col-6 mt-3">
             <label class="justify-content-start col-6" for="number_of_repeats"> Número de repeticiones</label>
-            <input type="number" name="number_of_repeats" id="number_of_repeats" class="form-control col-6" min="0">
+        <input type="number" name="number_of_repeats" id="number_of_repeats" class="form-control col-6" value="{{$number_of_repeats}}" readonly>
         </div>
 
         <div class="form-group col-6 mt-3">
@@ -30,3 +30,13 @@
     @include('partials.tables.preparation.select_tasters')
 
 </div>
+
+@section('style')
+<link rel="stylesheet" href="{{asset('css/judge-picker/semantic.css')}}">
+@endsection
+
+@section('scripts')
+<script src="{{asset('js/judge-picker/semantic.js')}}"></script>
+<script src="{{asset('js/judge-picker/picker.js')}}"></script>
+<script src="{{asset('js/actions/start_and_end_validator.js')}}"></script>
+@endsection

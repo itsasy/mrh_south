@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sample;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ChoiceTestSample;
 use App\Models\DetailAttributes;
@@ -23,8 +24,18 @@ class PreparationController extends Controller
 
     public function create(Request $request)
     {
-        $type = $request->type;
-        return view('Preparation.create', compact('type'));
+        $type = $this->types_permited($request->type);
+
+        $samples = $this->samples($request->preparation);
+
+        $tasters = $this->tasters();
+
+        return view('Preparation.create', compact('tasters'))
+            ->with([
+                'type' => $type,
+                'number_of_attributes' => $samples->nro_parametros_estudio,
+                'number_of_repeats' => $samples->nro_repeticiones
+            ]);
     }
   
     //Registro de eleccion_prueba_muestra
@@ -99,5 +110,22 @@ class PreparationController extends Controller
     public function destroy($id)
     {
       //
+    }
+
+    public function types_permited($type)
+    {
+        $types = ['QDA', 'Aceptabilidad', 'Duo-Trio'];
+
+        return in_array($type, $types) ? $type : abort(404);
+    }
+
+    public function tasters()
+    {
+        return User::where('id_roles', 2)->Orderby('id_usuario', 'asc')->get(['id_usuario', 'nombres', 'apellidos']);
+    }
+
+    public function samples($id)
+    {
+        return Sample::findOrFail($id);
     }
 }
