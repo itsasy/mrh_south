@@ -15,9 +15,9 @@
     <tbody>
         @foreach($samples as $sample)
         <tr class="text-center">
-            <td scope="row">ABC123</td>
-            <td>08/09/2020</td>
-            <td>Quinua Roja</td>
+        <td scope="row">{{$sample->id_muestra}}</td>
+        <td class="text-nowrap">{{$sample->fecha_registro}}</td>
+            <td>{{$sample->nombre_muestra}}</td>
             <td>
                 <a href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Duo-Trio'])}}" role="button">
                     <i class="fas fa-check-circle fa-lg"></i>
