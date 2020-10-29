@@ -13,4 +13,14 @@ trait messages
     {
         return redirect()->back()->withError('Ocurrió un error inesperado.');
     }
+    
+   public function warning_message($message)
+    {
+        return redirect()->back()->withWarning($message);
+    }
+    
+   public function success_message_two($message)
+    {
+        return redirect()->back()->withSuccess($message);
+    }
 }

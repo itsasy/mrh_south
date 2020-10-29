@@ -12,14 +12,19 @@ class ExcelOrthogonalExport implements FromView
     
     use Exportable;
     
-    public function __construct()
+    public function __construct($dataOrthogonalExcel,$sampleStudyParameters)
     {
+        $this->dataOrthogonalExcel       = $dataOrthogonalExcel;
+        $this->sampleStudyParameters     = $sampleStudyParameters;
 
     }
 
     public function view():View 
     {
-        $exc = view('Excel.excel_table_orthogonal');
+        $dataOrthogonalExcel     = $this->dataOrthogonalExcel;      
+        $sampleStudyParameters   = $this->sampleStudyParameters;      
+
+        $exc = view('Excel.excel_table_orthogonal', ['dataOrthogonalExcel' => $dataOrthogonalExcel,'sampleStudyParameters' => $sampleStudyParameters]);
         return $exc;
         
     }

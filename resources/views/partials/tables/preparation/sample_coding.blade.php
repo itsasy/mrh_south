@@ -35,7 +35,9 @@ $letras = range('A','Z');
         </tr>
       </thead>
       <tbody>
-        @for ($r = 0; $r < $sample->nro_repeticiones; $r++)
+
+        @for ($r = 0; $r < $sample->nro_repeticiones + 1; $r++)
+
           <tr class="text-center">
             {{-- Bloque --}}
             <td class="align-middle" rowspan="{{$sample->nro_modelos_ortogonales}}">{{$letras[$r]}}</td>
@@ -43,12 +45,13 @@ $letras = range('A','Z');
             {{-- ITEM --}}
             @for ($o = 0; $o < $sample->nro_modelos_ortogonales; $o++)
               <td class="text-center">{{$o+1}}</td>
+
               <input type="hidden" name="item[]" value="{{$o+1}}">
 
               {{-- parámetro --}}
               @foreach($sampleStudyParameters as $p => $ssp)
               <td>
-                <input type="number" name="valor_{{$r}}_{{$o}}_{{$p}}" id="valor_{{$r}}_{{$o}}_{{$p}}" required min="0">
+                <input type="number" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" value = "5" required min="0">
               </td>
               @endforeach
           </tr>
@@ -63,3 +66,4 @@ $letras = range('A','Z');
 <input type="hidden" name="nro_repeticion" value="{{$sample->nro_repeticiones}}">
 <input type="hidden" name="nro_modelos" value="{{$sample->nro_modelos_ortogonales}}">
 <input type="hidden" name="parameter" value="{{count($sampleStudyParameters)}}">
+<input type="hidden" name="idMuestra" value="{{$sample->id_muestra}}">
