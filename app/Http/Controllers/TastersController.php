@@ -14,7 +14,7 @@ class TastersController extends Controller
 
     public function index()
     {
-        $user_list = User::Orderby('id_usuario', 'asc')->paginate(10);
+        $user_list = User::where('id_roles',2)->Orderby('id_usuario', 'asc')->paginate(10);
         return view('Tasters.index', compact('user_list'));
     }
 
