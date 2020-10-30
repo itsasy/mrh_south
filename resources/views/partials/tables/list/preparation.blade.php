@@ -21,8 +21,11 @@
             <td>
                 @foreach($sample->ChoiceTestSample as $csample)
                     @if($csample->id_tipo_prueba == 1)
-                      <a href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Duo-Trio'])}}" role="button">
-                        <i class="fas fa-check-circle fa-lg" style="color:red"></i>
+                      <a  role="button"
+                       @if($csample->estado == "CREADA") href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Duo-Trio'])}}"  style="color:red" 
+                       @elseif($csample->estado == "ASIGNADA") style="color:#e2a210"
+                       @else  style="color:green" @endif>
+                        <i class="fas fa-check-circle fa-lg" ></i>
                       </a>
                   
                    
@@ -32,8 +35,11 @@
             <td>
                 @foreach($sample->ChoiceTestSample as $csample)
                     @if($csample->id_tipo_prueba == 2)
-                      <a href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'QDA'])}}" role="button">
-                         <i class="fas fa-check-circle fa-lg" style="color:red"></i>
+                      <a  role="button"
+                       @if($csample->estado == "CREADA") href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'QDA'])}}" style="color:red" 
+                        @elseif($csample->estado == "ASIGNADA") style="color:#e2a210"
+                       @else  style="color:green" @endif>
+                         <i class="fas fa-check-circle fa-lg"></i>
                       </a>
                    
                     @endif
@@ -43,8 +49,11 @@
             <td>
                 @foreach($sample->ChoiceTestSample as $csample)
                     @if($csample->id_tipo_prueba == 3)
-                      <a href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Perfil de consumidores'])}}" role="button">
-                        <i class="fas fa-check-circle fa-lg" style="color:red"></i>
+                      <a  role="button"
+                       @if($csample->estado == "CREADA") href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Perfil de consumidores'])}}" style="color:red" 
+                        @elseif($csample->estado == "ASIGNADA") style="color:#e2a210"
+                       @else   style="color:green" @endif>
+                        <i class="fas fa-check-circle fa-lg" ></i>
                       </a>
                     
                     
