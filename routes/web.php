@@ -16,6 +16,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('preparation', 'PreparationController');
     Route::resource('results', 'ResultsController')->only(['index']);
     Route::resource('orthogonal', 'OrthogonalController');
+    Route::resource('duotrio', 'DuoTrioController');
+
     Route::get('orthogonal/excel/{filename}', 'OrthogonalController@downloadExcelOrthogonal')->name('downloadExcel');
 
     

@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Excel\ExcelOrthogonalExport;
+use App\Http\Controllers\Excel\ExcelDuoTrioExport;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\DataOrthogonal;
@@ -21,7 +22,7 @@ class OrthogonalController extends Controller
     {
         $fecha = Carbon::now()->format("Ymd_His");
         $filename = 'Excel_45' . $fecha . '.xlsx';
-        $exc = Excel::store(new ExcelOrthogonalExport(), $filename, 'excel');
+        $exc = Excel::store(new ExcelDuoTrioExport(), $filename, 'excel');
         
         
     }
