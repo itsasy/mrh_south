@@ -21,5 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function(){
 
     Route::get('excel', 'OrthogonalController@index');
-    
+    Route::get('prueba/{id_eleccion_prueba_muestra}', 'EvaluationController@evaluateChoiceTest');
+
 });
