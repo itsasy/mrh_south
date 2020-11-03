@@ -17,27 +17,30 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        $evaluation  = Evaluation::where('id_catador', auth()->user()->id_usuario)->where('estado', 1)->get();
+        $evaluation  = Evaluation::where('id_catador', /* auth()->user()->id_usuario */ 2)->where('estado', 1)->get();
         //Situar la evaluacion e id_eleccion
         return view('Evaluation.index', compact('evaluation'));
     }
 
     public function create(Request $request)
     {
-        $type = $request->type;
+        $type = $this->types_permited($request->type);
 
         if ($type == "QDA") {
-            $valores_generales =  $this->create_qda($request->id_eleccion);
-        } elseif ($type == "Duo-Trio") {
-            $valores_generales = $this->create_duo_trio($request->id_eleccion);
-        } else {
-            $valores_generales = DetailAttributes::where('id_eleccion_prueba_muestra', $request->id_eleccion)->get();
+            $valores_generales =  $this->create_qda($request->election);
+        }
+        if ($type == "Duo-Trio") {
+            $valores_generales = $this->create_duo_trio($request->election);
+        }
+        
+        if ($type == "Perfil de consumidores"){
+            $valores_generales = DetailAttributes::where('id_eleccion_prueba_muestra', $request->election)->get();
         }
 
         return view('Evaluation.create', compact('type',  'valores_generales'))->with(
             [
                 'id_evaluation' => $request->evaluation,
-                'id_eleccion' => $request->id_eleccion_prueba_muestra
+                'id_eleccion' => $request->election
             ]
         );
     }
@@ -70,15 +73,14 @@ class EvaluationController extends Controller
                 $duoTrioResult->nro_no_aciertos = $contador_no_aciertos;
                 $duoTrioResult->comentario      = $request->comentary[$r];
                 $duoTrioResult->repeticion      = $r;
+
                 $duoTrioResult->save();
             }
 
             $update_evaluation = Evaluation::find($request->id_evaluacion);
             $update_evaluation->estado = 2;
-
             $update_evaluation->save();
-            $this->evaluateChoiceTest($request->get('id_eleccion_prueba_muestra'));
-
+            $this->evaluateChoiceTest($request->id_eleccion);
             return $this->success_message('evaluation.index', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
@@ -113,18 +115,17 @@ class EvaluationController extends Controller
     public function storeQDA(Request $request)
     {
         try {
-            for ($r = 0; $r < count($request->get('result')); $r++) {
-                $answerQda =  new AnswerQda();
-                $answerQda->id_evaluacion           = $request->get('id_evaluacion');
-                $answerQda->id_detalle_atributos    = $request->get('id_detail_attributes')[$r];
-                $answerQda->respuesta               = $request->get('result')[$r];
+            foreach ($request->id_detail_attributes as $key => $attribute) {
+                $answerQda = new AnswerQda();
+                $answerQda->id_evaluacion = $request->id_evaluacion;
+                $answerQda->id_detalle_atributos = $attribute;
+                $answerQda->respuesta = $request->result[$key];
                 $answerQda->save();
             }
 
-            $update_evaluation  =  Evaluation::find($request->get('id_evaluacion'));
+            $update_evaluation = Evaluation::find($request->id_evaluacion);
             $update_evaluation->estado = 2;
             $update_evaluation->save();
-
 
             $this->evaluateChoiceTest($update_evaluation->id_eleccion_prueba_muestra);
 
@@ -197,13 +198,19 @@ class EvaluationController extends Controller
     {
         $valores_generales = AnswerDuoTrio::where('id_eleccion_prueba_muestra', $id_eleccion)->get();
 
-        /* foreach ($valores_generales as $adt) {
+        foreach ($valores_generales as $adt) {
             $answer[$adt->repeticion][$adt->muestra] = [
                 'alternativa_uno' => $adt->alternativa_uno,
                 'alternativa_dos' => $adt->alternativa_dos
             ];
-        } */
+        }
 
-        return ['valores_generales' => $valores_generales/*,  'answer' => $answer */, 'id_elecc' => $id_eleccion];
+        return ['valores_generales' => $valores_generales,  'answer' => $answer, 'id_elecc' => $id_eleccion];
+    }
+
+    public function types_permited($type)
+    {
+        $types = ['Duo-Trio', 'QDA', 'Perfil de consumidores'];
+        return in_array($type, $types) ? $type : abort(404);
     }
 }

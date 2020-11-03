@@ -1,22 +1,16 @@
 <div id="stepper" class="bs-stepper">
     {{-- header --}}
-    <div class="bs-stepper-header" role="tablist">
-        @foreach(range(1,10) as $key => $evaluation)
-        {{-- POR AHORA SON ATRIBUTOS ESTÁTICOS QUE TOCAN CAMBIAR EN ESTA VISTA --}}
-        <div class="step" data-target="#tab_{{$key}}">
-            <button type="button" class="step-trigger" role="tab" id="steppertrigger{{$key}}"
-                aria-controls="tab_{{$key}}">
+    <div class="bs-stepper-header justify-content-center" role="tablist">
+        <div class="step" data-target="#tab_1">
+            <button type="button" class="step-trigger" role="tab" id="steppertrigger1" aria-controls="tab_1">
                 <span class="bs-stepper-circle">
                     <span class="fas fa-user" aria-hidden="true"></span>
                 </span>
-                <span class="bs-stepper-label">{{$key}}</span>
+                <span class="bs-stepper-label">1</span>
             </button>
         </div>
-        {{--  --}}
-        @endforeach
-        {{-- REEMPLAZAR tab_10 por algún otro entero mayor al $key --}}
-        <div class="step" data-target="#tab_10">
-            <button type="button" class="step-trigger" role="tab" id="steppertrigger10" aria-controls="tab_10">
+        <div class="step" data-target="#tab_2">
+            <button type="button" class="step-trigger" role="tab" id="steppertrigger2" aria-controls="tab_2">
                 <span class="bs-stepper-circle">
                     <span class="fas fa-save" aria-hidden="true"></span>
                 </span>
@@ -27,43 +21,27 @@
     {{-- CONTENT --}}
     <div class="bs-stepper-content">
         <form action="#" class="needs-validation" novalidate>
-            @foreach(range(1,10) as $key => $evaluacion)
-            <div id="tab_{{$key}}" role="tabpanel" class="bs-stepper-pane fade"
-                aria-labelledby="steppertrigger{{$key}}">
-
+            <div id="tab_1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="steppertrigger1">
+                @foreach($valores_generales as $key => $atributos)
                 <div class="row">
                     <div class="form-group col-12">
-                        <label for="color">Color</label>
-                        <input type="range" class="form-control-range" id="color" name="color" value="0" max="10"
+                        <label for="{{$atributos->nombre_atributo}}">{{$atributos->nombre_atributo}}</label>
+                        <input type="range" class="form-control-range" id="{{$atributos->nombre_atributo}}" name="respuesta" value="0" max="10"
                             require>
                         <div class="invalid-feedback">Please fill the email field</div>
                     </div>
-                    <div class="form-group col-12">
-                        <label for="aceitocidad">Aceitosidad</label>
-                        <input type="range" class="form-control-range" id="aceitocidad" name="aceitocidad" value="0"
-                            min="1" max="10" require>
-                        <div class="invalid-feedback">Please fill the email field</div>
-                    </div>
-                    <div class="form-group col-12">
-                        <label for="olor">Olor</label>
-                        <input type="range" class="form-control-range" id="olor" name="olor" value="0" max="10" require>
-                        <div class="invalid-feedback">Please fill the email field</div>
-                    </div>
                 </div>
+                @endforeach
 
                 <div class="row justify-content-between">
-                    @if($key > 0)
-                    <button type="button" class="btn btn-primary" onclick="stepper.previous()">Atrás</button>
-                    @endif
                     <button type="button" class="btn btn-primary btn-next-form"
                         onclick="stepper.next()">Siguiente</button>
                 </div>
             </div>
-            @endforeach
 
             {{-- REEMPLAZAR tab_10 por algún otro entero mayor al $key --}}
-            <div id="tab_10" role="tabpanel" class="bs-stepper-pane fade text-center"
-                aria-labelledby="steppertrigger10">
+            <div id="tab_2" role="tabpanel" class="bs-stepper-pane fade text-center"
+                aria-labelledby="steppertrigger2">
 
                 {{-- Agregar algún mensaje --}}
                 <button type="submit" class="btn btn-primary mt-5">Enviar</button>

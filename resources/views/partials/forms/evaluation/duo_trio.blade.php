@@ -99,8 +99,6 @@
 
             <input type="hidden" name="id_eleccion" value="{{$id_eleccion}}">
             <input type="hidden" name="id_evaluacion" value="{{$id_evaluation}}">
-            <input type="hidden" name="type" value="{{$request->type}}">
-
         </form>
     </div>
 </div>
