@@ -30,12 +30,18 @@
                     <i class="fas fa-check-circle fa-lg"></i>
                 </a>
             </td>
-            {{-- <td>
-                <a href="{{route('evaluation.create', ['evaluation'=> $id_evaluacion, 'type' => 'Perfil de consumidores', 'election' => $id_eleccion_prueba_muestra])}}"
-            role="button">
-            <i class="fas fa-check-circle fa-lg"></i>
-            </a>
-            </td> --}}
+
+            {{-- Separar --}}
+            <td>
+                <a href="{{route('evaluation.create', [
+                    'evaluation'=> $sample->id_evaluacion, 
+                    'election' => $sample->id_eleccion_prueba_muestra, 
+                    'type' => 'Perfil de consumidores'])}}" role="button">
+                    <i class="fas fa-check-circle fa-lg"></i>
+                </a>
+            </td>
+
+
         </tr>
         @endforeach
     </tbody>

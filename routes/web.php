@@ -18,9 +18,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('orthogonal', 'OrthogonalController');
     Route::resource('duotrio', 'DuoTrioController');
     Route::get('orthogonal/excel/{filename}', 'OrthogonalController@downloadExcelOrthogonal')->name('downloadExcel');
-
-    
-
 });
 
 
@@ -30,6 +27,4 @@ Route::group(['prefix' => 'taster'], function () {
     Route::get('/results', 'ResultsController@index')->name('results.Taster');
     Route::post('evaluation/QDA', 'EvaluationController@storeQDA')->name('registerQda');;
     Route::post('evaluation/pc', 'EvaluationController@storePC')->name('registerPc');
-
-    
 });

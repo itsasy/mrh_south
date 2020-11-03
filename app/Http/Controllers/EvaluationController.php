@@ -17,7 +17,7 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        $evaluation  = Evaluation::where('id_catador', /* auth()->user()->id_usuario */ 2)->where('estado', 1)->get();
+        $evaluation  = Evaluation::where('id_catador', auth()->user()->id_usuario)->where('estado', 1)->get();
         //Situar la evaluacion e id_eleccion
         return view('Evaluation.index', compact('evaluation'));
     }
@@ -32,8 +32,8 @@ class EvaluationController extends Controller
         if ($type == "Duo-Trio") {
             $valores_generales = $this->create_duo_trio($request->election);
         }
-        
-        if ($type == "Perfil de consumidores"){
+
+        if ($type == "Perfil de consumidores") {
             $valores_generales = DetailAttributes::where('id_eleccion_prueba_muestra', $request->election)->get();
         }
 
@@ -68,11 +68,11 @@ class EvaluationController extends Controller
                 }
 
                 $duoTrioResult =  new DuoTrioResult();
-                $duoTrioResult->id_evaluacion   = $request->id_evaluacion;
-                $duoTrioResult->nro_aciertos    = $contador_aciertos;
+                $duoTrioResult->id_evaluacion = $request->id_evaluacion;
+                $duoTrioResult->nro_aciertos = $contador_aciertos;
                 $duoTrioResult->nro_no_aciertos = $contador_no_aciertos;
-                $duoTrioResult->comentario      = $request->comentary[$r];
-                $duoTrioResult->repeticion      = $r;
+                $duoTrioResult->comentario = $request->comentary[$r];
+                $duoTrioResult->repeticion = $r;
 
                 $duoTrioResult->save();
             }
@@ -92,12 +92,12 @@ class EvaluationController extends Controller
     {
         try {
             $consumerProfileResults =  new ConsumerProfileResults();
-            $consumerProfileResults->id_evaluacion   = $request->get('id_evaluacion');
-            $consumerProfileResults->respuesta       = $request->get('respuesta');
+            $consumerProfileResults->id_evaluacion = $request->get('id_evaluacion');
+            $consumerProfileResults->respuesta = $request->get('respuesta');
             $consumerProfileResults->save();
 
 
-            $update_evaluation  =  Evaluation::find($request->get('id_evaluacion'));
+            $update_evaluation = Evaluation::find($request->id_evaluacion);
             $update_evaluation->contador_pc = $update_evaluation->contador_pc + 1;
             $update_evaluation->save();
 
@@ -149,7 +149,6 @@ class EvaluationController extends Controller
             $choiceTest->estado         = "EJECUTADA";
             $choiceTest->save();
         }
-
 
         if ($choiceTest->nro_jueces == count($evaluation)) {
 
@@ -210,7 +209,14 @@ class EvaluationController extends Controller
 
     public function types_permited($type)
     {
-        $types = ['Duo-Trio', 'QDA', 'Perfil de consumidores'];
+        if (auth()->user() && auth()->user()->id_roles == 2) {
+            $types = ['Duo-Trio', 'QDA'];
+        }
+
+        if (auth()->user()) {
+            $types = ['Perfil de consumidores'];
+        }
+
         return in_array($type, $types) ? $type : abort(404);
     }
 }
