@@ -1,19 +1,22 @@
 <div id="stepper" class="bs-stepper">
     {{-- header --}}
-    <div class="bs-stepper-header" role="tablist">
-        @foreach(range(1,10) as $key => $evaluation)
+    <div class="bs-stepper-header justify-content-center" role="tablist">
+
+        @foreach($valores_generales['answer'] as $iterator => $repeat)
+        {{-- @for($iterator = 0; $iterator < $repeats; $iterator++) --}}
         {{-- POR AHORA SON ATRIBUTOS ESTÁTICOS QUE TOCAN CAMBIAR EN ESTA VISTA --}}
-        <div class="step" data-target="#tab_{{$key}}">
-            <button type="button" class="step-trigger" role="tab" id="steppertrigger{{$key}}"
-                aria-controls="tab_{{$key}}">
+        <div class="step" data-target="#tab_{{$iterator}}">
+            <button type="button" class="step-trigger" role="tab" id="steppertrigger{{$iterator}}"
+                aria-controls="tab_{{$iterator}}">
                 <span class="bs-stepper-circle">
                     <span class="fas fa-user" aria-hidden="true"></span>
                 </span>
-                <span class="bs-stepper-label">{{$key}}</span>
+                <span class="bs-stepper-label">{{$iterator}}</span>
             </button>
         </div>
         {{--  --}}
         @endforeach
+
         {{-- REEMPLAZAR tab_10 por algún otro entero mayor al $key --}}
         <div class="step" data-target="#tab_10">
             <button type="button" class="step-trigger" role="tab" id="steppertrigger10" aria-controls="tab_10">
@@ -26,43 +29,57 @@
     </div>
     {{-- CONTENT --}}
     <div class="bs-stepper-content">
-        <form action="#" class="needs-validation" novalidate>
-            @foreach(range(1,10) as $key => $evaluacion)
-            <div id="tab_{{$key}}" role="tabpanel" class="bs-stepper-pane fade"
-                aria-labelledby="steppertrigger{{$key}}">
+        <form action="{{route('evaluation.store')}}" method="POST" class="needs-validation" novalidate>
+            @csrf
 
-                
+            @foreach($valores_generales['answer'] as $key_repeat => $repeat)
+            <div id="tab_{{$key_repeat}}" role="tabpanel" class="bs-stepper-pane fade"
+                aria-labelledby="steppertrigger{{$key_repeat}}">
                 <div class="row">
-                        <table class="table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>Muestra</th>
-                                    <th>Alternativa 1</th>
-                                    <th>Alternativa 2</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-center">
-                                    <td scope="row">1</td>
-                                    <td>856</td>
-                                    <td>290</td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td scope="row">2</td>
-                                    <td>426</td>
-                                    <td>118</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="form-group col-12">
-                            <label for="comentary">Comentario</label>
-                            <textarea class="form-control" name="comentary" id="comentary" rows="3"></textarea>
-                        </div>
+                    <table class="table">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Muestra</th>
+                                <th>Alternativa 1</th>
+                                <th>Alternativa 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($repeat as $key_sample => $sample)
+                            <tr class="text-center">
+                                <td scope="row">{{$key_sample}}</td>
+                                <td>
+                                    <input type="radio" name="muestra_valor[{{$key_repeat}}][{{$key_sample}}]"
+                                        id="alternative_one[{{$key_repeat}}][{{$key_sample}}]"
+                                        value="{{$sample['alternativa_uno']}}">
+
+                                    <label
+                                        for="alternative_one[{{$key_repeat}}][{{$key_sample}}]">{{$sample['alternativa_uno']}}
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="radio" name="muestra_valor[{{$key_repeat}}][{{$key_sample}}]"
+                                        id="alternative_two[{{$key_repeat}}][{{$key_sample}}]"
+                                        value="{{$sample['alternativa_dos']}}">
+
+                                    <label
+                                        for="alternative_two[{{$key_repeat}}][{{$key_sample}}]">{{$sample['alternativa_dos']}}</label>
+                                </td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                    <div class="form-group col-12">
+                        <label for="comentary">Comentario</label>
+                        <textarea class="form-control" name="comentary[{{$key_repeat}}]" id="comentary"
+                            rows="3"></textarea>
+                    </div>
                 </div>
 
 
                 <div class="row justify-content-between">
-                    @if($key > 0)
+                    @if($iterator > 0)
                     <button type="button" class="btn btn-primary" onclick="stepper.previous()">Atrás</button>
                     @endif
                     <button type="button" class="btn btn-primary btn-next-form"
@@ -78,6 +95,12 @@
                 {{-- Agregar algún mensaje --}}
                 <button type="submit" class="btn btn-primary mt-5">Enviar</button>
             </div>
+
+
+            <input type="hidden" name="id_eleccion" value="{{$id_eleccion}}">
+            <input type="hidden" name="id_evaluacion" value="{{$id_evaluation}}">
+            <input type="hidden" name="type" value="{{$request->type}}">
+
         </form>
     </div>
 </div>

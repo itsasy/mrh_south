@@ -7,7 +7,6 @@ Evaluación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
 @section('content')
 <div class="mt-3" id="">
     <div class="d-flex justify-content-center align-items-center container">
-        @csrf
         @includeWhen($type == 'QDA', 'partials.forms.evaluation.qda')
         {{-- @includeWhen($type == 'QDA', 'partials.steppers.qda') --}}
 
