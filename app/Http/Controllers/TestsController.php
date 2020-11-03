@@ -49,7 +49,7 @@ class TestsController extends Controller
             $sample->nro_modelos_ortogonales  =  $request->get('number_of_models');
             $sample->nro_repeticiones         =  $request->get('number_of_repeats');
             $sample->estado_modelos           =  1;
-            $sample->estado_muestra           =  'ACTIVO';
+            $sample->estado_muestra           =  'CREADA';
             $sample->fecha_registro           =  $dateActual;
             $sample->save();
 
@@ -68,7 +68,7 @@ class TestsController extends Controller
                 $sampleStudy->save();
             }
 
-            return $this->success_message('test.index', 'creó');
+            return $this->success_message('manageTest', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
         }

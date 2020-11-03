@@ -9,7 +9,8 @@ use App\Models\DuoTrioResult;
 use App\Models\DetailAttributes;
 use App\Models\AnswerQda;
 use App\Models\ChoiceTestSample;
-
+use App\Models\ConsumerProfileResults;
+use PDF;
 
 class EvaluationController extends Controller
 {
@@ -33,7 +34,8 @@ class EvaluationController extends Controller
            $valores_generales = AnswerDuoTrio::where('id_eleccion_prueba_muestra', $request->get('id_eleccion_prueba_muestra'))->get();
 
         }else{
-            
+           $valores_generales = DetailAttributes::where('id_eleccion_prueba_muestra', $request->get('id_eleccion_prueba_muestra'))->get();
+
         }
        
         //dd($answerQda);
@@ -78,10 +80,10 @@ class EvaluationController extends Controller
                  $update_evaluation = Evaluation::find($request->get('id_evaluacion'));
     	         $update_evaluation->estado = 2;
     	         $update_evaluation->save();
+    	         
+    	     $this->evaluateChoiceTest($request->get('id_eleccion_prueba_muestra'));
              return $this->success_message('evaluation.index', 'creó');
 
-                 
-    	         
         }catch (\Exception $e) {
                 return $this->error_message();
         }
@@ -89,7 +91,35 @@ class EvaluationController extends Controller
        
     }
     
-    //Store de la prueba QDA  
+    //Store de la prueba Perfil de Consumidores
+    public function storePC(Request $request)
+    {
+       try{
+               $consumerProfileResults =  new ConsumerProfileResults();
+               $consumerProfileResults->id_evaluacion   = $request->get('id_evaluacion'); 
+               $consumerProfileResults->respuesta       = $request->get('respuesta'); 
+               $consumerProfileResults->save();
+        
+              
+                $update_evaluation  =  Evaluation::find($request->get('id_evaluacion'));
+                $update_evaluation->contador_pc = $update_evaluation->contador_pc + 1;
+    	        $update_evaluation->save();
+    	      
+                if($update_evaluation->ChoiceTestSample->nro_jueces == $update_evaluation->contador_pc){
+                    $this->evaluateChoiceTest($update_evaluation->id_eleccion_prueba_muestra);
+
+                }
+    	        
+           return $this->success_message('evaluation.index', 'creó');
+
+        }catch (\Exception $e) {
+                return $this->error_message();
+        }
+       
+       
+    }
+    
+     //Store de la prueba QDA  
     public function storeQDA(Request $request)
     {
        try{
@@ -105,6 +135,9 @@ class EvaluationController extends Controller
     	        $update_evaluation->estado = 2;
     	        $update_evaluation->save();
     	        
+    	       
+    	    $this->evaluateChoiceTest($update_evaluation->id_eleccion_prueba_muestra);
+
            return $this->success_message('evaluation.index', 'creó');
 
         }catch (\Exception $e) {
@@ -118,11 +151,39 @@ class EvaluationController extends Controller
     {
        $choiceTest = ChoiceTestSample::find($id_eleccion_prueba_muestra);
        $evaluation = Evaluation::where([ 'id_eleccion_prueba_muestra' => $id_eleccion_prueba_muestra, 'estado' => 2])->get();
+       date_default_timezone_set('America/Lima');
+
+         if($choiceTest->id_tipo_prueba == 3){
+           $nombrepdf = "Resultado_PerfilDeConsumidores_".date("Y").date("m").date("d").'_'.(date('H')).date('i').date('s');
+           PDF::loadView('PDF.resultado_perfil-consumidores')->save(public_path().'/pdf/'.$nombrepdf.'.pdf');
+           
+             $choiceTest->pdf_resultados = $nombrepdf;
+             $choiceTest->estado         = "EJECUTADA";
+             $choiceTest->save();
+             
+         }
+ 
+
        if($choiceTest->nro_jueces == count($evaluation)){
-           //GENERAR PDF USER Y ADMI
-       }
-     //  dd(count($evaluation));
+         
+         if($choiceTest->id_tipo_prueba == 1){
+             
+           $nombrepdf = "Resultado_Duo-Trio_".date("Y").date("m").date("d").'_'.(date('H')).date('i').date('s');
+           PDF::loadView('PDF.resultado_duo_trio')->save(public_path().'/pdf/'.$nombrepdf.'.pdf');
+
+         }elseif($choiceTest->id_tipo_prueba == 2){
+             
+           $nombrepdf = "Resultado_QDA_".date("Y").date("m").date("d").'_'.(date('H')).date('i').date('s');
+           PDF::loadView('PDF.resultado_qda')->save(public_path().'/pdf/'.$nombrepdf.'.pdf');
+
+         }
         
+         $choiceTest->pdf_resultados = $nombrepdf;
+         $choiceTest->estado         = "EJECUTADA";
+         $choiceTest->save();
+
+       }
+     
     }
     public function show($id)
     {
