@@ -88,7 +88,7 @@
 
             </td>
             <td>
-                {{$sample->estado_muestra}}
+                Creada
             </td>
         </tr>
         @endforeach

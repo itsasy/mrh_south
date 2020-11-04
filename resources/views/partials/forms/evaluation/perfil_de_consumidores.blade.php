@@ -20,36 +20,32 @@
     </div>
     {{-- CONTENT --}}
     <div class="bs-stepper-content">
-        <form action="{{route('registerQda')}}" method="POST" class="needs-validation" novalidate>
-            @csrf
+        <form action="#" class="needs-validation" novalidate>
             <div id="tab_1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="steppertrigger1">
+                @foreach($valores_generales as $key => $atributos)
                 <div class="row">
-                    @foreach($valores_generales as $key => $atributos)
                     <div class="form-group col-12">
                         <label for="{{$atributos->nombre_atributo}}">{{$atributos->nombre_atributo}}</label>
-                        <input type="range" class="form-control-range" id="{{$atributos->nombre_atributo}}"
-                            name="result[{{$key}}]" value="0" max="10" require>
-                        <input type="hidden" name="id_detail_attributes[{{$key}}]"
-                            value="{{$atributos->id_detalle_atributos}}">
+                        <input type="range" class="form-control-range" id="{{$atributos->nombre_atributo}}" name="respuesta" value="0" max="10"
+                            require>
                         <div class="invalid-feedback">Please fill the email field</div>
                     </div>
-                    @endforeach
-
                 </div>
-                <div class="row justify-content-center">
+                @endforeach
+
+                <div class="row justify-content-between">
                     <button type="button" class="btn btn-primary btn-next-form"
                         onclick="stepper.next()">Siguiente</button>
                 </div>
             </div>
 
-            <div id="tab_2" role="tabpanel" class="bs-stepper-pane fade text-center" aria-labelledby="steppertrigger2">
+            {{-- REEMPLAZAR tab_10 por algún otro entero mayor al $key --}}
+            <div id="tab_2" role="tabpanel" class="bs-stepper-pane fade text-center"
+                aria-labelledby="steppertrigger2">
+
                 {{-- Agregar algún mensaje --}}
                 <button type="submit" class="btn btn-primary mt-5">Enviar</button>
             </div>
-
-            <input type="hidden" name="id_eleccion" value="{{$id_eleccion}}">
-            <input type="hidden" name="id_evaluacion" value="{{$id_evaluation}}">
-
         </form>
     </div>
 </div>

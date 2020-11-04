@@ -16,9 +16,8 @@ class PreparationController extends Controller
     {
         $samples = Sample::paginate(10);
 
-        foreach($samples as $index => $sample){
-           $sample->ChoiceTestSample = ChoiceTestSample::where('id_muestra',$sample->id_muestra)->get();
-
+        foreach ($samples as $index => $sample) {
+            $sample->ChoiceTestSample = ChoiceTestSample::where('id_muestra', $sample->id_muestra)->get();
         }
 
         return view('Preparation.index', compact('samples'));
@@ -85,18 +84,16 @@ class PreparationController extends Controller
                     $evaluation->fecha_fin = $request->evaluation_end_date;
                     $evaluation->save();
                 }
-                
-            }else{
+            } else {
                 //El id_catador es fijo para las pruebas Perfil de consumidores
-                    $evaluation = new Evaluation();
-                    $evaluation->id_catador =  9;
-                    $evaluation->id_eleccion_prueba_muestra = $choiceTest->id_eleccion_prueba_muestra;
-                    $evaluation->estado = 0;
-                    $evaluation->fecha_inicio = $request->evaluation_start_date;
-                    $evaluation->fecha_fin = $request->evaluation_end_date;
-                    $evaluation->save();
+                $evaluation = new Evaluation();
+                $evaluation->id_catador =  9;
+                $evaluation->id_eleccion_prueba_muestra = $choiceTest->id_eleccion_prueba_muestra;
+                $evaluation->estado = 0;
+                $evaluation->fecha_inicio = $request->evaluation_start_date;
+                $evaluation->fecha_fin = $request->evaluation_end_date;
+                $evaluation->save();
             }
-            
             return $this->success_message('preparation.index', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
