@@ -113,7 +113,7 @@
       <div class="row space">
         <div class="form-control">
           <div class="col-xs-12 data1">
-            <p>III. Tipo de prueba de la hipótesis:</p>
+            <p>III. Tipo de prueba de la hipótesis 2:</p>
           </div>
         </div>
       </div>
