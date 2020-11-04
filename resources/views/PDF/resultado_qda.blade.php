@@ -54,7 +54,7 @@
     <div class="container-fluid">
       <div class="row space">
         <div class="col-xs-12">
-          <h3 class="h2-titulo" style="text-align: center;">INFORME RESULTADO Nº15</h3>
+          <h3 class="h2-titulo" style="text-align: center;">INFORME sRESULTADO Nº15</h3>
           <table class="table">
             <tr>
               <td colspan="2"><strong>Información de la prueba</strong></td>

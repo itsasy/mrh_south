@@ -258,7 +258,7 @@
 
       <div class="row space">
         <div class="col-xs-12 data11">
-          Estos comentarios fueron mencionados por los catadores en el desarrollo de la prueba.
+          Estos comentarios fuderon mencionados por los catadores en el desarrollo de la prueba.
           <br />
           <br />
         </div>
