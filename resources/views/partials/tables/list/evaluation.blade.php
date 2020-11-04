@@ -1,46 +1,56 @@
+@php
+use App\Models\TestType;
+$type = TestType::all();
+@endphp
+
 <table class="table table-striped table-inverse">
     <thead class="thead-inverse">
         <tr class="text-center">
             <th class="text-nowrap">Código</th>
-            <th class="text-nowrap">Fecha de registro</th>
-            <th class="text-nowrap">Nombre de la muestra</th>
-            <th class="text-nowrap">Dúo - Trío</th>
-            <th class="text-nowrap">QDA</th>
-            {{--  <th class="text-nowrap">Aceptabilidad</th> --}}
+            <th class="text-nowrap">Tipo</th>
+            <th class="text-nowrap">Fecha de Inicio</th>
+            <th class="text-nowrap">Fecha de Finalización</th>
+            <th class="text-nowrap"></th>
         </tr>
     </thead>
     <tbody>
         @foreach($evaluation as $sample)
         <tr class="text-center">
-            <td scope="row">ABC123</td>
-            <td>08/09/2020</td>
-            <td>Quinua Roja</td>
+            <td scope="row">{{$sample->ChoiceTestSample->id_muestra}}</td>
+            <td>{{$type[$sample->ChoiceTestSample->id_tipo_prueba-1]->tipo}}</td>
+            <td>{{$sample->ChoiceTestSample->fecha_inicio}}</td>
+            <td>{{$sample->ChoiceTestSample->fecha_fin}}</td>
+            @if($sample->ChoiceTestSample->id_tipo_prueba == 1)
             <td>
                 <a href="{{route('evaluation.create', [
                     'evaluation'=> $sample->id_evaluacion, 
                     'election' => $sample->id_eleccion_prueba_muestra,
-                    'type' => 'Duo-Trio'])}}" role="button">
-                    <i class="fas fa-check-circle fa-lg"></i>
-                </a></td>
-            <td>
-                <a href="{{route('evaluation.create', [
-                    'evaluation'=> $sample->id_evaluacion, 
-                    'election' => $sample->id_eleccion_prueba_muestra,
-                    'type' => 'QDA'])}}" role="button">
-                    <i class="fas fa-check-circle fa-lg"></i>
+                    'type' => 'Duo-Trio'])}}" class="btn btn-primary" role="button">
+                    <i class="fas fa-check-circle fa-lg"></i> Ingresar
                 </a>
             </td>
-
-            {{-- Separar --}}
+            @endif
+            @if($sample->ChoiceTestSample->id_tipo_prueba == 2)
             <td>
                 <a href="{{route('evaluation.create', [
+                    'evaluation'=> $sample->id_evaluacion, 
+                    'election' => $sample->id_eleccion_prueba_muestra,
+                    'type' => 'QDA'])}}" class="btn btn-primary" role="button">
+                    <i class="fas fa-check-circle fa-lg"></i> Ingresar
+                </a>
+            </td>
+            @endif
+            {{-- Separar --}}
+            @if($sample->ChoiceTestSample->id_tipo_prueba == 3)
+            <td>
+                <a href="{{route('invited.create', [
                     'evaluation'=> $sample->id_evaluacion, 
                     'election' => $sample->id_eleccion_prueba_muestra, 
-                    'type' => 'Perfil de consumidores'])}}" role="button">
-                    <i class="fas fa-check-circle fa-lg"></i>
+                    'type' => 'Perfil de consumidores'])}}" class="btn btn-primary" role="button">
+                    <i class="fas fa-check-circle fa-lg"></i> Ingresar
                 </a>
             </td>
-
+            @endif
 
         </tr>
         @endforeach

@@ -17,7 +17,10 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        $evaluation  = Evaluation::where('id_catador', auth()->user()->id_usuario)->where('estado', 1)->get();
+        $id_usuario = auth()->user()->id_usuario ?? 9;
+
+        $evaluation  = Evaluation::where('id_catador', $id_usuario)->where('estado', 1)->with('ChoiceTestSample')->get();
+
         //Situar la evaluacion e id_eleccion
         return view('Evaluation.index', compact('evaluation'));
     }
@@ -81,7 +84,7 @@ class EvaluationController extends Controller
             $update_evaluation->estado = 2;
             $update_evaluation->save();
             $this->evaluateChoiceTest($request->id_eleccion);
-            return $this->success_message('evaluation.index', 'creó');
+            return $this->success_message('evaluation.index', 'guardaron');
         } catch (\Exception $e) {
             return $this->error_message();
         }
@@ -90,25 +93,26 @@ class EvaluationController extends Controller
     //Store de la prueba Perfil de Consumidores
     public function storePC(Request $request)
     {
-        try {
+        /*  try { */
+        foreach ($request->respuesta as $key => $respuesta) {
             $consumerProfileResults =  new ConsumerProfileResults();
             $consumerProfileResults->id_evaluacion = $request->get('id_evaluacion');
-            $consumerProfileResults->respuesta = $request->get('respuesta');
+            $consumerProfileResults->respuesta = $respuesta;
             $consumerProfileResults->save();
-
-
-            $update_evaluation = Evaluation::find($request->id_evaluacion);
-            $update_evaluation->contador_pc = $update_evaluation->contador_pc + 1;
-            $update_evaluation->save();
-
-            if ($update_evaluation->ChoiceTestSample->nro_jueces == $update_evaluation->contador_pc) {
-                $this->evaluateChoiceTest($update_evaluation->id_eleccion_prueba_muestra);
-            }
-
-            return $this->success_message('evaluation.index', 'creó');
-        } catch (\Exception $e) {
-            return $this->error_message();
         }
+
+        $update_evaluation = Evaluation::find($request->id_evaluacion);
+        $update_evaluation->contador_pc = $update_evaluation->contador_pc + 1;
+        $update_evaluation->save();
+
+        if ($update_evaluation->ChoiceTestSample->nro_jueces == $update_evaluation->contador_pc) {
+            $this->evaluateChoiceTest($update_evaluation->id_eleccion_prueba_muestra);
+        }
+
+        return $this->success_message('invited.index', 'guardaron');
+        /*  } catch (\Exception $e) {
+            return $this->error_message();
+        } */
     }
 
     //Store de la prueba QDA  
@@ -129,7 +133,7 @@ class EvaluationController extends Controller
 
             $this->evaluateChoiceTest($update_evaluation->id_eleccion_prueba_muestra);
 
-            return $this->success_message('evaluation.index', 'creó');
+            return $this->success_message('evaluation.index', 'guardaron');
         } catch (\Exception $e) {
             return $this->error_message();
         }
@@ -213,7 +217,7 @@ class EvaluationController extends Controller
             $types = ['Duo-Trio', 'QDA'];
         }
 
-        if (auth()->user()) {
+        if (!auth()->user()) {
             $types = ['Perfil de consumidores'];
         }
 

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ChoiceTestSample;
 use App\Models\DetailAttributes;
 use App\Models\Evaluation;
-
+use Carbon\Carbon;
 
 class PreparationController extends Controller
 {
@@ -53,9 +53,8 @@ class PreparationController extends Controller
             ])->first();
 
             $choiceTest->nro_jueces = $request->get('id_tipo_prueba') == 3 ? $request->get('nro_jueces') : count($request->get('catadores_selected'));
-
-            $choiceTest->fecha_inicio = $request->get('evaluation_start_date');
-            $choiceTest->fecha_fin = $request->get('evaluation_end_date');
+            $choiceTest->fecha_inicio = Carbon::parse($request->evaluation_start_date)->format('Y-m-d H:m:s');
+            $choiceTest->fecha_fin = Carbon::parse($request->evaluation_end_date)->format('Y-m-d H:m:s');
             $choiceTest->nro_ensayos_muestras = $request->get('number_of_trials');
             $choiceTest->nivel_significacion = $request->get('level_signification');
             $choiceTest->nro_repeticiones = $request->get('number_of_repeats');
