@@ -23,7 +23,11 @@
     <form action="{{route('duotrio.store')}}" method="POST">
         @csrf
         <div class="row">
-            @for ($i = 0; $i < 5; $i++) <div class="col-12 col-md-4">
+            <input type="text" class="table-random" name="nro_repeticiones" value="{{$choiceTestSample->nro_repeticiones}} " hidden/>
+            <input type="text" class="table-random" name="nro_ensayos_muestras" value="{{$choiceTestSample->nro_ensayos_muestras}}" hidden />
+            <input type="text" class="table-random" name="id_eleccion_prueba_muestra" value="{{$choiceTestSample->id_eleccion_prueba_muestra}}" hidden />
+
+            @for ($i = 0; $i < $choiceTestSample->nro_repeticiones; $i++) <div class="col-12 col-md-4">
                 <table class="table text-center shadow">
                     <thead class="thead-dark">
                         <tr>
@@ -34,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-secondary">
-                        @for ($j = 0; $j < 4; $j++) <tr>
+                        @for ($j = 0; $j < $choiceTestSample->nro_ensayos_muestras; $j++) <tr>
                             <td><input type="text" class="table-random" name="ensayo_id[{{$i}}][{{$j}}]" value="{{$j + 1}}"
                                     readonly /></td>
                             <td>

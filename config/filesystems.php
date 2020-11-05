@@ -53,6 +53,13 @@ return [
             'visibility' => 'public',
         ],
         
+        'pdf' => [
+            'driver' => 'local',
+            'root' => public_path() . '/pdf',
+            'visibility' => 'public',
+        ],
+        
+        
 
         'public' => [
             'driver' => 'local',

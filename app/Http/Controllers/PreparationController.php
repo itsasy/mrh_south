@@ -28,10 +28,7 @@ class PreparationController extends Controller
         $type = $this->types_permited($request->type);
 
         $id_type = $this->id_type_sample($request->type);
-
         $samples = $this->samples($request->preparation);
-
-
         $tasters = $this->tasters();
 
 
@@ -93,7 +90,13 @@ class PreparationController extends Controller
                 $evaluation->fecha_fin = $request->evaluation_end_date;
                 $evaluation->save();
             }
-            return $this->success_message('preparation.index', 'creó');
+            
+            if ($request->get('id_tipo_prueba')  == 1) {
+
+                return redirect()->route('duotrio.index')->with(['id_eleccion_prueba_muestra' => $choiceTest->id_eleccion_prueba_muestra]);
+            }else{
+                return $this->success_message('preparation.index', 'creó');
+            }
         } catch (\Exception $e) {
             return $this->error_message();
         }

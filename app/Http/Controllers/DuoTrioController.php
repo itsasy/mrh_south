@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AnswerDuoTrio;
+use App\Models\ChoiceTestSample;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Excel\ExcelDuoTrioExport;
+use Carbon\Carbon;
 
 class DuoTrioController extends Controller
 {
    
     public function index()
     {
-        return view('Preparation.AnswerDuoTrio.create');
+        
+      $choiceTestSample =   ChoiceTestSample::where('id_eleccion_prueba_muestra', session('id_eleccion_prueba_muestra'))->first();
+      return view('Preparation.AnswerDuoTrio.create',compact('choiceTestSample'));
+
     }
 
     
@@ -26,11 +35,11 @@ class DuoTrioController extends Controller
             {
                 
                 //dd($request->get('ensayo_id')[0][0]);
-                for ($i = 0; $i < 5; $i++){
-                    for ($j = 0; $j < 4; $j++){
+                for ($i = 0; $i < $request->get('nro_repeticiones'); $i++){
+                    for ($j = 0; $j < $request->get('nro_ensayos_muestras'); $j++){
                         
                         $answerDuoTrio = new AnswerDuoTrio();
-                    	$answerDuoTrio->id_eleccion_prueba_muestra	  = 22;
+                    	$answerDuoTrio->id_eleccion_prueba_muestra	  = $request->get('id_eleccion_prueba_muestra');
                     	$answerDuoTrio->muestra                       = $request->get('ensayo_id')[$i][$j];
                     	$answerDuoTrio->repeticion                    = $i + 1 ;
                     	$answerDuoTrio->alternativa_uno               = $request->get('muestra1_valores')[$i][$j];
@@ -39,6 +48,14 @@ class DuoTrioController extends Controller
         		        $answerDuoTrio->save();
                     }
                 }
+                
+                    $choiceTestSample =   ChoiceTestSample::where('id_eleccion_prueba_muestra', $request->get('id_eleccion_prueba_muestra'))->first();
+
+                    $fecha = Carbon::now()->format("Ymd_His");
+                    $filename = 'Excel_Duo_Trio_' .$request->get('id_eleccion_prueba_muestra')."_". $fecha . '.xlsx';
+                    $exc = Excel::store(new ExcelDuoTrioExport($request->get('muestra1_valores'),
+                    $request->get('muestra2_valores'),$request->get('igual_p'),$choiceTestSample),  $filename, 'excel');
+        
                     
         	   return $this->success_message('preparation.index', 'creó');
             } catch (\Exception $e) {
@@ -49,7 +66,6 @@ class DuoTrioController extends Controller
     
     public function show($id)
     {
-        //
     }
 
    

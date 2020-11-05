@@ -22,7 +22,8 @@ class OrthogonalController extends Controller
     {
         $fecha = Carbon::now()->format("Ymd_His");
         $filename = 'Excel_45' . $fecha . '.xlsx';
-        $exc = Excel::store(new ExcelDuoTrioExport(), $filename, 'excel');
+        $exc = Excel::store(new ExcelDuoTrioExport(), 
+        $filename, 'excel');
         
         
     }

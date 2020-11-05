@@ -18,7 +18,6 @@ class EvaluationController extends Controller
     public function index()
     {
         $id_usuario = auth()->user()->id_usuario ?? 9;
-
         $evaluation  = Evaluation::where('id_catador', $id_usuario)->where('estado', 1)->with('ChoiceTestSample')->get();
 
         //Situar la evaluacion e id_eleccion
@@ -52,7 +51,7 @@ class EvaluationController extends Controller
     public function store(Request $request)
     {
         try {
-            $answerDuoTrio = AnswerDuoTrio::where('id_eleccion_prueba_muestra', $request->id_eleccion)->get();
+            $answerDuoTrio = AnswerDuoTrio::where('id_eleccion_prueba_muestra', $request->get('id_eleccion'))->get();
 
             foreach ($answerDuoTrio as $adt) {
                 $answer[$adt->repeticion][$adt->muestra] = $adt->respuesta;
@@ -71,20 +70,23 @@ class EvaluationController extends Controller
                 }
 
                 $duoTrioResult =  new DuoTrioResult();
-                $duoTrioResult->id_evaluacion = $request->id_evaluacion;
-                $duoTrioResult->nro_aciertos = $contador_aciertos;
+                $duoTrioResult->id_evaluacion   = $request->get('id_evaluacion');
+                $duoTrioResult->nro_aciertos    = $contador_aciertos;
                 $duoTrioResult->nro_no_aciertos = $contador_no_aciertos;
-                $duoTrioResult->comentario = $request->comentary[$r];
-                $duoTrioResult->repeticion = $r;
+                $duoTrioResult->comentario      = $request->get('comentary')[$r];
+                $duoTrioResult->repeticion      = $r;
 
                 $duoTrioResult->save();
             }
 
-            $update_evaluation = Evaluation::find($request->id_evaluacion);
+            $update_evaluation = Evaluation::find($request->get('id_evaluacion'));
             $update_evaluation->estado = 2;
             $update_evaluation->save();
-            $this->evaluateChoiceTest($request->id_eleccion);
+            
+            $this->evaluateChoiceTest($request->get('id_eleccion'));
+            
             return $this->success_message('evaluation.index', 'guardaron');
+            
         } catch (\Exception $e) {
             return $this->error_message();
         }
@@ -144,6 +146,7 @@ class EvaluationController extends Controller
         $choiceTest = ChoiceTestSample::find($id_eleccion_prueba_muestra);
         $evaluation = Evaluation::where(['id_eleccion_prueba_muestra' => $id_eleccion_prueba_muestra, 'estado' => 2])->get();
         date_default_timezone_set('America/Lima');
+      //  dd($choiceTest);
 
         if ($choiceTest->id_tipo_prueba == 3) {
             $nombrepdf = "Resultado_PerfilDeConsumidores_" . date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s');
