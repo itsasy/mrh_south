@@ -23,8 +23,6 @@ class OrthogonalController extends Controller
         $fecha = Carbon::now()->format("Ymd_His");
         $filename = 'Excel_45' . $fecha . '.xlsx';
         $exc = Excel::store(new ExcelDuoTrioExport(), $filename, 'excel');
-        
-        
     }
 
     //Vista de la tabla ortogonal
@@ -38,56 +36,55 @@ class OrthogonalController extends Controller
 
     //Registro de la tabla ortogonal
 
-    public function store(Request $request){
-         
-         try {
-             
-            $sampleStudyParameters = SampleStudyParameters::where('id_muestra',$request->get('idMuestra'))->get();
+    public function store(Request $request)
+    {
 
-            for ($r = 0; $r < $sampleStudyParameters[0]->Sample->nro_repeticiones + 1; $r++){
-                for ($o = 0; $o < $sampleStudyParameters[0]->Sample->nro_modelos_ortogonales; $o++){
-                    foreach($sampleStudyParameters as $p => $ssp){
-                        
-                        $text  = 'valor_'.$r.'_'.$o.'_'.$ssp->id_muestra_parametros_estudio;
-                        
+        try {
+
+            $sampleStudyParameters = SampleStudyParameters::where('id_muestra', $request->get('idMuestra'))->get();
+
+            for ($r = 0; $r < $sampleStudyParameters[0]->Sample->nro_repeticiones + 1; $r++) {
+                for ($o = 0; $o < $sampleStudyParameters[0]->Sample->nro_modelos_ortogonales; $o++) {
+                    foreach ($sampleStudyParameters as $p => $ssp) {
+
+                        $text  = 'valor_' . $r . '_' . $o . '_' . $ssp->id_muestra_parametros_estudio;
+
                         $dataOrthogonal = new DataOrthogonal();
                         $dataOrthogonal->id_muestra_parametros_estudio = $ssp->id_muestra_parametros_estudio;
                         $dataOrthogonal->bloque                        = $r + 1;
                         $dataOrthogonal->item                          = $o + 1;
-                        
-                        if($request->get($text) != null){
+
+                        if ($request->get($text) != null) {
                             $dataOrthogonal->respuesta            = $request->get($text);
                             $dataOrthogonalExcel[$r][$o][$ssp->id_muestra_parametros_estudio]  = $request->get($text);
-                        }else{
+                        } else {
                             $dataOrthogonal->respuesta            = 0;
                             $dataOrthogonalExcel[$r][$o][$ssp->id_muestra_parametros_estudio]  = 0;
-
                         }
-                        
-                            $dataOrthogonal->save();           
+
+                        $dataOrthogonal->save();
                     }
                 }
             }
-            
+
             $fecha    = Carbon::now()->format("Ymd_His");
-            $filename = 'Excel_'.$request->get('idMuestra').'_' . $fecha . '.xlsx';
-            $exc      = Excel::store(new ExcelOrthogonalExport($dataOrthogonalExcel,$sampleStudyParameters), $filename, 'excel');
-            
+            $filename = 'Excel_' . $request->get('idMuestra') . '_' . $fecha . '.xlsx';
+            $exc      = Excel::store(new ExcelOrthogonalExport($dataOrthogonalExcel, $sampleStudyParameters), $filename, 'excel');
+
             $sample = Sample::find($request->get('idMuestra'));
             $sample->estado_modelos       = 2;
             $sample->codificacion_muestra = $filename;
             $sample->save();
-            
+
             return $this->success_message('preparation.index', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
         }
     }
 
-    public function downloadExcelOrthogonal($filename){
-            $file = public_path()."/excel/".$filename;
-            return response()->download($file);
-     
+    public function downloadExcelOrthogonal($filename)
+    {
+        $file = public_path() . "/excel/" . $filename;
+        return response()->download($file);
     }
-  
 }
