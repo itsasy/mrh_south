@@ -11,6 +11,7 @@ use App\Models\AnswerQda;
 use App\Models\ChoiceTestSample;
 use App\Models\ConsumerProfileResults;
 use PDF;
+use App\Models\Sample;
 
 class EvaluationController extends Controller
 {
@@ -19,7 +20,7 @@ class EvaluationController extends Controller
     {
         $id_usuario = auth()->user()->id_usuario ?? 9;
         $evaluation  = Evaluation::where('id_catador', $id_usuario)->where('estado', 1)->with('ChoiceTestSample')->get();
-
+       
         //Situar la evaluacion e id_eleccion
         return view('Evaluation.index', compact('evaluation'));
     }
@@ -104,12 +105,15 @@ class EvaluationController extends Controller
         }
 
         $update_evaluation = Evaluation::find($request->id_evaluacion);
+        
         $update_evaluation->contador_pc = $update_evaluation->contador_pc + 1;
-        $update_evaluation->save();
+       
 
         if ($update_evaluation->ChoiceTestSample->nro_jueces == $update_evaluation->contador_pc) {
             $this->evaluateChoiceTest($update_evaluation->id_eleccion_prueba_muestra);
+            $update_evaluation->estado = 2;
         }
+         $update_evaluation->save();
 
         return $this->success_message('invited.index', 'guardaron');
         /*  } catch (\Exception $e) {
@@ -144,13 +148,15 @@ class EvaluationController extends Controller
     public function evaluateChoiceTest($id_eleccion_prueba_muestra)
     {
         $choiceTest = ChoiceTestSample::find($id_eleccion_prueba_muestra);
+        $sample = Sample::find($choiceTest->id_muestra);
+
         $evaluation = Evaluation::where(['id_eleccion_prueba_muestra' => $id_eleccion_prueba_muestra, 'estado' => 2])->get();
         date_default_timezone_set('America/Lima');
-      //  dd($choiceTest);
-
+      
+    
         if ($choiceTest->id_tipo_prueba == 3) {
-            $nombrepdf = "Resultado_PerfilDeConsumidores_" . date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s');
-            PDF::loadView('PDF.resultado_perfil-consumidores')->save(public_path() . '/pdf/' . $nombrepdf . '.pdf');
+            $nombrepdf = "Resultado_PerfilDeConsumidores_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+            PDF::loadView('PDF.resultado_perfil-consumidores', compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf );
 
             $choiceTest->pdf_resultados = $nombrepdf;
             $choiceTest->estado         = "EJECUTADA";
@@ -161,18 +167,32 @@ class EvaluationController extends Controller
 
             if ($choiceTest->id_tipo_prueba == 1) {
 
-                $nombrepdf = "Resultado_Duo-Trio_" . date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s');
-                PDF::loadView('PDF.resultado_duo_trio')->save(public_path() . '/pdf/' . $nombrepdf . '.pdf');
+                $nombrepdf = "Resultado_Duo-Trio_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+                PDF::loadView('PDF.resultado_duo_trio', compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf );
             } elseif ($choiceTest->id_tipo_prueba == 2) {
 
-                $nombrepdf = "Resultado_QDA_" . date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s');
-                PDF::loadView('PDF.resultado_qda')->save(public_path() . '/pdf/' . $nombrepdf . '.pdf');
+                $nombrepdf = "Resultado_QDA_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+                PDF::loadView('PDF.resultado_qda', compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf );
             }
 
             $choiceTest->pdf_resultados = $nombrepdf;
             $choiceTest->estado         = "EJECUTADA";
             $choiceTest->save();
         }
+        
+          //Cambiar estado de la muestra por las pruebas y el estado del modelo ortogonal
+           $choiceTestSample       = ChoiceTestSample::where(['id_muestra' => $choiceTest->id_muestra, 'estado' => "EJECUTADA"])->get();
+           $choiceTestSample_count = ChoiceTestSample::select('id_muestra')->where('id_muestra', $choiceTest->id_muestra)->get();
+            
+            if (count($choiceTestSample_count) == count($choiceTestSample) &&  $sample->estado_modelos == 2) {
+                
+               $sample->estado_muestra         = "EJECUTADA";
+               $sample->save();
+                
+            }
+
+      //
+        
     }
     public function show($id)
     {

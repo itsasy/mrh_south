@@ -29,7 +29,7 @@
             <hr class="my-4">
             <div class="text-center">
               <label for="">¿No tienes cuenta?</label>
-              <a href="">Ingreso Libre</a>
+              <a href="{{route('invited.index')}}">Ingreso Libre</a>
             </div>
           </form>
         </div>
