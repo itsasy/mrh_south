@@ -30,7 +30,7 @@ class TestsController extends Controller
 
     public function store(Request $request)
     {
-        try {
+       /*  try { */
             $codigo = $this->randomString();
 
             $dateActual = Carbon::now()->format('Y-m-d H:i:s');
@@ -44,7 +44,7 @@ class TestsController extends Controller
             $sample->humedad                  =  $request->get('humidity');
             $sample->tamanio_grano            =  $request->get('grain_size');
             $sample->responsable              =  $request->get('responsable');
-            $sample->id_usuario               =  session('user')->id_usuario;
+            $sample->id_usuario               =  auth()->user()->id_usuario;
             $sample->nro_parametros_estudio   =  $request->get('study_parameter');
             $sample->nro_modelos_ortogonales  =  $request->get('number_of_models');
             $sample->nro_repeticiones         =  $request->get('number_of_repeats');
@@ -69,9 +69,9 @@ class TestsController extends Controller
             }
 
             return $this->success_message('manageTest', 'creó');
-        } catch (\Exception $e) {
+        /* } catch (\Exception $e) {
             return $this->error_message();
-        }
+        } */
     }
 
     //--- FIN SECCION CREATE SAMPLE ---//
