@@ -28,10 +28,7 @@ class PreparationController extends Controller
         $type = $this->types_permited($request->type);
 
         $id_type = $this->id_type_sample($request->type);
-
         $samples = $this->samples($request->preparation);
-
-
         $tasters = $this->tasters();
 
 
@@ -51,6 +48,7 @@ class PreparationController extends Controller
                 'id_muestra' => $request->id_muestra,
                 'id_tipo_prueba' => $request->id_tipo_prueba
             ])->first();
+            $sample = Sample::find($choiceTest->id_muestra);
 
             $choiceTest->nro_jueces = $request->get('id_tipo_prueba') == 3 ? $request->get('nro_jueces') : count($request->get('catadores_selected'));
             $choiceTest->fecha_inicio = Carbon::parse($request->evaluation_start_date)->format('Y-m-d H:m:s');
@@ -61,6 +59,17 @@ class PreparationController extends Controller
             $choiceTest->nro_atributos = $request->get('number_of_atributes');
             $choiceTest->estado = "ASIGNADA";
             $choiceTest->save();
+            
+            //Cambiar estado de la muestra por las pruebas y el estado del modelo ortogonal
+           $choiceTestSample       = ChoiceTestSample::where(['id_muestra' => $choiceTest->id_muestra, 'estado' => "ASIGNADA"])->get();
+           $choiceTestSample_count = ChoiceTestSample::select('id_muestra')->where('id_muestra', $choiceTest->id_muestra)->get();
+            
+            if (count($choiceTestSample_count) == count($choiceTestSample) &&  $sample->estado_modelos == 2) {
+                
+               $sample->estado_muestra         = "ASIGNADA";
+               $sample->save();
+                
+            }
 
             /* Todas las pruebas excepto Dúo Trío */
             if ($request->get('id_tipo_prueba')  != 1) {
@@ -93,7 +102,13 @@ class PreparationController extends Controller
                 $evaluation->fecha_fin = $request->evaluation_end_date;
                 $evaluation->save();
             }
-            return $this->success_message('preparation.index', 'creó');
+            
+            if ($request->get('id_tipo_prueba')  == 1) {
+
+                return redirect()->route('duotrio.index')->with(['id_eleccion_prueba_muestra' => $choiceTest->id_eleccion_prueba_muestra]);
+            }else{
+                return $this->success_message('preparation.index', 'creó');
+            }
         } catch (\Exception $e) {
             return $this->error_message();
         }
@@ -137,7 +152,7 @@ class PreparationController extends Controller
 
     public function tasters()
     {
-        return User::where('id_roles', 2)->Orderby('id_usuario', 'asc')->get(['id_usuario', 'nombres', 'apellidos']);
+        return User::where('id_roles' ,2)->where('id_usuario', '<>', 9)->Orderby('id_usuario', 'asc')->get(['id_usuario', 'nombres', 'apellidos']);
     }
 
     public function samples($id)

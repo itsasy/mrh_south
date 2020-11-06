@@ -15,16 +15,15 @@ use App\Models\DataOrthogonal;
 use App\Models\Sample;
 use App\Models\SampleStudyParameters;
 use Carbon\Carbon;
-
+use PDF;
 class OrthogonalController extends Controller
 {
     public function index()
     {
-        $fecha = Carbon::now()->format("Ymd_His");
-        $filename = 'Excel_45' . $fecha . '.xlsx';
-        $exc = Excel::store(new ExcelDuoTrioExport(), $filename, 'excel');
-        
-        
+        $sample = Sample::find("TLL244");
+        $nombrepdf = "Prueba_" . date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+        PDF::loadView('PDF.resultado_qda',compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf );
+      
     }
 
     //Vista de la tabla ortogonal

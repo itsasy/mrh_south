@@ -15,7 +15,7 @@
                         <tr>
                             <td colspan="8"
                                 style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #45B32D;">
-                                Resuestas de la prueba --CODIGO --
+                                Resuestas de la prueba Dúo - Trío
                             </td>
 
                         </tr>
@@ -30,7 +30,7 @@
                                 style="font-weight: bold;padding: 30px !important;font-size: 12px !important;text-align: left; ">
                                 Código de la muestra
                             </td>
-                            <td colspan="6" style="text-align: center;"> --CODIGO --
+                            <td colspan="6" style="text-align: center;"> {{$choiceTestSample->id_muestra}}
                             </td>
 
                         </tr>
@@ -39,16 +39,16 @@
                                 style="font-weight: bold;padding: 30px !important;font-size: 12px !important;  text-align: left; ">
                                 Tipo de muestra
                             </td>
-                            <td colspan="6" style="text-align: center;"> Duo - Trio
+                            <td colspan="6" style="text-align: center;"> Dúo - Trío
                             </td>
 
                         </tr>
                         <tr>
                             <td colspan="2"
                                 style="font-weight: bold;padding: 30px !important;font-size: 12px !important; text-align: left; ">
-                                Productor
+                                Encargado
                             </td>
-                            <td colspan="6" style="text-align: center;"> --CODIGO --
+                            <td colspan="6" style="text-align: center;"> {{$choiceTestSample->Sample->responsable}}
                             </td>
 
                         </tr>
@@ -62,14 +62,9 @@
                     </thead>
 
                     <tbody>
-                        @php
-
-                        $contador = 0;
-
-                        @endphp
-
+                      
                         //NUMERO DE REPETICIONES
-                        @for($nRepeticion = 0; $nRepeticion < 4; $nRepeticion++) <tr>
+                        @for($nRepeticion = 0; $nRepeticion < $choiceTestSample->nro_repeticiones; $nRepeticion++) <tr>
                             </tr>
 
                             <tr>
@@ -96,31 +91,27 @@
                             </tr>
 
                             //NUMERO DE MUESTRAS
-                            @for($nmuestras = 0+$contador; $nmuestras < 4+$contador; $nmuestras++) <tr>
+                            @for($nmuestras = 0; $nmuestras < $choiceTestSample->nro_ensayos_muestras; $nmuestras++) <tr>
 
                                 <td rowspan="1"
                                     style=" font-size: 10px !important; width: 10px; text-align: center; border: 5px solid #878783; background-color: #EFEDEC">
-                                    <p>--CODIGO --</p>
+                                    <p>{{$nmuestras+1}}</p>
                                 </td>
 
                                 <td rowspan="1" colspan="1"
                                     style=" font-size: 10px !important; width: 18px; text-align: center; border: 5px solid #878783;">
-                                    <p>--CODIGO -- - --CODIGO -- </p>
+                                    <p>{{$muestra1_valores[$nRepeticion][$nmuestras]}} - {{$muestra2_valores[$nRepeticion][$nmuestras]}}</p>
 
                                 </td>
                                 <td rowspan="1"
                                     style=" font-size: 10px !important; width: 15px; text-align: center; border: 5px solid #878783;">
-                                    <p>--CODIGO --</p>
+                                    <p>{{$igual_p[$nRepeticion][$nmuestras]}}</p>
 
                                 </td>
                                 </tr>
 
                                 @endfor
-                                @php
-
-                                $contador = $contador+4;
-
-                                @endphp
+                              
                                 @endfor
 
                     </tbody>
