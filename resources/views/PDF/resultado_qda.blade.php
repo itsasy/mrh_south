@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  
-       <meta charset="utf-8">
-        <link rel="stylesheet" href="{{asset('css/pure-min.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/bootstrap-pdf.min.css')}}"/>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{asset('css/pure-min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/bootstrap-pdf.min.css')}}"/>
     <style>
-        table {
+      table {
             border-collapse: collapse;
             border-spacing: 0px;
             padding: 15px !important;
@@ -48,7 +48,7 @@
         .form-control {
             border: 0px;
             font-size: 15px !important;
-            height: 20px;
+            height: 30px;
             margin: 15px 0px;
             font-weight: 400;
             background-color: #1d7907;
@@ -103,55 +103,146 @@
           text-align: center;
           
         }
+    
+.radar-chart .level {
+  stroke: grey;
+  stroke-width: 0.5;
+}
+
+.radar-chart .axis line {
+  stroke: grey;
+  stroke-width: 1;
+}
+.radar-chart .axis .legend {
+  font-family: times-new-roman-font !important;
+  font-size: 13px;
+}
+.point-value {
+  font-size: 13px;
+  font-family: times-new-roman-font !important;
+}
+.radar-chart .axis .legend.top {
+  dy:1em;
+}
+.radar-chart .axis .legend.left {
+  text-anchor: start;
+}
+.radar-chart .axis .legend.middle {
+  text-anchor: middle;
+}
+.radar-chart .axis .legend.right {
+  text-anchor: end;
+}
+
+.radar-chart .tooltip {
+  font-family: "times new roman";
+  font-size: 13px;
+  transition: opacity 200ms;
+  opacity: 0;
+}
+.radar-chart .tooltip.visible {
+  opacity: 1;
+}
+
+/* area transition when hovering */
+.radar-chart .area {
+  stroke-width: 2;
+  fill-opacity: 0.5;
+}
+.radar-chart.focus .area {
+  fill-opacity: 0.1;
+}
+.radar-chart.focus .area.focused {
+  fill-opacity: 0.7;
+}
+
+.radar-chart .circle {
+  fill-opacity: 0.9;
+}
+
+/* transitions */
+.radar-chart .area, .radar-chart .circle {
+  transition: opacity 300ms, fill-opacity 200ms;
+  opacity: 1;
+}
+.radar-chart .d3-enter, .radar-chart .d3-exit {
+  opacity: 0;
+}
     </style>
+    <script src="{{asset('js/d3.v3.js')}}"></script>
+    <script src="{{asset('js/radar-chart.js')}}"></script>
+   
+<script>
+          RadarChart.defaultConfig.color = function() {};
+          RadarChart.defaultConfig.radius = 2;
+          RadarChart.defaultConfig.w = 350;
+          RadarChart.defaultConfig.h = 350;
+
+        
+    </script>
 </head>
 
 <body class='body-custom'>
- <div class="header-pdf" style="padding: 15px !important;">
-        <h1 class="h2-titulo"> RESULTADO DEL ANÁLISIS - Nº 15</h1>
+  
+  <script>
+      const data_js = <?php echo json_encode($data_general); ?>;
+      const data_js_inicial = <?php echo json_encode($data_general_inicial); ?>;
+      
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+     </script>
+  
+    <div class="header-pdf" style="padding: 15px !important;">
+        <h1 class="h2-titulo"> RESULTADO DEL ANÁLISIS - Nº {{$choiceTest->id_eleccion_prueba_muestra}}</h1>
         <div class="row">
 
             <div class="col-12">
                 <table class="table">
                     <tr>
-                        <td colspan="4" class ="border-fondo">INFORMACIÓN DE LA PRUEBA </td>
+                        <td colspan="4" class="border-fondo">INFORMACIÓN DE LA PRUEBA </td>
                     </tr>
                     <tr>
                         <td><strong>Código:</strong></td>
-                        <td>{{$sample->id_muestra}}</td>
+                        <td>{{$choiceTest->Sample->id_muestra}}</td>
                         <td><strong>Fecha:</strong></td>
-                        <td>{{\Carbon\Carbon::parse($sample->fecha_registro)->format('d-m-Y')}}</td>
+                        <td>{{\Carbon\Carbon::parse($choiceTest->Sample->fecha_registro)->format('d-m-Y')}}</td>
                     </tr>
                     <tr>
                         <td><strong>Tipo de prueba:</strong></td>
                         <td>QDA</td>
                         <td><strong>Hora:</strong></td>
-                        <td>{{\Carbon\Carbon::parse($sample->fecha_registro)->format('H:m a')}}</td>
+                        <td>{{\Carbon\Carbon::parse($choiceTest->Sample->fecha_registro)->format('H:m a')}}</td>
                     </tr>
                     <tr>
-                          <td colspan="4" class ="border-fondo">INFORMACIÓN DE LA MUESTRA </td>
+                        <td colspan="4" class="border-fondo">INFORMACIÓN DE LA MUESTRA </td>
 
                     </tr>
-                     <tr>
+                    <tr>
                         <td><strong>Nombre de muestra:</strong></td>
-                        <td>{{$sample->nombre_muestra}}</td>
+                        <td>{{$choiceTest->Sample->nombre_muestra}}</td>
                         <td><strong>Variedad:</strong></td>
-                        <td>{{$sample->variedad}}</td>
+                        <td>{{$choiceTest->Sample->variedad}}</td>
                     </tr>
                     <tr>
                         <td><strong>Procedencia:</strong></td>
-                        <td>{{$sample->procedencia}}</td>
+                        <td>{{$choiceTest->Sample->procedencia}}</td>
                         <td><strong>Humedad:</strong></td>
-                        <td>{{$sample->humedad}}</td>
-                    </tr>
-                     <tr>
-                        <td><strong>Tamaño de grano:</strong></td>
-                        <td>{{$sample->tamanio_grano}}</td>
-                        <td><strong>Responsable:</strong></td>
-                        <td>{{$sample->responsable}}</td>
+                        <td>{{$choiceTest->Sample->humedad}}</td>
                     </tr>
                     <tr>
-                          <td colspan="4" class ="border-fondo">MODELO ORTOGONAL</td>
+                        <td><strong>Tamaño de grano:</strong></td>
+                        <td>{{$choiceTest->Sample->tamanio_grano}}</td>
+                        <td><strong>Responsable:</strong></td>
+                        <td>{{$choiceTest->Sample->responsable}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="border-fondo">MODELO ORTOGONAL</td>
 
                     </tr>
                 </table>
@@ -159,190 +250,93 @@
 
         </div>
     </div>
-   
- 
-      <div class="row space">
+
+
+    <div class="row space">
         <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>I. Planteamiento de la Hipótesis:</p>
-          </div>
+            <div class="col-xs-12 data1">
+                <p>I. Promedios y desviación estándar:</p>
+            </div>
         </div>
-      </div>
-      <div class="row space">
-        <div class="col-xs-12 data11">
+    </div>
 
-          <p>Hp: No hay diferencia entre las muestras.</p>
-          <p>Ha: Si exiten diferencias entre las muestras.</p>
 
+    <div class="header-pdf" style="padding: 15px !important;">
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <tr>
+                        <td colspan=1 style="font-weight: bold;">DESCRIPTOR</td>
+                        <td colspan={{$choiceTest->nro_jueces + 2}} style="font-weight: bold;">CATADORES</td>
+                    </tr>
+
+                    <tr style="font-weight: bold;">
+                        <td>{{""}}</td>
+                        @for ($i = 0; $i < $choiceTest->nro_jueces; $i++)
+                            <td>{{$i+1}}</td>
+                            @endfor
+                            <td>{{"x̄"}}</td>
+                            <td>{{"D.S"}}</td>
+                    </tr>
+
+                    @foreach($detailAttributes as $element=>$da)
+                    <tr>
+                        <td colspan="1">{{$da->nombre_atributo}}</td>
+                        @foreach($evaluation as $index=>$eval)
+
+                        <td colspan="1">{{$resultadosQda[$da->id_detalle_atributos][$eval->id_catador]}}</td>
+                        @endforeach
+                        <td colspan="1">{{$sumatoria[$da->id_detalle_atributos]}}</td>
+                        <td colspan="1">{{$desviacion_estandar[$da->id_detalle_atributos]}}</td>
+                    </tr>
+                    @endforeach
+
+                </table>
+            </div>
 
         </div>
-      </div>
-      <div class="row space">
+    </div>
+
+
+    <div class="row space">
         <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>II. Elección del nivel de significación ( α ):</p>
-          </div>
+            <div class="col-xs-12 data1">
+                <p>II. Ángulos de separación por cada pares de desciptores:</p>
+            </div>
         </div>
-      </div>
-      <div class="row space">
+    </div>
+    <div class="row space">
         <div class="col-xs-12 data11">
-          <p>El nivel de significación asignado para esta prueba es: <b>0,05</b>.</p>
+            <p>El nivel de significación asignado para esta prueba es: <b>0,05</b>.</p>
         </div>
-      </div>
-      <div class="row space">
+    </div>
+    <div class="row space">
         <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>III. Tipo de prueba de la hipótesis:</p>
-          </div>
+            <div class="col-xs-12 data1">
+                <p>III. Gráfica de promedios por descriptor:</p>
+            </div>
         </div>
-      </div>
-      <div class="row space">
-        <div class="col-xs-12 data11">
-          <p>El tipo de prueba es </p>
+    </div>
+    <br>
+    <div class="contenedor">
+        <div class="chart-container"></div>
+    </div>
 
-        </div>
-      </div>
-      <div class="row space">
-        <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>IV. Suposiciones:</p>
-          </div>
-        </div>
-      </div>
-      <div class="row space">
-        <div class="col-xs-12 data11">
-          <p>Los datos siguen una distribución Dúo - Trío normal</p>
-          <p>Las muestras son elegidas aleatoriamente (al azar).</p>
-        </div>
-      </div>
+    <script>
+        var color = getRandomColor();
+          var name = '.chart-container';
+          var data = [
+            data_js_inicial[0],
+            data_js[0]
+          ];
+          RadarChart.draw(name, data);
+          document.getElementsByClassName("grafica-inicial")[0].setAttribute("style","fill: #E6E6E6 !important; opacity: .5;");
+          document.getElementsByClassName("circle-group grafica-inicial")[0].setAttribute("style","opacity: .4");
+          
+          document.getElementsByClassName("grafica-promedio")[0].setAttribute("style","fill:"+ color +"!important; ");
 
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    </script>
 
-
-      <div class="row space">
-        <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>V. Criterios de decisión:</p>
-          </div>
-        </div>
-      </div>
-      <div class="row space">
-        <div class="col-xs-12 data11">
-
-          <p>Se acepta Hp si Tcal <= Ttab (1-α, n -1) </p> <p>Se rechaza Hp si X<sup>2</sup>cal > X<sup>2</sup>tab</p>
-
-
-          <p>Se rechaza Hp si T<sub>2</sub> > F<sub>(1-α, k -1, (n-1)(k-1))</sub></p>
-
-          <p>Se rechaza Hp si X<sup>2</sup>cal > X<sup>2</sup>tab</p>
-
-        </div>
-      </div>
-      <div class="row space">
-        <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>VI. Desarrollo de la prueba estadística:</p>
-          </div>
-        </div>
-      </div>
-      <div class="row space">
-        <div class="col-xs-12 data11">
-          <p> Número de respuestas acertadas ( X ): <b>5</b></p>
-          <p>Número de repeticiones ( r ): <b>5</b></p>
-          <p>Número de muestras ( m ): <b>5</b></p>
-          <p>Número de jueces ( j ): <b>5</b></p>
-          <p>Nivel de significación ( α ): <b>5</b></p>
-          <p>Probabilidad de no ocurrencia ( q ): <b>5</b></p>
-          <p>Probabilidad de no ocurrencia ( q ): <b>5</b></p>
-
-
-
-
-          <p>Número de pruebas realizadas totales ( n ): <b>7 </b></p>
-          <p> Número de respuestas no acertadas ( X2 ): <b>7</b></p>
-
-          <p>Número de muestras ( k ): <b>7</b></p>
-          <p>Número de jueces ( n ): <b>7</b></p>
-          <p>Nivel de significación ( α ): <b>7</b></p>
-          <p>Cálculo de F cal: F<sub>(1-α, k -1, (n-1)(k-1))</sub> = F<sub>7</sub> = 2,78 </p>
-          <p>Cálculo de R:</p>
-
-          <p>Cálculo del estadístico correspondiente:</p>
-          <p>A2 = 5 </p>
-          <p>B2 = 5 </p>
-          <p>T2 = 5</p>
-
-        </div>
-      </div>
-      <br>
-      <div class="row space">
-        <div class="col-xs-12 data11">
-
-          <p>Grados de Libertad (n-1) <b> 5</b></p>
-          <p>Media ( M = n * p ): <b> 5</b></p>
-          <p>Desviación estandar ( S = n * p * q ) <b> 5</b></p>
-          <p> Cálculo del valor de Ttab: <b> 21.0</b></p>
-          <p> Cálculo del valor de Tcal: <b> 7</b></p>
-          <br>
-          <p> Donde:</p>
-          <p> X = Número total de aciertos.</p>
-          <p> n = Número total de ensayos.</p>
-          <p> q = Probabilidad de la no ocurrencia del evento, para esta prueba es de 0,5.</p>
-
-        </div>
-      </div>
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <div class="row space">
-        <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>VII. Conclusiones:</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row space">
-        <div class="col-xs-12 data11">
-
-          <p>Se acepta Hp si Tcal <= 2.01</p> <p>Se acepta Hp si x<sup>2</sup>cal <= 2.01</p> <p>Se rechaza Hp si
-                x<sup>2</sup>cal > 2.01</p>
-          <p>Se acepta Hp si T<sub>2</sub> > F<sub>2</sub> = 2,78</p>
-
-        </div>
-      </div>
-
-      <div class="row space">
-        <div class="form-control">
-          <div class="col-xs-12 data1">
-            <p>VIII. Anexos:</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row space">
-        <div class="col-xs-12 data11">
-          Estos comentarios fueron mencionados por los catadores en el desarrollo de la prueba.
-          <br />
-          <br />
-        </div>
-      </div>
-
-   
 
 </body>
 

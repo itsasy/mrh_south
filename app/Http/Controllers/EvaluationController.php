@@ -10,6 +10,7 @@ use App\Models\DetailAttributes;
 use App\Models\AnswerQda;
 use App\Models\ChoiceTestSample;
 use App\Models\ConsumerProfileResults;
+use MathPHP\Probability\Distribution\Table\ChiSquared;
 use PDF;
 use App\Models\Sample;
 
@@ -101,6 +102,8 @@ class EvaluationController extends Controller
             $consumerProfileResults =  new ConsumerProfileResults();
             $consumerProfileResults->id_evaluacion = $request->get('id_evaluacion');
             $consumerProfileResults->respuesta = $respuesta;
+            $consumerProfileResults->id_detalle_atributos =  $request->get('atributos')[$key];
+
             $consumerProfileResults->save();
         }
 
@@ -148,37 +151,50 @@ class EvaluationController extends Controller
     public function evaluateChoiceTest($id_eleccion_prueba_muestra)
     {
         $choiceTest = ChoiceTestSample::find($id_eleccion_prueba_muestra);
-        $sample = Sample::find($choiceTest->id_muestra);
+        $sample     = Sample::find($choiceTest->id_muestra);
 
         $evaluation = Evaluation::where(['id_eleccion_prueba_muestra' => $id_eleccion_prueba_muestra, 'estado' => 2])->get();
         date_default_timezone_set('America/Lima');
       
     
-        if ($choiceTest->id_tipo_prueba == 3) {
-            $nombrepdf = "Resultado_PerfilDeConsumidores_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
-            PDF::loadView('PDF.resultado_perfil-consumidores', compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf );
+        if ($choiceTest->id_tipo_prueba == 3) { //Perfil de consumidores
+
+            $nombrepdf = $this->pdf_perfil_consumidores($choiceTest);
 
             $choiceTest->pdf_resultados = $nombrepdf;
             $choiceTest->estado         = "EJECUTADA";
             $choiceTest->save();
-        }
+            
+        }else{
+            
+          if ($choiceTest->nro_jueces == count($evaluation)) {
 
-        if ($choiceTest->nro_jueces == count($evaluation)) {
+            if ($choiceTest->id_tipo_prueba == 1) { //Duo Trio
 
-            if ($choiceTest->id_tipo_prueba == 1) {
-
-                $nombrepdf = "Resultado_Duo-Trio_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
-                PDF::loadView('PDF.resultado_duo_trio', compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf );
-            } elseif ($choiceTest->id_tipo_prueba == 2) {
-
-                $nombrepdf = "Resultado_QDA_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
-                PDF::loadView('PDF.resultado_qda', compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf );
+                 $numero_acertadas = 0;
+                   foreach($evaluation as $index => $evaluations){
+                        $duoTrioResult = DuoTrioResult::where('id_evaluacion', $evaluations->id_evaluacion)->get(); 
+                        $numero_acertadas = collect($duoTrioResult)->sum('nro_aciertos') + $numero_acertadas;
+                   }
+            
+                    $p = sprintf('%1.3f', $choiceTest->nivel_significacion);
+                    //1 == Grados de libertad  $p = corregir puede que ese no sea el valor
+                    $x_tabular = ChiSquared::CHI_SQUARED_SCORES[1][$p];
+                   
+                    $nombrepdf = "Resultado_Duo-Trio_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+                    PDF::loadView('PDF.resultado_duo_trio', compact('choiceTest','numero_acertadas','x_tabular'))->save(public_path() . '/pdf/' . $nombrepdf );
+                    
+            }elseif ($choiceTest->id_tipo_prueba == 2) { //QDA
+              $nombrepdf  =  $this->pdf_qda($choiceTest,$evaluation);
             }
 
             $choiceTest->pdf_resultados = $nombrepdf;
             $choiceTest->estado         = "EJECUTADA";
             $choiceTest->save();
+            }
         }
+
+       
         
           //Cambiar estado de la muestra por las pruebas y el estado del modelo ortogonal
            $choiceTestSample       = ChoiceTestSample::where(['id_muestra' => $choiceTest->id_muestra, 'estado' => "EJECUTADA"])->get();
@@ -194,6 +210,146 @@ class EvaluationController extends Controller
       //
         
     }
+    
+    public function pdf_qda($choiceTest,$evaluation){
+        
+        $data_general = array();
+        $data_general_inicial = array();
+        
+        $detailAttributes = DetailAttributes::where('id_eleccion_prueba_muestra', $choiceTest->id_eleccion_prueba_muestra)->get();        
+
+      //Obtener la sumatoria y desviacion estandar de cada atributo
+            foreach($detailAttributes as $atributo => $da){
+                
+               $suma = 0;
+               $resultadoQda = AnswerQda::where('id_detalle_atributos',$da->id_detalle_atributos)->orderByRaw("id_detalle_atributos ASC")->get();    
+                
+                foreach($resultadoQda as $resultado => $rpta){
+                     $resultadosQda[$rpta->id_detalle_atributos][$rpta->Evaluation->id_catador] = $rpta->respuesta;
+                     $suma = $rpta->respuesta+$suma;
+                     $array_desv_standar[$resultado] = $rpta->respuesta ;
+
+                }
+                
+                $sumatoria[$da->id_detalle_atributos] = round($suma/$evaluation->count(),2);
+                $desviacion_estandar[$da->id_detalle_atributos] = $this->Stand_Desviation($array_desv_standar) ; 
+                
+                $data[$atributo] = ["axis" => $da->nombre_atributo, "value" => floatval($sumatoria[$da->id_detalle_atributos])];
+                $radar_inicial[$atributo] = ["axis" => $da->nombre_atributo, "value" => floatval(10)];
+
+            }
+            
+              $data = array( "className" => "grafica-promedio" , "axes" => $data);
+              $data_inicial = array( "className" => "grafica-inicial" , "axes" => $radar_inicial);
+
+              array_push($data_general, $data);
+              array_push($data_general_inicial, $data_inicial);
+
+
+        $nombrepdf = "Resultado_QDA_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+        PDF::loadView('PDF.resultado_qda', compact('choiceTest','detailAttributes','resultadosQda','evaluation','sumatoria','desviacion_estandar','data_general','data_general_inicial'))->save(public_path() . '/pdf/' . $nombrepdf );
+   
+        return $nombrepdf;
+        
+    }
+    
+    function pdf_perfil_consumidores($choiceTest){
+     //Verificar si el numero de jueces es par o impar
+            $evaluation       = Evaluation::where('id_eleccion_prueba_muestra', $choiceTest->id_eleccion_prueba_muestra)->get(); 
+            $detailAttributes = DetailAttributes::where('id_eleccion_prueba_muestra', $choiceTest->id_eleccion_prueba_muestra)->get(); 
+
+        if( $choiceTest->nro_jueces % 5 == 0){
+            $valor =   intval($choiceTest->nro_jueces / 5) - 1;  //24.2 => 24
+            $tipo  =   "par";
+            $valor_nro_jueces = 5;
+
+        }else{
+          
+            $valor =   intval($choiceTest->nro_jueces / 5);  //24.2 => 24
+            $tipo  =   "impar";
+            $valor_nro_jueces = $choiceTest->nro_jueces - $valor * 5;   //121-120 = 1
+        }
+        
+        foreach($detailAttributes as $atributo => $da){
+            $consumerProfileResults    = ConsumerProfileResults::where(['id_evaluacion' => $evaluation[0]->id_evaluacion, 'id_detalle_atributos' => $da->id_detalle_atributos])->get();
+
+            //Calculo de los promedios
+            for($i = 0; $i < ($valor + 1) ; $i++){
+                    
+               $suma = 0;
+               if($i == $valor && $tipo == "impar"){//04  14 24 34 44
+                   $num = $valor_nro_jueces ; //5
+
+                   for($j = $i*5  ; $j < $i*5 +$valor_nro_jueces ; $j++){
+                   
+                      $suma = $suma + $consumerProfileResults[$j]->respuesta;
+                   }
+               
+               }else{
+                       $num = 5;
+    
+                        for($j = $i* $num ; $j < ($i+1) * $num; $j++){
+                        
+                           $suma = $suma + $consumerProfileResults[$j]->respuesta;
+                            
+                        }
+                    
+                    }
+               ///4*1
+              
+              $sumatoria_inicial[$atributo][$i]=round($suma/$num,2); 
+            }
+            
+              //SUMATORIO DE LOS PROMEDIOS
+             
+                 for ($SP = 0; $SP < count($sumatoria_inicial[$atributo]) ; $SP++) {
+                     
+                     if($SP == 0) {
+                         $sumatoria_promedios[$SP] = $sumatoria_inicial[$atributo][$SP] ;
+                     }else{
+                         $sumatoria_promedios[$SP] = ($sumatoria_promedios[$SP-1] + $sumatoria_inicial[$atributo][$SP])/2;
+                     }
+          
+                    
+                  $sumatoria_promedios_final[$SP]= round($sumatoria_promedios[$SP],2);
+                  
+                 }
+
+            asort($sumatoria_promedios_final);
+
+            $cont = 0;
+            foreach($sumatoria_promedios_final as $in => $SP){
+                           
+                $sumatoria_promedios_ordenado[$atributo][$cont] = $SP;
+                $cont++;
+          
+          }
+          
+        }
+        
+        $datos_graficos_generales = $this->crea_puntos_graficos($sumatoria_promedios_ordenado, $detailAttributes) ; 
+
+        //dd($datos_graficos_generales);
+      
+        $nombrepdf = "Resultado_PerfilDeConsumidores_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+        PDF::loadView('PDF.resultado_perfil-consumidores', compact('choiceTest','datos_graficos_generales'))->save(public_path() . '/pdf/' . $nombrepdf );
+        
+        return $nombrepdf;
+    }
+    
+    function crea_puntos_graficos($sumatoria_promedios_ordenado , $detailAttributes){
+        
+           for($i = 0 ; $i <count($sumatoria_promedios_ordenado);$i++){
+             for($m = 0 ; $m < count($sumatoria_promedios_ordenado[$i]);$m++){
+                $lineal_inicial[$m] = ["x" => ($m+1)*5, "y" => $sumatoria_promedios_ordenado[$i][$m]];
+             }
+             $lineal_final[$i] = ["name" => $detailAttributes[$i]->nombre_atributo, "values" =>$lineal_inicial];
+
+        }
+        return $lineal_final;
+  
+    }
+   
     public function show($id)
     {
         //
@@ -245,5 +401,20 @@ class EvaluationController extends Controller
         }
 
         return in_array($type, $types) ? $type : abort(404);
+    }
+    
+    function Stand_Desviation($arr)  { 
+
+       $num_of_elements = count($arr); 
+       $variance = 0.0; 
+       $average = array_sum($arr)/$num_of_elements; 
+       
+       foreach($arr as $i) 
+       { 
+           $variance += pow(($i - $average), 2); 
+       } 
+       
+       return round((float)sqrt($variance/($num_of_elements-1)),3); 
+            
     }
 }

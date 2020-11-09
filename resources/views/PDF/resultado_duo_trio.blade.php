@@ -48,7 +48,7 @@
         .form-control {
             border: 0px;
             font-size: 15px !important;
-            height: 20px;
+            height: 30px;
             margin: 15px 0px;
             font-weight: 400;
             background-color: #1d7907;
@@ -109,50 +109,50 @@
 <body>
 
     <div class="header-pdf" style="padding: 15px !important;">
-        <h1 class="h2-titulo"> RESULTADO DEL ANÁLISIS - Nº 15</h1>
+        <h1 class="h2-titulo"> RESULTADO DEL ANÁLISIS - Nº {{$choiceTest->id_eleccion_prueba_muestra}}</h1>
         <div class="row">
 
-            <div class="col-12">
+              <div class="col-12">
                 <table class="table">
                     <tr>
-                        <td colspan="4" class ="border-fondo">INFORMACIÓN DE LA PRUEBA </td>
+                        <td colspan="4" class="border-fondo">INFORMACIÓN DE LA PRUEBA </td>
                     </tr>
                     <tr>
                         <td><strong>Código:</strong></td>
-                        <td>{{$sample->id_muestra}}</td>
+                        <td>{{$choiceTest->Sample->id_muestra}}</td>
                         <td><strong>Fecha:</strong></td>
-                        <td>{{\Carbon\Carbon::parse($sample->fecha_registro)->format('d-m-Y')}}</td>
+                        <td>{{\Carbon\Carbon::parse($choiceTest->Sample->fecha_registro)->format('d-m-Y')}}</td>
                     </tr>
                     <tr>
                         <td><strong>Tipo de prueba:</strong></td>
                         <td>Dúo - Trío</td>
                         <td><strong>Hora:</strong></td>
-                        <td>{{\Carbon\Carbon::parse($sample->fecha_registro)->format('H:m a')}}</td>
+                        <td>{{\Carbon\Carbon::parse($choiceTest->Sample->fecha_registro)->format('H:m a')}}</td>
                     </tr>
                     <tr>
-                          <td colspan="4" class ="border-fondo">INFORMACIÓN DE LA MUESTRA </td>
+                        <td colspan="4" class="border-fondo">INFORMACIÓN DE LA MUESTRA </td>
 
                     </tr>
                     <tr>
                         <td><strong>Nombre de muestra:</strong></td>
-                        <td>{{$sample->nombre_muestra}}</td>
+                        <td>{{$choiceTest->Sample->nombre_muestra}}</td>
                         <td><strong>Variedad:</strong></td>
-                        <td>{{$sample->variedad}}</td>
+                        <td>{{$choiceTest->Sample->variedad}}</td>
                     </tr>
                     <tr>
                         <td><strong>Procedencia:</strong></td>
-                        <td>{{$sample->procedencia}}</td>
+                        <td>{{$choiceTest->Sample->procedencia}}</td>
                         <td><strong>Humedad:</strong></td>
-                        <td>{{$sample->humedad}}</td>
-                    </tr>
-                     <tr>
-                        <td><strong>Tamaño de grano:</strong></td>
-                        <td>{{$sample->tamanio_grano}}</td>
-                        <td><strong>Responsable:</strong></td>
-                        <td>{{$sample->responsable}}</td>
+                        <td>{{$choiceTest->Sample->humedad}}</td>
                     </tr>
                     <tr>
-                          <td colspan="4" class ="border-fondo">MODELO ORTOGONAL</td>
+                        <td><strong>Tamaño de grano:</strong></td>
+                        <td>{{$choiceTest->Sample->tamanio_grano}}</td>
+                        <td><strong>Responsable:</strong></td>
+                        <td>{{$choiceTest->Sample->responsable}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="border-fondo">MODELO ORTOGONAL</td>
 
                     </tr>
                 </table>
@@ -160,9 +160,11 @@
 
         </div>
     </div>
+   
+    <br />
+    <br />
 
-
-    <div class="row space">
+     <div class="row space">
         <div class="form-control">
             <div class="col-xs-12 data1">
                 <p>I. Planteamiento de la Hipótesis:</p>
@@ -172,8 +174,8 @@
     <div class="row space">
         <div class="col-xs-12 data11 ">
 
-            <p>Hp: No hay diferencia entre las muestras.</p>
-            <p>Ha: Si exiten diferencias entre las muestras.</p>
+            <p>Hp: Las k muestras relacionadas han sido extraídas de poblaciones idénticas o todos los tratamientos tienen idénticos efectos.</p>
+            <p>Ha: Las k muestras relacionadas no han sido extraídas de poblaciones idénticas o no todos los tratamientos tienen idénticos efectos.</p>
 
 
         </div>
@@ -187,19 +189,19 @@
     </div>
     <div class="row space">
         <div class="col-xs-12 data11">
-            <p>El nivel de significación asignado para esta prueba es: <b>0,05</b>.</p>
+            <p>El nivel de significación asignado para esta prueba es: <b>{{$choiceTest->nivel_significacion}}</b>.</p>
         </div>
     </div>
     <div class="row space">
         <div class="form-control">
             <div class="col-xs-12 data1 ">
-                <p>III. Tipo de prueba de la hipótesis 2:</p>
+                <p>III. Tipo de prueba de la hipótesis:</p>
             </div>
         </div>
     </div>
     <div class="row space">
         <div class="col-xs-12 data11">
-            <p>El tipo de prueba es </p>
+            <p>El tipo de prueba es Dúo - Trío</p>
 
         </div>
     </div>
@@ -212,20 +214,16 @@
     </div>
     <div class="row space">
         <div class="col-xs-12 data11">
-            <p>Los datos siguen una distribución Dúo - Trío normal</p>
+            <p>Los datos siguen una distribución estadística .</p>
             <p>Las muestras son elegidas aleatoriamente (al azar).</p>
         </div>
     </div>
-
-    <br />
-    <br />
-    <br />
 
 
 
     <div class="row space">
         <div class="form-control">
-            <div class="col-xs-12 data1 ">
+            <div class="col-xs-12 data1">
                 <p>V. Criterios de decisión:</p>
             </div>
         </div>
@@ -233,16 +231,19 @@
     <div class="row space">
         <div class="col-xs-12 data11">
 
-            <p>Se acepta Hp si Tcal <= Ttab (1-α, n -1) </p> <p>Se rechaza Hp si X<sup>2</sup>cal > X<sup>2</sup>tab</p>
-
-
-            <p>Se rechaza Hp si T<sub>2</sub> > F<sub>(1-α, k -1, (n-1)(k-1))</sub></p>
-
-            <p>Se rechaza Hp si X<sup>2</sup>cal > X<sup>2</sup>tab</p>
+           <p>Se acepta Hp si X<sup>2</sup>cal <= X<sup>2</sup>tab (1-α, n -1) </p>
+           <p>Se rechaza Hp si X<sup>2</sup>cal > X<sup>2</sup>tab</p>
 
         </div>
     </div>
+    
+    
+    <br />
+    <br />
+    <br />
 
+ <br />
+    <br />
     <div class="row space">
         <div class="form-control">
             <div class="col-xs-12 data1 ">
@@ -252,50 +253,37 @@
     </div>
     <div class="row space">
         <div class="col-xs-12 data11">
-            <p> Número de respuestas acertadas ( X ): <b>5</b></p>
-            <p>Número de repeticiones ( r ): <b>5</b></p>
-            <p>Número de muestras ( m ): <b>5</b></p>
-            <p>Número de jueces ( j ): <b>5</b></p>
-            <p>Nivel de significación ( α ): <b>5</b></p>
-            <p>Probabilidad de no ocurrencia ( q ): <b>5</b></p>
-            <p>Probabilidad de no ocurrencia ( q ): <b>5</b></p>
+            <p> Número de respuestas acertadas ( X ): <b>{{$X = $numero_acertadas}}</b></p>
+            <p>Número de repeticiones ( r ): <b>{{$r = $choiceTest->nro_repeticiones}}</b></p>
+            <p>Número de muestras ( m ): <b>{{$m = $choiceTest->nro_ensayos_muestras}}</b></p>
+            <p>Número de jueces ( j ): <b>{{$j = $choiceTest->nro_jueces}}</b></p>
+            <p>Nivel de significación ( α ): <b>{{$ns = $choiceTest->nivel_significacion}}</b></p>
+            <p>Probabilidad de ocurrencia ( p ):  <b>{{ $p = (float) "0.5" }}</b></p>
+            <p>Probabilidad de no ocurrencia ( q ):   <b>{{ $q = (float) "0.5" }}</b></p>
 
+            <p>Número de pruebas realizadas totales ( n ): <b>{{ $n = $r * $m * $j }} </b></p>
+            <p> Número de respuestas no acertadas ( X2 ): <b>{{ $X2 = $n - $X }}</b></p>
 
-
-
-            <p>Número de pruebas realizadas totales ( n ): <b>7 </b></p>
-            <p> Número de respuestas no acertadas ( X2 ): <b>7</b></p>
-
-            <p>Número de muestras ( k ): <b>7</b></p>
-            <p>Número de jueces ( n ): <b>7</b></p>
-            <p>Nivel de significación ( α ): <b>7</b></p>
-            <p>Cálculo de F cal: F<sub>(1-α, k -1, (n-1)(k-1))</sub> = F<sub>7</sub> = 2,78 </p>
-            <p>Cálculo de R:</p>
-
-            <p>Cálculo del estadístico correspondiente:</p>
-            <p>A2 = 5 </p>
-            <p>B2 = 5 </p>
-            <p>T2 = 5</p>
-
-        </div>
-    </div>
-    <br>
-    <div class="row space">
-        <div class="col-xs-12 data11">
-
-            <p>Grados de Libertad (n-1) <b> 5</b></p>
-            <p>Media ( M = n * p ): <b> 5</b></p>
-            <p>Desviación estandar ( S = n * p * q ) <b> 5</b></p>
-            <p> Cálculo del valor de Ttab: <b> 21.0</b></p>
-            <p> Cálculo del valor de Tcal: <b> 7</b></p>
+            <p> Numero de opciones ( k ):  <b> {{ $k = 2 }}</b></p>
+            <p> Grados de Libertad ( k - 1 ):  <b> {{ $k - 1 }}</b></p>
+            <br>
+            <p> Valores esperados (ei): <b> {{ $e_i = $n * 0.5 }}</b></p>
+            <br>
+            <p> Oi = O1 = <b>{{ $O1 = $X }} </b>(Hay diferencia)</p>
+            <p> Oi = O2 =  <b>{{ $O2 = $X2 }} </b>(No hay diferencia)</p>
+            
+            <br>
+            <p> Cálculo del valor de 'x<sup>2</sup>' tab:  <b> {{ $Ttab = $x_tabular }}</b></p>
+            <p> Cálculo del valor de 'X<sup>2</sup>' cal:  <b> {{$Tcal = round( pow( ( ($O1 - $e_i) - 0.5 ), 2 ) / $e_i + pow( ( ($O2 - $e_i) - 0.5 ), 2 ) / $e_i, 2 ) }} </b></p>
             <br>
             <p> Donde:</p>
-            <p> X = Número total de aciertos.</p>
-            <p> n = Número total de ensayos.</p>
-            <p> q = Probabilidad de la no ocurrencia del evento, para esta prueba es de 0,5.</p>
+            <p> n = Número total de ensayos</p>
+            <p> Pi = Probabilidad de ocurrencia del evento (valor asignado: 0.5)</p>
+            <p> Oi = Valores Observados</p>
 
         </div>
     </div>
+   
 
 
     <div class="row space">
@@ -309,28 +297,13 @@
     <div class="row space">
         <div class="col-xs-12 data11">
 
-            <p>Se acepta Hp si Tcal <= 2.01</p> <p>Se acepta Hp si x<sup>2</sup>cal <= 2.01</p> <p>Se rechaza Hp si
-                        x<sup>2</sup>cal > 2.01</p>
-            <p>Se acepta Hp si T<sub>2</sub> > F<sub>2</sub> = 2,78</p>
+            @if($Tcal <= $Ttab)
+               <p>Se acepta Hp si x<sup>2</sup>cal <= {{$Ttab}}</p>
+            @else
+                <p>Se rechaza Hp si x<sup>2</sup>cal > {{$Ttab}}</p>
+            @endif
 
         </div>
-    </div>
-
-    <div class="row space">
-        <div class="form-control ">
-            <div class="col-xs-12 data1 ">
-                <p>VIII. Anexos:</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row space">
-        <div class="col-xs-12 data11">
-            Estos comentarios fueron mencionados por los catadores en el desarrollo de la prueba.
-            <br />
-            <br />
-        </div>
-
     </div>
 
     </div>

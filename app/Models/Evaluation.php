@@ -10,7 +10,7 @@ class Evaluation extends Model
 	protected $primaryKey   = 'id_evaluacion';
 
     public function Taster(){
-        return $this->hasOne(User::class,'id_catador','id_catador');
+        return $this->hasOne(User::class,'id_usuario','id_catador');
     }
     
     public function ChoiceTestSample(){

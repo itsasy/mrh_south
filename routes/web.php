@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'LoginController@index')->name('mainGeneral');;
 Route::post('login', 'LoginController@login')->name('logeo');
 Route::get('logout', 'LoginController@logout')->name('cerrar-sesion');
+    Route::get('excels', 'OrthogonalController@index');
 
 
 Route::group(['prefix' => 'admin'], function () {
