@@ -31,7 +31,6 @@
     <div class="bs-stepper-content">
         <form action="{{route('evaluation.store')}}" method="POST" class="needs-validation" novalidate>
             @csrf
-
             @foreach($valores_generales['answer'] as $key_repeat => $repeat)
             <div id="tab_{{$key_repeat}}" role="tabpanel" class="bs-stepper-pane fade"
                 aria-labelledby="steppertrigger{{$key_repeat}}">
@@ -77,9 +76,10 @@
                     </div>
                 </div>
 
-
                 <div class="row justify-content-between">
-                    @if($iterator > 0)
+                    @if($key_repeat == 1 )
+                    <a name="" id="" class="btn btn-primary" href="{{route('evaluation.index')}}" role="button">Cancelar</a>
+                    @else
                     <button type="button" class="btn btn-primary" onclick="stepper.previous()">Atrás</button>
                     @endif
                     <button type="button" class="btn btn-primary btn-next-form"

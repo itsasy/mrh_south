@@ -35,6 +35,8 @@
                 @endforeach
 
                 <div class="row justify-content-between">
+                    <a name="" id="" class="btn btn-primary" href="{{route('invited.index')}}" role="button">Cancelar</a>
+
                     <button type="button" class="btn btn-primary btn-next-form"
                         onclick="stepper.next()">Siguiente</button>
                 </div>
