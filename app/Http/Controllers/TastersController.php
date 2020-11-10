@@ -55,11 +55,8 @@ class TastersController extends Controller
         try {
             $taster->nombres = $request->name;
             $taster->apellidos = $request->lastname;
-            $taster->username = ''; //cambiar
-            $taster->password = ''; //cambiar
             $taster->nro_documento = $request->dni;
             $taster->tipo_documento = $request->type_document;
-            $taster->id_roles = 1; //cambiar
             $taster->genero = $request->gender;
             $taster->grado = 2; //cambiar
             $taster->celular = $request->cellphone;
