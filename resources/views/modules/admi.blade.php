@@ -7,7 +7,3 @@
     @include('partials.modules.admi')
 </div>
 @endsection
-
-@section('scripts')
-
-@endsection

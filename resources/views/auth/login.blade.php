@@ -7,7 +7,7 @@
       <div class="card card-signin my-5">
         <div class="card-body">
           <h5 class="card-title text-center">Inicia Sesión</h5>
-          <form class="form-signin" action="{{route('logeo')}}" method="POST">
+          <form class="form-signin" action="{{route('login')}}" method="POST">
             {{csrf_field()}}
             <div class="form-label-group">
               <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" required

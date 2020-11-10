@@ -1,5 +1,5 @@
 <div class="row justify-content-around">
-    <div class="card card-signin ">
+    <div class="card card-signin">
         <div class="card-body text-center">
             <div>
                 <i class="fas fa-file fa-4x"></i>

@@ -16,7 +16,6 @@ use App\Models\Sample;
 
 class EvaluationController extends Controller
 {
-
     public function index()
     {
         $id_usuario = auth()->user()->id_usuario ?? 9;
