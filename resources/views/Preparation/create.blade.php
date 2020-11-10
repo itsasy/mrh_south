@@ -15,8 +15,11 @@ Preparación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
         <input type="hidden" name="id_tipo_prueba" value="{{$id_type_sample}}">
         <input type="hidden" name="id_muestra" value="{{$id_muestra}}">
 
-        
-        @include('partials.buttons.cancel_or_accept')
+
+        <div class="row justify-content-between">
+            <a name="" id="" class="btn btn-primary" href="{{route('preparation.index')}}" role="button">Cancelar</a>
+            <button type="submit" name="" id="" class="btn btn-primary">Aceptar</button>
+        </div>
     </form>
 </div>
 @endsection
