@@ -4,9 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-
-    "content-hash": "12fa25e994f7672d83401956538ed7fe",
-
+    "content-hash": "b520db79cb9073f935fe67c9f3fc0868",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -62,16 +60,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.158.22",
+            "version": "3.159.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0aae6d7d0e9fc40ace69ed7f7785d7ddab4dabd0"
+                "reference": "56785395913fe4253202d0da9055c2da87ac0a59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0aae6d7d0e9fc40ace69ed7f7785d7ddab4dabd0",
-                "reference": "0aae6d7d0e9fc40ace69ed7f7785d7ddab4dabd0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/56785395913fe4253202d0da9055c2da87ac0a59",
+                "reference": "56785395913fe4253202d0da9055c2da87ac0a59",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-11-06T19:13:12+00:00"
+            "time": "2020-11-09T17:18:56+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
@@ -198,6 +196,12 @@
                 "dompdf",
                 "laravel",
                 "pdf"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/barryvdh",
+                    "type": "github"
+                }
             ],
             "time": "2020-09-07T11:50:18+00:00"
         },
@@ -305,6 +309,12 @@
                 "bignum",
                 "brick",
                 "math"
+            ],
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/brick/math",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-08-18T23:57:15+00:00"
         },
@@ -416,6 +426,20 @@
                 "uppercase",
                 "words"
             ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Finflector",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-29T15:13:26+00:00"
         },
         {
@@ -477,6 +501,20 @@
                 "lexer",
                 "parser",
                 "php"
+            ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-05-25T17:44:05+00:00"
         },
@@ -599,6 +637,12 @@
             "keywords": [
                 "cron",
                 "schedule"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/dragonmantank",
+                    "type": "github"
+                }
             ],
             "time": "2020-10-13T00:52:37+00:00"
         },
@@ -779,6 +823,12 @@
                 "cors",
                 "crossdomain",
                 "laravel"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/barryvdh",
+                    "type": "github"
+                }
             ],
             "time": "2020-04-28T08:47:37+00:00"
         },
@@ -1542,7 +1592,6 @@
                 "md",
                 "parser"
             ],
-
             "funding": [
                 {
                     "url": "https://enjoy.gitstore.app/repositories/thephpleague/commonmark",
@@ -1570,7 +1619,6 @@
                 }
             ],
             "time": "2020-10-31T13:49:32+00:00"
-
         },
         {
             "name": "league/flysystem",
@@ -1654,6 +1702,12 @@
                 "s3",
                 "sftp",
                 "storage"
+            ],
+            "funding": [
+                {
+                    "url": "https://offset.earth/frankdejonge",
+                    "type": "other"
+                }
             ],
             "time": "2020-08-23T07:39:11+00:00"
         },
@@ -1743,6 +1797,16 @@
                 }
             ],
             "description": "Mime-type detection for Flysystem",
+            "funding": [
+                {
+                    "url": "https://github.com/frankdejonge",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-10-18T11:50:25+00:00"
         },
         {
@@ -1807,7 +1871,6 @@
                 "php",
                 "phpspreadsheet"
             ],
-
             "funding": [
                 {
                     "url": "https://laravel-excel.com/commercial-support",
@@ -1819,7 +1882,6 @@
                 }
             ],
             "time": "2020-10-28T09:10:05+00:00"
-
         },
         {
             "name": "maennchen/zipstream-php",
@@ -1879,6 +1941,12 @@
             "keywords": [
                 "stream",
                 "zip"
+            ],
+            "funding": [
+                {
+                    "url": "https://opencollective.com/zipstream",
+                    "type": "open_collective"
+                }
             ],
             "time": "2020-05-30T13:11:16+00:00"
         },
@@ -2200,6 +2268,16 @@
                 "logging",
                 "psr-3"
             ],
+            "funding": [
+                {
+                    "url": "https://github.com/Seldaek",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-23T08:41:23+00:00"
         },
         {
@@ -2382,7 +2460,6 @@
                 "datetime",
                 "time"
             ],
-
             "funding": [
                 {
                     "url": "https://opencollective.com/Carbon",
@@ -2394,7 +2471,6 @@
                 }
             ],
             "time": "2020-10-23T06:02:30+00:00"
-
         },
         {
             "name": "nikic/php-parser",
@@ -2734,6 +2810,16 @@
                 "option",
                 "php",
                 "type"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpoption/phpoption",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-20T17:29:33+00:00"
         },
@@ -3251,6 +3337,12 @@
                 "queue",
                 "set"
             ],
+            "funding": [
+                {
+                    "url": "https://github.com/ramsey",
+                    "type": "github"
+                }
+            ],
             "time": "2020-09-10T20:58:17+00:00"
         },
         {
@@ -3331,6 +3423,12 @@
                 "guid",
                 "identifier",
                 "uuid"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/ramsey",
+                    "type": "github"
+                }
             ],
             "time": "2020-08-18T17:17:46+00:00"
         },
@@ -3513,7 +3611,6 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3529,7 +3626,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/css-selector",
@@ -3577,7 +3673,6 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3593,7 +3688,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3643,6 +3737,20 @@
             ],
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-09-07T11:33:47+00:00"
         },
         {
@@ -3695,7 +3803,6 @@
             ],
             "description": "Symfony ErrorHandler Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3711,7 +3818,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3779,7 +3885,6 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3795,7 +3900,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3857,6 +3961,20 @@
                 "interoperability",
                 "standards"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-09-07T11:33:47+00:00"
         },
         {
@@ -3901,7 +4019,6 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3917,7 +4034,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/http-client-contracts",
@@ -3979,6 +4095,20 @@
                 "interoperability",
                 "standards"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-10-14T17:08:19+00:00"
         },
         {
@@ -4035,7 +4165,6 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4051,7 +4180,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/http-kernel",
@@ -4146,7 +4274,6 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4162,7 +4289,6 @@
                 }
             ],
             "time": "2020-10-28T05:55:23+00:00"
-
         },
         {
             "name": "symfony/mime",
@@ -4220,7 +4346,6 @@
                 "mime",
                 "mime-type"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4236,7 +4361,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -4298,7 +4422,6 @@
                 "polyfill",
                 "portable"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4314,7 +4437,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-iconv",
@@ -4377,7 +4499,6 @@
                 "portable",
                 "shim"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4393,7 +4514,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -4457,7 +4577,6 @@
                 "portable",
                 "shim"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4473,7 +4592,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -4543,7 +4661,6 @@
                 "portable",
                 "shim"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4559,7 +4676,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
@@ -4641,7 +4757,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4704,7 +4819,6 @@
                 "portable",
                 "shim"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4720,7 +4834,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-php72",
@@ -4779,7 +4892,6 @@
                 "portable",
                 "shim"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4795,7 +4907,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-php73",
@@ -4857,7 +4968,6 @@
                 "portable",
                 "shim"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4873,7 +4983,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/polyfill-php80",
@@ -4939,7 +5048,6 @@
                 "portable",
                 "shim"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4955,7 +5063,6 @@
                 }
             ],
             "time": "2020-10-23T14:02:19+00:00"
-
         },
         {
             "name": "symfony/process",
@@ -5000,7 +5107,6 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5016,7 +5122,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/routing",
@@ -5089,7 +5194,6 @@
                 "uri",
                 "url"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5105,7 +5209,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/service-contracts",
@@ -5166,6 +5269,20 @@
                 "interfaces",
                 "interoperability",
                 "standards"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-09-07T11:33:47+00:00"
         },
@@ -5248,7 +5365,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/translation",
@@ -5321,7 +5437,6 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5337,7 +5452,6 @@
                 }
             ],
             "time": "2020-10-24T12:01:57+00:00"
-
         },
         {
             "name": "symfony/translation-contracts",
@@ -5397,6 +5511,20 @@
                 "interfaces",
                 "interoperability",
                 "standards"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-09-28T13:05:58+00:00"
         },
@@ -5469,7 +5597,6 @@
                 "debug",
                 "dump"
             ],
-
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5485,7 +5612,6 @@
                 }
             ],
             "time": "2020-10-27T10:11:13+00:00"
-
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -5585,6 +5711,12 @@
                 "sass",
                 "web"
             ],
+            "funding": [
+                {
+                    "url": "https://opencollective.com/bootstrap",
+                    "type": "open_collective"
+                }
+            ],
             "time": "2020-10-13T15:38:30+00:00"
         },
         {
@@ -5649,27 +5781,37 @@
                 "env",
                 "environment"
             ],
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-14T19:22:52+00:00"
         },
         {
             "name": "voku/portable-ascii",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "25bcbf01678930251fd572891447d9e318a6e2b8"
+                "reference": "87dc337d4200b32717dd3849fea846319e897658"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/25bcbf01678930251fd572891447d9e318a6e2b8",
-                "reference": "25bcbf01678930251fd572891447d9e318a6e2b8",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/87dc337d4200b32717dd3849fea846319e897658",
+                "reference": "87dc337d4200b32717dd3849fea846319e897658",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0"
+                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
             },
             "suggest": {
                 "ext-intl": "Use Intl for transliterator_transliterate() support"
@@ -5697,7 +5839,29 @@
                 "clean",
                 "php"
             ],
-            "time": "2020-07-22T23:32:04+00:00"
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/moelleken",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/voku",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/portable-ascii",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://www.patreon.com/voku",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/voku/portable-ascii",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-11-08T21:15:15+00:00"
         }
     ],
     "packages-dev": [
@@ -5755,6 +5919,20 @@
                 "constructor",
                 "instantiate"
             ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Finstantiator",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-29T17:27:14+00:00"
         },
         {
@@ -5809,6 +5987,12 @@
                 "facade",
                 "flare",
                 "reporting"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
             ],
             "time": "2020-10-21T16:02:39+00:00"
         },
@@ -6205,6 +6389,12 @@
                 "object",
                 "object graph"
             ],
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-06-29T13:22:24+00:00"
         },
         {
@@ -6275,7 +6465,6 @@
                 "php",
                 "symfony"
             ],
-
             "funding": [
                 {
                     "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
@@ -6291,7 +6480,6 @@
                 }
             ],
             "time": "2020-10-29T15:12:23+00:00"
-
         },
         {
             "name": "phar-io/manifest",
@@ -6938,80 +7126,19 @@
                 "testing",
                 "xunit"
             ],
+            "funding": [
+                {
+                    "url": "https://phpunit.de/donate.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
             "time": "2020-06-22T07:06:58+00:00"
         },
         {
-
-            "name": "scrivo/highlight.php",
-            "version": "v9.18.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/scrivo/highlight.php.git",
-                "reference": "6a1699707b099081f20a488ac1f92d682181018c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/6a1699707b099081f20a488ac1f92d682181018c",
-                "reference": "6a1699707b099081f20a488ac1f92d682181018c",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8|^5.7",
-                "sabberworm/php-css-parser": "^8.3",
-                "symfony/finder": "^2.8|^3.4",
-                "symfony/var-dumper": "^2.8|^3.4"
-            },
-            "suggest": {
-                "ext-dom": "Needed to make use of the features in the utilities namespace"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Highlight\\": "",
-                    "HighlightUtilities\\": ""
-                },
-                "files": [
-                    "HighlightUtilities/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Geert Bergman",
-                    "homepage": "http://www.scrivo.org/",
-                    "role": "Project Author"
-                },
-                {
-                    "name": "Vladimir Jimenez",
-                    "homepage": "https://allejo.io",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Martin Folkers",
-                    "homepage": "https://twobrain.io",
-                    "role": "Contributor"
-                }
-            ],
-            "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
-            "keywords": [
-                "code",
-                "highlight",
-                "highlight.js",
-                "highlight.php",
-                "syntax"
-            ],
-            "time": "2020-10-16T07:43:22+00:00"
-        },
-        {
-
             "name": "sebastian/code-unit-reverse-lookup",
             "version": "1.0.1",
             "source": {
@@ -7664,6 +7791,12 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
+            "funding": [
+                {
+                    "url": "https://github.com/theseer",
+                    "type": "github"
+                }
+            ],
             "time": "2020-07-12T23:59:07+00:00"
         },
         {
@@ -7722,7 +7855,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4.8"
+        "php": "^7.4.11"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
