@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/','Auth\LoginController@showLoginForm')->name('mainGeneral');
 Route::post('login','Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('cerrar-sesion');
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Administrador']], function () {
     Route::get('/', 'ModuleController@index_admi')->name('mainAdmin');

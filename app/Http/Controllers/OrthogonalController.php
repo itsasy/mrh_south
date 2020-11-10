@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\File;
 use App\Models\DataOrthogonal;
 use App\Models\Sample;
 use App\Models\SampleStudyParameters;
+use App\Models\DetailAttributes;
+use App\Models\ChoiceTestSample;
+use App\Models\AnswerQda;
+use App\Models\DuoTrioResult;
+use MathPHP\Probability\Distribution\Table\ChiSquared;
+use App\Models\Evaluation;
+use App\Models\ConsumerProfileResults;
 use Carbon\Carbon;
 use PDF;
 
@@ -21,11 +28,73 @@ class OrthogonalController extends Controller
 {
     public function index()
     {
-        $sample = Sample::find("TLL244");
-        $nombrepdf = "Prueba_" . date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s') . '.pdf';
-        PDF::loadView('PDF.resultado_qda', compact('sample'))->save(public_path() . '/pdf/' . $nombrepdf);
-    }
 
+
+
+       /* DUO TRIO - PDF PRUEBA
+       $numero_acertadas = 0;
+       foreach($evaluation as $index => $evaluations){
+            $duoTrioResult = DuoTrioResult::where('id_evaluacion', $evaluations->id_evaluacion)->get(); 
+            $numero_acertadas = collect($duoTrioResult)->sum('nro_aciertos') + $numero_acertadas;
+       }
+
+        $p = sprintf('%1.3f', $choiceTest->nivel_significacion);
+        //1 == Grados de libertad  $p = corregir puede que ese no sea el valor
+        $x_tabular = ChiSquared::CHI_SQUARED_SCORES[1][$p];
+       
+        $nombrepdf = "Prueba_Resultado_Duo-Trio_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+        PDF::loadView('PDF.resultado_duo_trio', compact('choiceTest','numero_acertadas','x_tabular'))->save(public_path() . '/pdf/' . $nombrepdf );
+        */
+       // QDA - PDF PRUEBA
+     /*   $data_general = array();
+        $data_general_inicial = array();
+
+        $choiceTest       = ChoiceTestSample::find(130);
+        $detailAttributes = DetailAttributes::where('id_eleccion_prueba_muestra', 130)->get(); 
+        $evaluation       = Evaluation::select('id_catador')->where('id_eleccion_prueba_muestra', 130)->get(); 
+
+        
+        //Obtener la sumatoria y desviacion estandar de cada atributo
+            foreach($detailAttributes as $atributo => $da){
+                
+               $suma = 0;
+               $resultadoQda = AnswerQda::where('id_detalle_atributos',$da->id_detalle_atributos)->orderByRaw("id_detalle_atributos ASC")->get();    
+                
+                foreach($resultadoQda as $resultado => $rpta){
+                     $resultadosQda[$rpta->id_detalle_atributos][$rpta->Evaluation->id_catador] = $rpta->respuesta;
+                     $suma = $rpta->respuesta+$suma;
+                     $array_desv_standar[$resultado] = $rpta->respuesta ;
+
+                }
+                
+                $sumatoria[$da->id_detalle_atributos] = round($suma/$evaluation->count(),2);
+                $desviacion_estandar[$da->id_detalle_atributos] = $this->Stand_Desviation($array_desv_standar) ; 
+                
+                $data[$atributo] = ["axis" => $da->nombre_atributo, "value" => floatval($sumatoria[$da->id_detalle_atributos])];
+                $radar_inicial[$atributo] = ["axis" => $da->nombre_atributo, "value" => floatval(10)];
+
+            }
+            
+              $data = array( "className" => "grafica-promedio" , "axes" => $data);
+              $data_inicial = array( "className" => "grafica-inicial" , "axes" => $radar_inicial);
+
+              array_push($data_general, $data);
+              array_push($data_general_inicial, $data_inicial);
+
+              $nombrepdf = "Prueba_" . date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+                  //  PDF::loadView('PDF.resultado_qda',compact('choiceTest','detailAttributes','resultadosQda','evaluation','sumatoria','desviacion_estandar','data_general','data_general_inicial'))->save(public_path() . '/pdf/' . $nombrepdf );
+                        //  return view('PDF.resultado_qda', compact('choiceTest','detailAttributes','resultadosQda','evaluation','sumatoria','desviacion_estandar','data_general','data_general_inicial'));
+            
+             $nombrepdf = "PRUBEBA_Resultado_QDA_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+            PDF::loadView('PDF.resultado_qda', compact('choiceTest','detailAttributes','resultadosQda','evaluation','sumatoria','desviacion_estandar','data_general','data_general_inicial'))->save(public_path() . '/pdf/' . $nombrepdf );
+   
+                
+        */
+        
+
+
+    }
+   
     //Vista de la tabla ortogonal
     public function show($idMuestra)
     {
@@ -88,4 +157,23 @@ class OrthogonalController extends Controller
         $file = public_path() . "/excel/" . $filename;
         return response()->download($file);
     }
+
+  
+    function Stand_Desviation($arr)  { 
+
+            $num_of_elements = count($arr); 
+              
+            $variance = 0.0; 
+              
+            $average = array_sum($arr)/$num_of_elements; 
+          
+            foreach($arr as $i) 
+            { 
+                $variance += pow(($i - $average), 2); 
+            } 
+          
+            return round((float)sqrt($variance/($num_of_elements-1)),3); 
+            
+        }
 }
+
