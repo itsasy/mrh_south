@@ -14,7 +14,7 @@ class TastersController extends Controller
 
     public function index()
     {
-        $user_list = User::where('id_roles',2)->Orderby('id_usuario', 'asc')->paginate(10);
+        $user_list = User::where('id_roles', 2)->Orderby('id_usuario', 'asc')->paginate(10);
         return view('Tasters.index', compact('user_list'));
     }
 
@@ -32,11 +32,12 @@ class TastersController extends Controller
             $taster->username = ''; //cambiar
             $taster->password = ''; //cambiar
             $taster->nro_documento = $request->dni;
-            $taster->tipo_documento = $request->type_document;
-            $taster->id_roles = 1; //cambiar
+            $taster->tipo_documento = 1;
+            $taster->id_roles = 2;
             $taster->genero = $request->gender;
-            $taster->grado = 2; //cambiar
+            $taster->grado = $request->grade;
             $taster->celular = $request->cellphone;
+            $taster->correo = $request->email;
 
             $taster->save();
             return $this->success_message('taster.index', 'creó');
@@ -56,9 +57,8 @@ class TastersController extends Controller
             $taster->nombres = $request->name;
             $taster->apellidos = $request->lastname;
             $taster->nro_documento = $request->dni;
-            $taster->tipo_documento = $request->type_document;
             $taster->genero = $request->gender;
-            $taster->grado = 2; //cambiar
+            $taster->grado = $request->grade;
             $taster->celular = $request->cellphone;
 
             $taster->save();

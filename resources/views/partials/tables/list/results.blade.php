@@ -4,20 +4,34 @@
             <th class="text-nowrap">Código</th>
             <th class="text-nowrap">Fecha de registro</th>
             <th class="text-nowrap">Nombre de la muestra</th>
-            <th class="text-nowrap">Dúo - Trío</th>
-            <th class="text-nowrap">QDA</th>
-            <th class="text-nowrap">Aceptabilidad</th>
+            <th class="text-nowrap">Tipo de Prueba</th>
+            <th class="text-nowrap">PDF</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(range(1,10) as $rango)
+        @foreach($choiceTestSample as $key => $sample)
         <tr class="text-center">
-            <td>Código {{$rango}}</td>
-            <td>Fecha de registro {{$rango}}</td>
-            <td>Nombre de la muestra {{$rango}}</td>
-            <td>Dúo - Trío {{$rango}}</td>
-            <td>QDA {{$rango}}</td>
-            <td>Aceptabilidad {{$rango}}</td>
+            <td>{{$sample->id_muestra}}</td>
+            <td>{{$sample->Sample->fecha_registro}}</td>
+
+            <td>{{$sample->Sample->nombre_muestra}}</td>
+
+            @if($sample->id_tipo_prueba == 1)
+            <td>Dúo Trío</td>
+            @endif
+
+            @if($sample->id_tipo_prueba == 2)
+            <td>QDA</td>
+            @endif
+
+            @if($sample->id_tipo_prueba == 3)
+            <td>Perfil de consumidores</td>
+            @endif
+
+            <td>
+                <a href="{{'/pdf/' . $sample->pdf_resultados}}" target="_blank" class="text-danger"><i
+                        class="fas fa-file-pdf fa-lg"></i></a>
+            </td>
         </tr>
         @endforeach
     </tbody>

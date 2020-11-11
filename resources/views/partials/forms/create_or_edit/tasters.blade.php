@@ -5,19 +5,12 @@
     </div>
     <div class="form-group col-lg-6">
         <label for="lastname">Apellidos</label>
-        <input type="text" class="form-control" name="lastname" id="lastname" value="{{$taster->apellidos ?? ' '}}">
-    </div>
-    <div class="form-group col-lg-6">
-        <label for="type_document">Tipo de documento</label>
-        <select class="form-control" name="type_document" id="type_document">
-            <option value="1">Tipo 1</option>
-            <option value="2">Tipo 2</option>
-            <option value=3>Tipo 3</option>
-        </select>
+        <input type="text" class="form-control" name="lastname" id="lastname" value="{{$taster->apellidos ?? ' '}}"
+            required>
     </div>
     <div class="form-group col-lg-6">
         <label for="dni">DNI</label>
-        <input type="number" class="form-control" name="dni" id="dni" value="{{$taster->nro_documento ?? ' '}}">
+        <input type="number" class="form-control" name="dni" id="dni" value="{{$taster->nro_documento ?? ''}}" minlength="8" required>
     </div>
     <div class="form-group col-lg-6">
         <label for="gender">Sexo</label>
@@ -28,14 +21,16 @@
     </div>
     <div class="form-group col-lg-6">
         <label for="grade">Grado</label>
-        <input type="text" class="form-control" name="grade" id="grade" value="{{$taster->grado ?? ' '}}">
+        <input type="text" class="form-control" name="grade" id="grade" value="{{$taster->grado ?? ' '}}" required>
     </div>
+    @if(request()->route()->getName() == 'taster.create')
     <div class="form-group col-lg-6">
         <label for="email">Correo</label>
-        <input type="email" class="form-control" name="email" id="email" value="{{$taster->email ?? ' '}}">
+        <input type="email" class="form-control" name="email" id="email" value="{{$taster->email ?? ' '}}" required>
     </div>
+    @endif
     <div class="form-group col-lg-6">
         <label for="cellphone">Celular</label>
-        <input type="number" class="form-control" name="cellphone" id="cellphone" value="{{$taster->celular ?? ' '}}">
+        <input type="number" class="form-control" name="cellphone" id="cellphone" value="{{$taster->celular ?? ''}}" minlength="9" required>
     </div>
 </div>
