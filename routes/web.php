@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Administrador'
     Route::get('tasters', 'TastersController@manage')->name('manageTaster');
     Route::resource('taster', 'TastersController')->except(['show']);
     Route::resource('preparation', 'PreparationController');
-    Route::resource('results', 'ResultsController')->only(['index','show']);
+    Route::resource('results', 'ResultsController')->only(['index']);
     Route::resource('orthogonal', 'OrthogonalController')->only(['index', 'show', 'store']);
     Route::resource('duotrio', 'DuoTrioController')->only(['index', 'store']);
     Route::get('orthogonal/excel/{filename}', 'OrthogonalController@downloadExcelOrthogonal')->name('downloadExcel');
@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Administrador'
 Route::group(['prefix' => 'taster', 'middleware' => ['auth', 'role:Jueces']], function () {
     Route::get('/', 'ModuleController@index_taster')->name('mainTaster');
     Route::resource('evaluation', 'EvaluationController');
-    Route::get('/results', 'ResultsController@index')->name('results.Taster');
+    Route::get('/results', 'ResultsController@show')->name('results.Taster');
     Route::post('evaluation/QDA', 'EvaluationController@storeQDA')->name('registerQda');;
 });
 

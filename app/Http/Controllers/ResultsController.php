@@ -10,14 +10,20 @@ class ResultsController extends Controller
 {
     public function index()
     {
-        $choiceTestSample = ChoiceTestSample::where('estado', 'EJECUTADA')->with('Sample')->get();
+        $choiceTestSample = ChoiceTestSample::where('estado', 'EJECUTADA')
+            ->with('Sample')
+            ->get();
 
         return view('Results.index', compact('choiceTestSample'));
     }
 
-    public function show($id)
+    public function show()
     {
-        $choiceTestSample = Evaluation::with('ChoiceTestSample')->where(['id_catador' => $id, 'estado' => 'EJECUTADA'])->get();
+        $choiceTestSample = Evaluation::with('ChoiceTestSample')
+            ->where([
+                'id_catador' => auth()->user()->id_usuario,
+                'estado' => 'EJECUTADA'
+            ])->get();
 
         return view('Results.index', compact('choiceTestSample'));
     }
