@@ -1,0 +1,1 @@
+<a class="btn btn-primary col-3" href="{{route('cerrar-sesion')}}" role="button">Cerrar sesión</a>
