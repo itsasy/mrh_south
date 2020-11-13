@@ -26,11 +26,21 @@
                 @foreach($valores_generales as $key => $atributos)
                 <div class="row">
                     <div class="form-group col-12">
+                        
                         <label for="{{$atributos->nombre_atributo}}">{{$atributos->nombre_atributo}}</label>
-                        <input type="range" class="form-control-range" id="{{$atributos->nombre_atributo}}"
-                            name="respuesta[{{$key}}]" value="0" max="10" require>
-                        <input type="text" id="{{$atributos->nombre_atributo}}"
-                            name="atributos[{{$key}}]" value="{{$atributos->id_detalle_atributos}}" hidden>
+                        
+                        <div class="row">
+                            <div style="display: inline;"><p style="padding-right: 1rem;"> 0 </p></div>
+                            <div style="display: inline;">
+                                <input type="range" class="form-control-range" id="{{$atributos->nombre_atributo}}" name="respuesta[{{$key}}]" value="0" max="10" step="0.1" require>
+                            </div>
+                            <div style="display: inline;"><p style="padding-left: 1rem;">  10 </p></div>
+                        </div>
+                        
+                        
+                        
+                        <input type="text" id="{{$atributos->nombre_atributo}}" name="atributos[{{$key}}]" value="{{$atributos->id_detalle_atributos}}" hidden>
+                        
                         <div class="invalid-feedback">Please fill the email field</div>
                     </div>
                 </div>
