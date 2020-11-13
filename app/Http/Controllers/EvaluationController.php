@@ -32,6 +32,7 @@ class EvaluationController extends Controller
         if ($type == "QDA") {
             $valores_generales =  $this->create_qda($request->election);
         }
+        
         if ($type == "Duo-Trio") {
             $valores_generales = $this->create_duo_trio($request->election);
         }
