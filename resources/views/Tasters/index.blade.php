@@ -1,9 +1,9 @@
-@extends('_layouts.admi')
+@extends('_layouts.prueba')
 
 @section('title', "Lista de catadores")
 
 @section('content')
-<div class="mt-3 justify-content-center" id="">
+<div class="justify-content-center" id="">
     @include('partials.alerts.success')
     @include('partials.alerts.error')
     @include('partials.tables.list.tasters')

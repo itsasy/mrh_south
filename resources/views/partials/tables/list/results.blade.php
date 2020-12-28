@@ -1,3 +1,6 @@
+<div class="row">
+          <div class="col-md-12">
+            <div class="card">
 <table class="table table-striped table-inverse">
     <thead class="thead-inverse">
         <tr class="text-center">
@@ -29,10 +32,13 @@
             @endif
 
             <td>
-                <a href="{{'/pdf/' . $sample->pdf_resultados}}" target="_blank" class="text-danger"><i
-                        class="fas fa-file-pdf fa-lg"></i></a>
+                <a href="{{asset('/pdf/' . $sample->pdf_resultados)}}" target="_blank" class="text-danger"><i
+                        class="fa fa-file-pdf-o fa-2x"></i></a>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+ </div>
+            </div>
+          </div>

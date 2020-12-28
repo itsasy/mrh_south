@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Excel\ExcelDuoTrioExport;
 use Carbon\Carbon;
+use App\Models\Sample;
 
 class DuoTrioController extends Controller
 {
@@ -46,23 +47,27 @@ class DuoTrioController extends Controller
                 }
             }
 
-            $choiceTestSample =   ChoiceTestSample::where('id_eleccion_prueba_muestra', $request->get('id_eleccion_prueba_muestra'))->first();
 
+            $choiceTestSample =   ChoiceTestSample::where('id_eleccion_prueba_muestra', $request->get('id_eleccion_prueba_muestra'))->first();
             $fecha = Carbon::now()->format("Ymd_His");
             $filename = 'Excel_Duo_Trio_' . $request->get('id_eleccion_prueba_muestra') . "_" . $fecha . '.xlsx';
             $exc = Excel::store(new ExcelDuoTrioExport(
                 $request->get('muestra1_valores'),
                 $request->get('muestra2_valores'),
                 $request->get('igual_p'),
-                $choiceTestSample
-            ),  $filename, 'excel');
+                $choiceTestSample),  $filename, 'excel');
 
-
+               $sampleupdate = Sample::find($choiceTestSample->id_muestra);
+               $sampleupdate->excel_respuestas_duo_trio = $filename;
+               $sampleupdate->save();
+               
             return $this->success_message('preparation.index', 'creó');
         } catch (\Exception $e) {
             return $this->error_message();
         }
     }
+    
+  
     
     public function show($id)
     {

@@ -2,7 +2,11 @@
 $letras = range('A','Z');
 @endphp
 <div class="row">
+ 
   <div class="col-4">
+       <div class="row">
+          <div class="col-md-12">
+            <div class="card">
     <table class="table table-striped table-inverse">
       <thead>
         <tr class="text-center">
@@ -21,7 +25,13 @@ $letras = range('A','Z');
       </tbody>
     </table>
   </div>
+   </div>
+</div>
+  </div>
   <div class="col-8">
+    <div class="row">
+          <div class="col-md-12">
+            <div class="card">
     <table class="table">
       <thead>
         <tr class="text-center">
@@ -50,8 +60,8 @@ $letras = range('A','Z');
 
               {{-- parámetro --}}
               @foreach($sampleStudyParameters as $p => $ssp)
-              <td>
-                <input type="number" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" value = "5" required min="0">
+              <td style="text-align-last: center;">
+                <input type="number" name="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" id="valor_{{$r}}_{{$o}}_{{$ssp->id_muestra_parametros_estudio}}" step=".01" required >
               </td>
               @endforeach
           </tr>
@@ -59,6 +69,11 @@ $letras = range('A','Z');
           @endfor
       </tbody>
     </table>
+      </div>
+</div>
+  </div>
+
+
   </div>
 </div>
 

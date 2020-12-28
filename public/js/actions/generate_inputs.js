@@ -2,13 +2,13 @@ const number = document.querySelector('#study_parameter');
 const objetive = document.querySelector('.inputs_container');
 
 const inputs = (valor) =>
-    `<div class="form-group">
-        <label class="col-10 justify-content-start" for="muestras_${valor}">Parámetro ${valor}:</label>
+    `<div class="form-group mb-3 col-4">
+        <label class="col-5 justify-content-start" for="muestras_${valor}">Parámetro ${valor}:</label>
         <input 
         type="text" 
         name="attribute[${valor}]" 
         id="muestras_${valor}" 
-        class="form-control col-2 muestras_${valor}"
+        class="form-control col-7 muestras_${valor}"
         placeholder=""  
         required>
     </div>`;

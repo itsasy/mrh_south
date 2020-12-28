@@ -4,7 +4,7 @@
         <div class="step" data-target="#tab_1">
             <button type="button" class="step-trigger" role="tab" id="steppertrigger1" aria-controls="tab_1">
                 <span class="bs-stepper-circle">
-                    <span class="fas fa-user" aria-hidden="true"></span>
+                    <span class="fa fa-user" aria-hidden="true"></span>
                 </span>
                 <span class="bs-stepper-label">1</span>
             </button>
@@ -12,7 +12,7 @@
         <div class="step" data-target="#tab_2">
             <button type="button" class="step-trigger" role="tab" id="steppertrigger2" aria-controls="tab_2">
                 <span class="bs-stepper-circle">
-                    <span class="fas fa-save" aria-hidden="true"></span>
+                    <span class="fa fa-save" aria-hidden="true"></span>
                 </span>
                 <span class="bs-stepper-label">Submit</span>
             </button>
@@ -29,15 +29,13 @@
                         
                         <label for="{{$atributos->nombre_atributo}}">{{$atributos->nombre_atributo}}</label>
                         
-                        <div class="row">
-                            <div style="display: inline;"><p style="padding-right: 1rem;"> 0 </p></div>
-                            <div style="display: inline;">
+                        <div class="row col-12 mt-2">
+                            <div class="col-1" style="display: inline;"><p style="padding-right: 1rem;"> 0 </p></div>
+                            <div class="col-10" >
                                 <input type="range" class="form-control-range" id="{{$atributos->nombre_atributo}}" name="respuesta[{{$key}}]" value="0" max="10" step="0.1" require>
                             </div>
-                            <div style="display: inline;"><p style="padding-left: 1rem;">  10 </p></div>
+                            <div class="col-1" style="display: inline;"><p style="padding-left: 1rem;">  10 </p></div>
                         </div>
-                        
-                        
                         
                         <input type="text" id="{{$atributos->nombre_atributo}}" name="atributos[{{$key}}]" value="{{$atributos->id_detalle_atributos}}" hidden>
                         
@@ -46,19 +44,21 @@
                 </div>
                 @endforeach
 
-                <div class="row justify-content-between">
-                    <a name="" id="" class="btn btn-primary" href="{{route('invited.index')}}" role="button">Cancelar</a>
+                <div class="row justify-content-between pr-5 pl-5">
+                    <a name="" id="" class="boton_cancelar text-uppercase col-5" href="{{route('invited.index')}}" role="button">Cancelar</a>
 
-                    <button type="button" class="btn btn-primary btn-next-form"
+                    <button type="button" class="btn_aceptar text-uppercase col-5 btn-next-form"
                         onclick="stepper.next()">Siguiente</button>
                 </div>
+                
+                    
             </div>
 
             {{-- REEMPLAZAR tab_10 por algún otro entero mayor al $key --}}
             <div id="tab_2" role="tabpanel" class="bs-stepper-pane fade text-center" aria-labelledby="steppertrigger2">
 
                 {{-- Agregar algún mensaje --}}
-                <button type="submit" class="btn btn-primary mt-5">Enviar</button>
+                <button type="submit" class="btn_aceptar text-uppercase  mt-5" style="display: inline;">Enviar</button>
             </div>
 
             <input type="hidden" name="id_eleccion" value="{{$id_eleccion}}">

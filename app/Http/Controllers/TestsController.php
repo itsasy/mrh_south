@@ -18,7 +18,6 @@ class TestsController extends Controller
     public function index()
     {
         $listSample = Sample::OrderBy('fecha_registro', 'asc')->paginate(10);
-
         return view('Tests.index', compact('listSample'));
     }
 
@@ -51,6 +50,7 @@ class TestsController extends Controller
             $sample->estado_modelos           =  1;
             $sample->estado_muestra           =  'CREADA';
             $sample->fecha_registro           =  $dateActual;
+            $sample->aleatorio_ortogonal      =  $request->get('aleatorio_ortogonal');
             $sample->save();
 
             foreach ($request->check_lista as $check) {
@@ -99,7 +99,6 @@ class TestsController extends Controller
             $test->humedad                  =  $request->get('humidity');
             $test->tamanio_grano            =  $request->get('grain_size');
             $test->responsable              =  $request->get('responsable');
-            $test->nro_parametros_estudio   =  $request->get('study_parameter');
             $test->nro_modelos_ortogonales  =  $request->get('number_of_models');
             $test->nro_repeticiones         =  $request->get('number_of_repeats');
             $test->save();

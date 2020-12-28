@@ -156,6 +156,7 @@ class OrthogonalController extends Controller
             return response()->download($file);
      
     }
+    
   
     function Stand_Desviation($arr)  { 
 

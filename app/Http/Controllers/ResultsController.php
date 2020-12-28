@@ -19,12 +19,19 @@ class ResultsController extends Controller
 
     public function show()
     {
-        $choiceTestSample = Evaluation::with('ChoiceTestSample')
+        $choiceTestSample_old = Evaluation::with('ChoiceTestSample')
             ->where([
                 'id_catador' => auth()->user()->id_usuario,
-                'estado' => 'EJECUTADA'
+                'estado' => 2
             ])->get();
+            
+        $choiceTestSample = [];
+        
+        foreach($choiceTestSample_old as $cs){
+            array_push($choiceTestSample, $cs->ChoiceTestSample);
+        }
+        //dd($choiceTestSample);
 
-        return view('Results.index', compact('choiceTestSample'));
+        return view('Results.index_taster', compact('choiceTestSample'));
     }
 }

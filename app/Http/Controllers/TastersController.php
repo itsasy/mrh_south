@@ -29,8 +29,8 @@ class TastersController extends Controller
             $taster = new User();
             $taster->nombres = $request->name;
             $taster->apellidos = $request->lastname;
-            $taster->username = ''; //cambiar
-            $taster->password = ''; //cambiar
+            $taster->username = $request->dni; //cambiar
+            $taster->password = bcrypt($request->dni); //cambiar
             $taster->nro_documento = $request->dni;
             $taster->tipo_documento = 1;
             $taster->id_roles = 2;
@@ -54,14 +54,15 @@ class TastersController extends Controller
     public function update(Request $request, User $taster)
     {
         try {
-            $taster->nombres = $request->name;
-            $taster->apellidos = $request->lastname;
-            $taster->nro_documento = $request->dni;
-            $taster->genero = $request->gender;
-            $taster->grado = $request->grade;
-            $taster->celular = $request->cellphone;
-
+            $taster->nombres        = $request->name;
+            $taster->apellidos      = $request->lastname;
+            $taster->nro_documento  = $request->dni;
+            $taster->genero         = $request->gender;
+            $taster->grado          = $request->grade;
+            $taster->celular        = $request->cellphone;
+            $taster->correo         = $request->email;
             $taster->save();
+            
             return $this->success_message('taster.index', 'actualizó');
         } catch (\Exception $e) {
             return $this->error_message();

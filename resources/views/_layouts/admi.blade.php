@@ -5,6 +5,7 @@
     <title>@yield('title')</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{asset('images/LOGO_MRH.png')}}" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
@@ -15,7 +16,11 @@
 </head>
 
 <body>
-    @include('partials.header.header')
+    <div>
+          <div class="logo" style="text-align: -webkit-center;">
+                <img src="{{asset('images/LOGO_MRH.png')}}"  width="300" height="190">
+            </div>
+    </div>
     <div class="container">
 
         @yield('content')

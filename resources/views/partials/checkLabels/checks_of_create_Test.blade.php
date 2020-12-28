@@ -10,10 +10,10 @@ $testType = TestType::all();
         <div class="form-check form-check-inline">
             @foreach($testType as $key => $type)
             <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="check_lista[]" id=""
+                <input class="form-check-input" type="checkbox" name="check_lista[]" id="" 
                     value="{{$type->id_tipo_prueba}}" {{-- @if(isset($sample))
                     {{$sample[$key]->id_tipo_prueba == $type->id_tipo_prueba ? 'checked' : ''}} @endif --}}>
-                {{$type->tipo}}
+                @if($type->tipo == "Duo - Trío") Dúo - Trío @else {{$type->tipo}} @endif
             </label>
             @endforeach
         </div>

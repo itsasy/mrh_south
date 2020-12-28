@@ -1,4 +1,4 @@
-<div class="form-group col-12">
+<div class="form-group col-12 mr-3 ml-3">
     <label for="catadores_selected">Seleccionar catadores</label>
     <div class="input-container">
         <select class="ui fluid search dropdown" multiple="" name="catadores_selected[]" id="catadores_selected"

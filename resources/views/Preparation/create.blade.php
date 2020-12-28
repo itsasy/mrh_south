@@ -1,11 +1,14 @@
-@extends('_layouts.admi')
+@extends('_layouts.prueba')
 
 @section('title')
 Preparación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
 @endsection
 
 @section('content')
-<div class="mt-3 justify-content-center" id="">
+<div class="justify-content-center" id="">
+       <div class="row">
+        <div class="col-md-12">
+            <div class="card p-5">
     <form action="{{route('preparation.store')}}" method="POST">
         @csrf
         @includeWhen($type == 'QDA', 'partials.forms.preparation.qda')
@@ -15,11 +18,14 @@ Preparación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
         <input type="hidden" name="id_tipo_prueba" value="{{$id_type_sample}}">
         <input type="hidden" name="id_muestra" value="{{$id_muestra}}">
 
-
-        <div class="row justify-content-between">
-            <a name="" id="" class="btn btn-primary" href="{{route('preparation.index')}}" role="button">Cancelar</a>
-            <button type="submit" name="" id="" class="btn btn-primary">Aceptar</button>
+        <div class="row justify-content-between pr-5 pl-5">
+            <a name="" id="" class="boton_cancelar text-uppercase col-5" href="{{route('preparation.index')}}"   role="button">Cancelar</a>
+            <button type="submit" name="" id="" class="btn_aceptar text-uppercase col-5">Aceptar</button>
         </div>
+
     </form>
+    </div>
+    </div>
+    </div>
 </div>
 @endsection

@@ -1,3 +1,6 @@
+<div class="row">
+          <div class="col-md-12">
+            <div class="card">
 <table id="data_table" class="table table-striped table-inverse">
     <thead class="thead-inverse">
         <tr class="text-center">
@@ -17,9 +20,10 @@
             <td>{{$user->apellidos}}</td>
             <td>{{$user->nro_documento}}</td>
             <td>{{$user->grado}}</td>
+            <td>{{$user->correo}}</td>
             {{-- Se cambiará el campo username por correo --}}
-            <td>{{$user->username}}</td>
             <td>{{$user->celular}}</td>
+            
             <td>
                 @include('partials.buttons.edit_or_delete', ['object' =>'taster', 'id' => $user->id_usuario])
             </td>
@@ -27,3 +31,6 @@
         @endforeach
     </tbody>
 </table>
+ </div>
+            </div>
+          </div>

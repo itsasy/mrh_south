@@ -1,8 +1,5 @@
 <style>
-    .table .thead-dark th {
-        background-color: #21840b;
-    }
-
+    
     .table-random {
         background: none;
         border: none;
@@ -31,13 +28,13 @@
                 value="{{$choiceTestSample->id_eleccion_prueba_muestra}}" hidden />
 
             @for ($i = 0; $i < $choiceTestSample->nro_repeticiones; $i++) <div class="col-12 col-md-4">
-                    <table class="table text-center shadow">
-                        <thead class="thead-dark">
+                    <table class="table table-striped table-inverse">
+                         <thead class="thead-inverse">
                             <tr>
-                                <th scope="col">Ensayo</th>
-                                <th scope="col">Par de Muestras</th>
-                                <th scope="col">Igual a P</th>
-                                <th scope="col" hidden></th>
+                                <th scope="text-nowrap">Ensayo</th>
+                                <th scope="text-nowrap">Par de Muestras</th>
+                                <th scope="text-nowrap">Igual a P</th>
+                                <th scope="text-nowrap" hidden></th>
                             </tr>
                         </thead>
                         <tbody class="text-secondary">
@@ -69,9 +66,11 @@
                 </div>
                 @endfor
         </div>
-        <div class="row justify-content-between">
-            <a name="" id="" class="btn btn-primary" href="{{route('preparation.index')}}" role="button">Cancelar</a>
-            <button type="submit" name="" id="" class="btn btn-primary">Aceptar</button>
+        <div class="row justify-content-between pr-5 pl-5">
+            <a name="" id="" class="boton_cancelar text-uppercase col-5" href="{{route('preparation.index')}}" role="button">Cancelar</a>
+            <button type="submit" name="" id="" class="btn_aceptar text-uppercase col-5">Aceptar</button>
         </div>
+        
+
     </form>
 </div>

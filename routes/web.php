@@ -19,6 +19,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Administrador'
     Route::resource('orthogonal', 'OrthogonalController')->only(['index', 'show', 'store']);
     Route::resource('duotrio', 'DuoTrioController')->only(['index', 'store']);
     Route::get('orthogonal/excel/{filename}', 'OrthogonalController@downloadExcelOrthogonal')->name('downloadExcel');
+
+
 });
 
 

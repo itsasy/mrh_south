@@ -25,8 +25,8 @@ $type = TestType::all();
                 <a href="{{route('evaluation.create', [
                     'evaluation'=> $sample->id_evaluacion, 
                     'election' => $sample->id_eleccion_prueba_muestra,
-                    'type' => 'Duo-Trio'])}}" class="btn btn-primary" role="button">
-                    <i class="fas fa-check-circle fa-lg"></i> Ingresar
+                    'type' => 'Duo-Trio'])}}" class="btn boton" role="button" style="height:30px;padding-top: 10px;">
+                    <i class="fa fa-check-circle fa-lg"></i> Realizar
                 </a>
             </td>
             @endif
@@ -35,8 +35,8 @@ $type = TestType::all();
                 <a href="{{route('evaluation.create', [
                     'evaluation'=> $sample->id_evaluacion, 
                     'election' => $sample->id_eleccion_prueba_muestra,
-                    'type' => 'QDA'])}}" class="btn btn-primary" role="button">
-                    <i class="fas fa-check-circle fa-lg"></i> Ingresar
+                    'type' => 'QDA'])}}" class="btn boton" role="button" style="height:30px;padding-top: 10px;">
+                    <i class="fa fa-check-circle fa-lg"></i> Realizar
                 </a>
             </td>
             @endif
@@ -46,8 +46,8 @@ $type = TestType::all();
                 <a href="{{route('invited.create', [
                     'evaluation'=> $sample->id_evaluacion, 
                     'election' => $sample->id_eleccion_prueba_muestra, 
-                    'type' => 'Perfil de consumidores'])}}" class="btn btn-primary" role="button">
-                    <i class="fas fa-check-circle fa-lg"></i> Ingresar
+                    'type' => 'Perfil de consumidores'])}}" class="btn boton" role="button" style="height:30px;padding-top: 10px;">
+                    <i class="fa fa-check-circle fa-lg"></i> Realizar
                 </a>
             </td>
             @endif
