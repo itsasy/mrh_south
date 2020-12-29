@@ -29,6 +29,8 @@ class TestsController extends Controller
 
     public function store(Request $request)
     {
+       $letras= ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+
        /*  try { */
             $codigo = $this->randomString();
 
@@ -54,11 +56,29 @@ class TestsController extends Controller
             $sample->save();
 
             foreach ($request->check_lista as $check) {
-                $choiceTest = new ChoiceTestSample();
-                $choiceTest->id_muestra      =  $codigo;
-                $choiceTest->id_tipo_prueba  =  $check;
-                $choiceTest->estado          =  "CREADA";
-                $choiceTest->save();
+                if($request->get('aleatorio_ortogonal') == 0){ //No aleatorio
+                    for($mo = 1; $mo <= $request->get('number_of_models') ;$mo++){
+                        $choiceTest = new ChoiceTestSample();
+                        $choiceTest->id_muestra      =  $codigo;
+                        $choiceTest->codigo_ortogonal   =  "A".$mo;
+                        $choiceTest->id_tipo_prueba  =  $check;
+                        $choiceTest->estado          =  "CREADA";
+                        $choiceTest->save(); 
+                        
+                    }
+                }else{ //Si aleatorio
+                    for($r = 0; $r < $request->get('number_of_repeats') ;$r++){
+                        for($mo = 1; $mo <= $request->get('number_of_models') ;$mo++){
+                           $choiceTest = new ChoiceTestSample();
+                           $choiceTest->id_muestra      =  $codigo;
+                           $choiceTest->codigo_ortogonal   =  $letras[$r].$mo;
+                           $choiceTest->id_tipo_prueba  =  $check;
+                           $choiceTest->estado          =  "CREADA";
+                           $choiceTest->save(); 
+                        } 
+                    }
+                }
+               
             }
 
             foreach ($request->attribute as $attribute) {
