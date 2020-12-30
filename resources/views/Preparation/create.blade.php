@@ -17,6 +17,9 @@ Preparación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
 
         <input type="hidden" name="id_tipo_prueba" value="{{$id_type_sample}}">
         <input type="hidden" name="id_muestra" value="{{$id_muestra}}">
+        <input type="hidden" name="orthogonal_code" value="{{$orthogonal_code}}">
+
+
 
         <div class="row justify-content-between pr-5 pl-5">
             <a name="" id="" class="boton_cancelar text-uppercase col-5" href="{{route('preparation.index')}}"   role="button">Cancelar</a>

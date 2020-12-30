@@ -5,6 +5,8 @@
     <thead class="thead-inverse">
         <tr>
             <th class="text-nowrap">Código</th>
+            <th class="text-nowrap">Código ortogonal</th>
+
             <th class="text-nowrap">Fecha de registro</th>
             <th class="text-nowrap">Nombre de la muestra</th>
             <th class="text-nowrap">Dúo - Trío</th>
@@ -19,95 +21,89 @@
     </thead>
     <tbody>
         @foreach($samples as $sample)
-        <tr class="text-center">
-            <td scope="row">{{$sample->id_muestra}}</td>
-            <td class="text-nowrap">{{$sample->fecha_registro}}</td>
-            <td>{{$sample->nombre_muestra}}</td>
-            <td>
-                @foreach($sample->ChoiceTestSample as $csample)
-
-                @if($csample->id_tipo_prueba == 1)
-                <a role="button" @if($csample->estado == "CREADA")
-                    href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Duo-Trio'])}}"
-                    style="color:red !important"
-                    @elseif($csample->estado == "ASIGNADA") style="color:#e2a210 !important"
-                    @else style="color:green !important" @endif>
-                    <i class="fa fa-check-circle fa-2x"></i>
-                </a>
-
-
+          @foreach($sample->ChoiceTestSample as $index=>$csample)
+            <tr class="text-center">
+                @if($index == 0)
+                <td scope="row" rowspan={{count($sample->ChoiceTestSample)}}>{{$sample->id_muestra}}</td>
                 @endif
-
-                @endforeach
-            </td>
-            <td>
-                @foreach($sample->ChoiceTestSample as $csample)
-
-                @if($csample->id_tipo_prueba == 2)
-                <a role="button" @if($csample->estado == "CREADA")
-                    href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'QDA'])}}"
-                    style="color:red !important"
-                    @elseif($csample->estado == "ASIGNADA") style="color:#e2a210 !important"
-                    @else style="color:green !important" @endif>
-                    <i class="fa fa-check-circle fa-2x"></i>
-                </a>
-
+                <td scope="row" >{{$csample->codigo_ortogonal}}</td>
+                @if($index == 0)
+                <td class="text-nowrap" rowspan={{count($sample->ChoiceTestSample)}}>{{$sample->fecha_registro}}</td>
                 @endif
-
-                @endforeach
-
-            </td>
-            <td>
-                @foreach($sample->ChoiceTestSample as $csample)
-
-                @if($csample->id_tipo_prueba == 3)
-                <a role="button" @if($csample->estado == "CREADA")
-                    href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Perfil de consumidores'])}}"
-                    style="color:red !important"
-                    @elseif($csample->estado == "ASIGNADA") style="color:#e2a210 !important" 
-                    @else style="color:green !important" @endif>
-                    <i class="fa fa-check-circle fa-2x"></i>
-                </a>
-
-
+                @if($index == 0)
+                <td rowspan={{count($sample->ChoiceTestSample)}}>{{$sample->nombre_muestra}}</td>
                 @endif
-
-                @endforeach
-
-            </td>
-            <td>
-                <a rel="noopener noreferrer" role="button" @if($sample->estado_modelos == 1)
-                    href="{{route('orthogonal.show', [$sample->id_muestra])}}" style="color:red !important"
-                    @else href="#" style="color:green" @endif>
-                    <i class="fa fa-external-link-square fa-2x"></i>
-                </a>
-
-
-            </td>
-            <td>
-
-                <a rel="noopener noreferrer" role="button" @if($sample->codificacion_muestra != null)
-                    href="{{route('downloadExcel', [$sample->codificacion_muestra])}}" style="color:green !important"
-                    @else href="#" style="color:red" @endif>
-                    <i class="fa fa-file-excel-o fa-2x"></i>
-                </a>
-
-            </td>
-            
-           
-            <td>
-                {{$sample->estado_muestra}}
-            </td>
-             <td>
-
-                <a rel="noopener noreferrer" role="button" @if($sample->excel_respuestas_duo_trio != null)
-                    href="{{route('downloadExcel', [$sample->excel_respuestas_duo_trio])}}" style="color:green !important;"
-                    @else href="#" style="color:#5d5d5d" @endif>
-                    <i class="fa fa-file-excel-o fa-2x"></i>
-                </a>
-
-            </td>
-        </tr>
+                <td>
+                        @if($csample->id_tipo_prueba == 1)
+                            <a role="button" @if($csample->estado == "CREADA")
+                                href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Duo-Trio', 'orthogonal_code' => $csample->codigo_ortogonal])}}"
+                                style="color:red !important"
+                                @elseif($csample->estado == "ASIGNADA") style="color:#e2a210 !important"
+                                @else style="color:green !important" @endif>
+                                <i class="fa fa-check-circle fa-2x"></i>
+                            </a>
+        
+                        @endif
+                   
+                </td>
+                @if($index == 0)
+                    <td rowspan={{count($sample->ChoiceTestSample)}}>
+                        <a role="button"  
+                        @if($sample->estado_qda == 0)
+                                href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'QDA', 'orthogonal_code' => null])}}"
+                                style="color:red !important" @elseif($sample->estado_qda== 1) style="color:#e2a210 !important"
+                                @else style="color:green !important" @endif  ><i class="fa fa-check-circle fa-2x"></i> </a>
+                    </td>
+                @endif
+                @if($index == 0)
+                
+                    <td rowspan={{count($sample->ChoiceTestSample)}}>
+                        <a role="button" 
+                        @if($sample->estado_PC == 0) href="{{route('preparation.create', ['preparation'=> $sample->id_muestra, 'type' => 'Perfil de consumidores', 'orthogonal_code' => null])}}"
+                                style="color:red !important"  @elseif($sample->estado_PC == 1) style="color:#e2a210 !important" 
+                                @else style="color:green !important" @endif > <i class="fa fa-check-circle fa-2x"></i> </a>
+                    </td>
+                @endif
+                @if($index == 0)
+                <td rowspan={{count($sample->ChoiceTestSample)}}>
+                    <a rel="noopener noreferrer" role="button" @if($sample->estado_modelos == 1)
+                        href="{{route('orthogonal.show', [$sample->id_muestra])}}" style="color:red !important"
+                        @else href="#" style="color:green" @endif>
+                        <i class="fa fa-external-link-square fa-2x"></i>
+                    </a>
+    
+    
+                </td>
+                @endif
+                @if($index == 0)
+                <td rowspan={{count($sample->ChoiceTestSample)}}>
+    
+                    <a rel="noopener noreferrer" role="button" @if($sample->codificacion_muestra != null)
+                        href="{{route('downloadExcel', [$sample->codificacion_muestra])}}" style="color:green !important"
+                        @else href="#" style="color:red" @endif>
+                        <i class="fa fa-file-excel-o fa-2x"></i>
+                    </a>
+    
+                </td>
+                @endif
+                @if($index == 0)
+                <td rowspan={{count($sample->ChoiceTestSample)}}>
+                    {{$sample->estado_muestra}}
+                </td>
+                @endif
+                
+                 <td>
+    
+                    <a rel="noopener noreferrer" role="button" @if($csample->excel_respuestas_duo_trio != null)
+                        href="{{route('downloadExcel', [$csample->excel_respuestas_duo_trio])}}" style="color:green !important;"
+                        @else href="#" style="color:#5d5d5d" @endif>
+                        <i class="fa fa-file-excel-o fa-2x"></i>
+                    </a>
+    
+                </td>
+                
+            </tr>
+          @endforeach
         @endforeach
     </tbody>
 </table>

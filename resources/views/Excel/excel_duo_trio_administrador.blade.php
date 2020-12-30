@@ -15,7 +15,7 @@
                         <tr>
                             <td colspan="8"
                                 style="vertical-align: middle; height:30px;font-weight: bold;font-size: 15px !important; text-transform: uppercase;  text-align: center; background-color: #45B32D;">
-                                Resuestas de la prueba Dúo - Trío
+                                Respuestas de la prueba Dúo - Trío
                             </td>
 
                         </tr>
@@ -30,7 +30,7 @@
                                 style="font-weight: bold;padding: 30px !important;font-size: 12px !important;text-align: left; ">
                                 Código de la muestra
                             </td>
-                            <td colspan="6" style="text-align: center;"> {{$choiceTestSample->id_muestra}}
+                            <td colspan="6" style="text-align: center;"> {{$choiceTestSample->id_muestra}}-{{$choiceTestSample->codigo_ortogonal}}
                             </td>
 
                         </tr>

@@ -100,6 +100,10 @@ class OrthogonalController extends Controller
         $sample = Sample::where('id_muestra', $idMuestra)->first();
         $sampleStudyParameters = SampleStudyParameters::where('id_muestra', $idMuestra)->get();
 
+        if($sample->aleatorio_ortogonal != 1){
+            $sample->nro_repeticiones = 0;
+        }
+        
         return view('Preparation.Orthogonal.create', compact('sample', 'sampleStudyParameters'));
     }
 

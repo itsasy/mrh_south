@@ -14,7 +14,7 @@
     <tbody>
         @foreach($choiceTestSample as $key => $sample)
         <tr class="text-center">
-            <td>{{$sample->id_muestra}}</td>
+            <td>{{$sample->id_muestra}}-{{$sample->codigo_ortogonal}}</td>
             <td>{{$sample->Sample->fecha_registro}}</td>
 
             <td>{{$sample->Sample->nombre_muestra}}</td>

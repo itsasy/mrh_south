@@ -16,7 +16,7 @@ $type = TestType::all();
     <tbody>
         @foreach($evaluation as $sample)
         <tr class="text-center">
-            <td scope="row">{{$sample->ChoiceTestSample->id_muestra}}</td>
+            <td scope="row">{{$sample->ChoiceTestSample->id_muestra}}-{{$sample->ChoiceTestSample->codigo_ortogonal}}</td>
             <td>{{$type[$sample->ChoiceTestSample->id_tipo_prueba-1]->tipo}}</td>
             <td>{{$sample->ChoiceTestSample->fecha_inicio}}</td>
             <td>{{$sample->ChoiceTestSample->fecha_fin}}</td>

@@ -203,6 +203,13 @@ class EvaluationController extends Controller
             if (count($choiceTestSample_count) == count($choiceTestSample) &&  $sample->estado_modelos == 2) {
                 
                $sample->estado_muestra         = "EJECUTADA";
+                if ($choiceTest->id_tipo_prueba == 2) {
+                  $sample->estado_qda = 2;
+                }
+                if ($choiceTest->id_tipo_prueba == 3) {
+                  $sample->estado_PC = 2;
+                }
+                
                $sample->save();
                 
             }

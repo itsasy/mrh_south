@@ -50,4 +50,6 @@
  @includeWhen(request()->route()->getName() == 'test.create', 'partials.checkLabels.checks_of_create_Test')
  {{--  @include('partials.checkLabels.checks_of_create_Test') --}}
 
+    @include('partials.radioButton.random_ortogonal')
+
 </div>

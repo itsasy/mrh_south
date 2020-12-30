@@ -57,9 +57,9 @@ class DuoTrioController extends Controller
                 $request->get('igual_p'),
                 $choiceTestSample),  $filename, 'excel');
 
-               $sampleupdate = Sample::find($choiceTestSample->id_muestra);
-               $sampleupdate->excel_respuestas_duo_trio = $filename;
-               $sampleupdate->save();
+               
+               $choiceTestSample->excel_respuestas_duo_trio = $filename;
+               $choiceTestSample->save();
                
             return $this->success_message('preparation.index', 'creó');
         } catch (\Exception $e) {
