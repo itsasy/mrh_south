@@ -1,5 +1,5 @@
 <div class="form-group col-12 mr-3 ml-3">
-    <label for="catadores_selected">Seleccionar jueces (mínimo 6 jueces):</label>
+    <label for="catadores_selected">Seleccionar jueces @if(request()->type != 'Duo-Trio')(mínimo 6 jueces):@endif</label>
     <div class="ui three sixteen wide field">
         <input type="hidden" name="camp" id="camp">
         <select class="ui fluid search dropdown center" multiple="" name="catadores_selected[]"
