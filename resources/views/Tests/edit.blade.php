@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card p-5">
     @include('partials.alerts.error')
-    <form action="{{route('test.update', ['test' => $test->id_muestra])}}" method="POST">
+    <form action="{{route('test.update', ['test' => $test->id_muestra])}}" method="POST" class="needs-validation" novalidate>
         @method('PUT')
         @csrf
         @include('partials.forms.create_or_edit.tests')

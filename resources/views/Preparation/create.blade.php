@@ -9,7 +9,7 @@ Preparación de Prueba {{$type == 'Duo-Trio' ? 'Dúo - Trío' : $type}}
        <div class="row">
         <div class="col-md-12">
             <div class="card p-5">
-    <form action="{{route('preparation.store')}}" method="POST">
+    <form action="{{route('preparation.store')}}" method="POST" class="needs-validation" novalidate>
         @csrf
         @includeWhen($type == 'QDA', 'partials.forms.preparation.qda')
         @includeWhen($type == 'Duo-Trio', 'partials.forms.preparation.duo_trio')

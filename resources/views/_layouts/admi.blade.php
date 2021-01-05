@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('DataTables/datatables.min.css')}}">
 
     @yield('style')
 </head>
@@ -29,7 +30,9 @@
 
 
     <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.bundle.min.js')}}">
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('js/datatables.min.js')}}"></script>
+
     </script>
     @yield('scripts')
 

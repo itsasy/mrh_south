@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card p-4">
                 @include('partials.alerts.error')
-                <form action="{{route('taster.store')}}" method="POST">
+                <form action="{{route('taster.store')}}" method="POST" class="needs-validation" novalidate>
                     @csrf @include('partials.forms.create_or_edit.tasters')
 
                     <div class="row justify-content-between pr-5 pl-5">

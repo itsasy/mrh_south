@@ -1,7 +1,7 @@
 <div class="row">
           <div class="col-md-12">
             <div class="card">
-<table class="table table-striped table-inverse">
+<table class="table table-striped table-inverse" id = "table">
     <thead class="thead-inverse">
         <tr class="text-center">
             <th class="text-nowrap">Código</th>

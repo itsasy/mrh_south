@@ -1,13 +1,14 @@
 <div class="form-group col-12 mr-3 ml-3">
     <label for="catadores_selected">Seleccionar catadores</label>
-    <div class="input-container">
-        <select class="ui fluid search dropdown" multiple="" name="catadores_selected[]" id="catadores_selected"
-            required="required">
-            <option value="" disabled="disabled">Catadores expertos</option>
-
-            @foreach ($tasters as $taster)
-            <option value="{{$taster->id_usuario}}">{{$taster->nombres . ' ' .$taster->apellidos}}</option>
+    <div class="ui three sixteen wide field">
+        <input type="hidden" name="camp" id="camp">
+        <select class="ui fluid search dropdown center" multiple="" name="catadores_selected[]"
+            id="catadores_selected" required="required">
             
+            <option value="" disabled="disabled" selected>Catadores expertos</option>
+            
+            @foreach ($tasters as $taster)
+                <option value="{{$taster->id_usuario}}">{{$taster->nombres . ' ' .$taster->apellidos}}</option>
             @endforeach
         </select>
     </div>

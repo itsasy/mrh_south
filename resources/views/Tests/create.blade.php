@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card p-5">
                     @include('partials.alerts.error')
-    <form action="{{route('test.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('test.store')}}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         {{ csrf_field() }}
 
         @include('partials.forms.create_or_edit.tests')

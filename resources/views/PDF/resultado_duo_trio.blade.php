@@ -119,7 +119,7 @@
                     </tr>
                     <tr>
                         <td><strong>Código:</strong></td>
-                        <td>{{$choiceTest->Sample->id_muestra}}</td>
+                        <td>{{$choiceTest->Sample->id_muestra}}-{{$choiceTest->codigo_ortogonal}}</td>
                         <td><strong>Fecha:</strong></td>
                         <td>{{\Carbon\Carbon::parse($choiceTest->Sample->fecha_registro)->format('d-m-Y')}}</td>
                     </tr>
@@ -253,21 +253,75 @@
     </div>
     <div class="row space">
         <div class="col-xs-12 data11">
-            <p> Número de respuestas acertadas ( X ): <b>{{$X = $numero_acertadas}}</b></p>
-            <p>Número de repeticiones ( r ): <b>{{$r = $choiceTest->nro_repeticiones}}</b></p>
-            <p>Número de muestras ( m ): <b>{{$m = $choiceTest->nro_ensayos_muestras}}</b></p>
-            <p>Número de jueces ( j ): <b>{{$j = $choiceTest->nro_jueces}}</b></p>
-            <p>Nivel de significación ( α ): <b>{{$ns = $choiceTest->nivel_significacion}}</b></p>
-            <p>Probabilidad de ocurrencia ( p ):  <b>{{ $p = (float) "0.5" }}</b></p>
-            <p>Probabilidad de no ocurrencia ( q ):   <b>{{ $q = (float) "0.5" }}</b></p>
+            
+            <div class="row">
 
-            <p>Número de pruebas realizadas totales ( n ): <b>{{ $n = $r * $m * $j }} </b></p>
-            <p> Número de respuestas no acertadas ( X2 ): <b>{{ $X2 = $n - $X }}</b></p>
+              <div class="col-12">
+                <table class="table">
+                    
+                    <tr>
+                        <td>Número de respuestas acertadas(X)</td>
+                        <td><strong>{{$X = $numero_acertadas}}</strong></td>
+                        <td>Número de repeticiones(r)</strong></td>
+                        <td><strong>{{$r = $choiceTest->nro_repeticiones}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Número de muestras(m):</td>
+                        <td><strong>{{$m = $choiceTest->nro_ensayos_muestras}}</strong></td>
+                        <td>Número de jueces(j):</td>
+                        <td><strong>{{$j = $choiceTest->nro_jueces}}</strong></td>
+                    </tr>
+                     <tr>
+                        <td>Nivel de significación ( α ):</td>
+                        <td><strong>{{$ns = $choiceTest->nivel_significacion}}</strong></td>
+                        <td>Probabilidad de ocurrencia ( p ):</td>
+                        <td><strong>{{ $p = (float) "0.5" }}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Probabilidad de no ocurrencia ( q ):</td>
+                        <td><strong>{{ $q = (float) "0.5" }}</strong></td>
+                        <td>Número de pruebas realizadas totales ( n ):</td>
+                        <td><strong>{{ $n = $r * $m * $j }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Probabilidad de no ocurrencia ( q ): </td>
+                        <td><strong>{{ $q = (float) "0.5" }}</strong></td>
+                        <td>Número de pruebas realizadas totales ( n ):</td>
+                        <td><strong>{{ $n = $r * $m * $j }}</strong></td>
+                    </tr>
+                     <tr>
+                        <td>Número de respuestas no acertadas ( X2 ): </td>
+                        <td><strong>{{ $X2 = $n - $X }}</strong></td>
+                        <td> Numero de opciones ( k ):</td>
+                        <td><strong>{{ $k = 2 }}</strong></td>
+                     </tr>
+                     <tr>
+                        <td>Grados de Libertad ( k - 1 ):</td>
+                        <td><strong>{{ $k - 1 }}</strong></td>
+                        <td> Valores esperados (ei):</td>
+                        <td><strong>{{ $e_i = $n * 0.5 }}</strong></td>
+                     </tr>
+                     <tr>
+                        <td>Número de respuestas no acertadas ( X2 ):</td>
+                        <td><strong>{{ $X2 = $n - $X }}</strong></td>
+                        <td> Numero de opciones ( k ):</td>
+                        <td><strong>{{ $k = 2 }}</strong></td>
+                     </tr>
+                     <tr>
+                        <td>Grados de Libertad ( k - 1 ):  </td>
+                        <td><strong>{{ $k - 1 }}</strong></td>
+                        <td> Valores esperados (ei):</td>
+                        <td><strong>{{ $e_i = $n * 0.5 }}</strong></td>
+                     </tr>
+                   
+                </table>
+            </div>
 
-            <p> Numero de opciones ( k ):  <b> {{ $k = 2 }}</b></p>
-            <p> Grados de Libertad ( k - 1 ):  <b> {{ $k - 1 }}</b></p>
-            <br>
-            <p> Valores esperados (ei): <b> {{ $e_i = $n * 0.5 }}</b></p>
+        </div>
+            
+      
+         
             <br>
             <p> Oi = O1 = <b>{{ $O1 = $X }} </b>(Hay diferencia)</p>
             <p> Oi = O2 =  <b>{{ $O2 = $X2 }} </b>(No hay diferencia)</p>

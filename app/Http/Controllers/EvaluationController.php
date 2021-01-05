@@ -181,7 +181,7 @@ class EvaluationController extends Controller
                     //1 == Grados de libertad  $p = corregir puede que ese no sea el valor
                     $x_tabular = ChiSquared::CHI_SQUARED_SCORES[1][$p];
                    
-                    $nombrepdf = "Resultado_Duo-Trio_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+                    $nombrepdf = "Resultado_Duo-Trio_" .$choiceTest->id_muestra."_".$choiceTest->codigo_ortogonal."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
                     PDF::loadView('PDF.resultado_duo_trio', compact('choiceTest','numero_acertadas','x_tabular'))->save(public_path() . '/pdf/' . $nombrepdf );
                     
             }elseif ($choiceTest->id_tipo_prueba == 2) { //QDA
@@ -253,7 +253,7 @@ class EvaluationController extends Controller
               array_push($data_general_inicial, $data_inicial);
 
 
-        $nombrepdf = "Resultado_QDA_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+        $nombrepdf = "Resultado_QDA_" .$choiceTest->id_muestra."_".$choiceTest->codigo_ortogonal."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
         PDF::loadView('PDF.resultado_qda', compact('choiceTest','detailAttributes','resultadosQda','evaluation','sumatoria','desviacion_estandar','data_general','data_general_inicial'))->save(public_path() . '/pdf/' . $nombrepdf );
    
         return $nombrepdf;
@@ -338,7 +338,7 @@ class EvaluationController extends Controller
 
         //dd($datos_graficos_generales);
       
-        $nombrepdf = "Resultado_PerfilDeConsumidores_" .$choiceTest->id_muestra."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
+        $nombrepdf = "Resultado_PerfilDeConsumidores_" .$choiceTest->id_muestra."_".$choiceTest->codigo_ortogonal."_". date("Y") . date("m") . date("d") . '_' . (date('H')) . date('i') . date('s'). '.pdf';
         PDF::loadView('PDF.resultado_perfil-consumidores', compact('choiceTest','datos_graficos_generales'))->save(public_path() . '/pdf/' . $nombrepdf );
         
         return $nombrepdf;

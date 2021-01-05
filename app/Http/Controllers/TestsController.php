@@ -53,9 +53,14 @@ class TestsController extends Controller
             $sample->estado_muestra           =  'CREADA';
             $sample->fecha_registro           =  $dateActual;
             $sample->aleatorio_ortogonal      =  $request->get('aleatorio_ortogonal');
+            foreach ($request->check_lista as $check) {
+                if($check == 2){  $sample->estado_qda   = 0;  }
+                if($check == 3){   $sample->estado_PC    = 0;  }
+             }
             $sample->save();
 
             foreach ($request->check_lista as $check) {
+            
                 if($request->get('aleatorio_ortogonal') == 0){ //No aleatorio
                     for($mo = 1; $mo <= $request->get('number_of_models') ;$mo++){
                         $choiceTest = new ChoiceTestSample();
@@ -80,6 +85,7 @@ class TestsController extends Controller
                 }
                
             }
+          
 
             foreach ($request->attribute as $attribute) {
                 $sampleStudy = new SampleStudyParameters();

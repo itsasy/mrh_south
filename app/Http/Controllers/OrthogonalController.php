@@ -147,6 +147,14 @@ class OrthogonalController extends Controller
             $sample = Sample::find($request->get('idMuestra'));
             $sample->estado_modelos       = 2;
             $sample->codificacion_muestra = $filename;
+            
+            //Cambiar estado de la muestra por las pruebas y el estado del modelo ortogonal
+              $choiceTestSample       = ChoiceTestSample::where(['id_muestra' => $request->get('idMuestra'), 'estado' => "ASIGNADA"])->get();
+              $choiceTestSample_count = ChoiceTestSample::select('id_muestra')->where('id_muestra', $request->get('idMuestra'))->get();
+              
+              if (count($choiceTestSample_count) == count($choiceTestSample) &&  $sample->estado_modelos == 2) {
+                 $sample->estado_muestra         = "ASIGNADA";
+              }
             $sample->save();
             
             return $this->success_message('preparation.index', 'creó');

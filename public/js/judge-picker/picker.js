@@ -1,4 +1,4 @@
 $('.ui.fluid.search.dropdown')
     .dropdown({
-        maxSelections: 10
+        //maxSelections: 10
     });

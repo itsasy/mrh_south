@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                         <td><strong>Código:</strong></td>
-                        <td>{{$choiceTest->Sample->id_muestra}}</td>
+                        <td>{{$choiceTest->Sample->id_muestra}}-{{$choiceTest->codigo_ortogonal}}</td>
                         <td><strong>Fecha:</strong></td>
                         <td>{{\Carbon\Carbon::parse($choiceTest->Sample->fecha_registro)->format('d-m-Y')}}</td>
                     </tr>

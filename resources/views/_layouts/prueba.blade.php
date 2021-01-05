@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{{asset('css/now-ui-dashboard.css?v=1.5.0')}}">
     <link rel="stylesheet" href="{{asset('css/demo.css')}}"> @yield('style')
+    <link rel="stylesheet" href="{{asset('DataTables-1.10.23/datatables.min.css')}}">
 
 
 </head>
@@ -125,17 +126,46 @@
     <!--Core JS Files-->
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <!-- Bootstrap validator -->
+    <script src="{{asset('js/actions/validations.js')}}"></script>
 
     <!--  Google Maps Plugin    -->
     <script src="{{asset('js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script>
     <script src="{{asset('js/demo.js')}}"></script>
-    
+    <script src="{{asset('DataTables-1.10.23/datatables.min.js')}}"></script>
+
     <script type="text/javascript">
         $(".nav li").on("click", function(){
         console.log("val");
            $(".nav").find(".active").removeClass("active");
            $(this).addClass("active");
         });
+        
+       /* $(document).ready( function () {
+            $('#table').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            });
+                   
+        });*/
      
         function descargar() {
             

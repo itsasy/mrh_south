@@ -3,7 +3,7 @@ use App\Models\TestType;
 $type = TestType::all();
 @endphp
 
-<table class="table table-striped table-inverse">
+<table id = "table" class="table table-striped table-inverse">
     <thead class="thead-inverse">
         <tr class="text-center">
             <th class="text-nowrap">Código</th>

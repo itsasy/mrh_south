@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="{{asset('css/now-ui-dashboard.css?v=1.5.0')}}">
     <link rel="stylesheet" href="{{asset('css/demo.css')}}"> @yield('style')
+    <link rel="stylesheet" href="{{asset('DataTables/datatables.min.css')}}">
 
 
 </head>
@@ -99,11 +100,45 @@
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('DataTables/datatables.min.js')}}"></script>
 
-    <script src="{{asset('js/erfect-scrollbar.jquery.min.js')}}"></script>
+    <script src="{{asset('js/perfect-scrollbar.jquery.min.js')}}"></script>
     <!--  Google Maps Plugin    -->
     <script src="{{asset('js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script>
     <script src="{{asset('js/demo.js')}}"></script>
+
+
+    <script type="text/javascript">
+       
+       
+        /* $(document).ready( function () {
+            $('#table').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            });
+                   
+        });*/
+     
+        
+    </script>
 
     @yield('scripts')
 </body>

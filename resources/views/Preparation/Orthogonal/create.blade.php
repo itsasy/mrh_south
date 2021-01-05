@@ -3,7 +3,7 @@
 @section('title', "Preparación de Pruebas Ortogonales")
 
 @section('content')
-<form action="{{route('orthogonal.store')}}" method="POST" class="mt-3 justify-content-center" id="">
+<form action="{{route('orthogonal.store')}}" method="POST" class="mt-3 justify-content-center needs-validation" novalidate id="">
     @csrf
     @include('partials.tables.preparation.sample_coding')
     

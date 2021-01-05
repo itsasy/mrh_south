@@ -35,4 +35,21 @@
 <script src="{{asset('js/judge-picker/semantic.js')}}"></script>
 <script src="{{asset('js/judge-picker/picker.js')}}"></script>
 <script src="{{asset('js/actions/start_and_end_validator.js')}}"></script>
+<script>
+    $('form').form({
+        inline: true,
+        on: 'change',
+        fields: {
+            catadores_selected: {
+                identifier: 'catadores_selected',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'La selección es obligatoria',
+                    }
+                ]
+            }
+        }
+    });
+</script>
 @endsection
