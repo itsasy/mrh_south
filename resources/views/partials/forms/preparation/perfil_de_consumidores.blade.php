@@ -3,7 +3,7 @@
         @include('partials.calendary.start_and_end')
 
         <div class="form-group col-6 mt-3">
-            <label class="justify-content-start col-6" for="nro_jueces"> Número de jueces</label>
+            <label class="justify-content-start col-6" for="nro_jueces">Número de jueces (mínimo 10 jueces)</label>
             <input type="number" name="nro_jueces" id="nro_jueces" class="form-control col-6" min=10>
         </div>
         <div class="form-group col-6 mt-3">

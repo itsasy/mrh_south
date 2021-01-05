@@ -5,7 +5,7 @@
         <select class="ui fluid search dropdown center" multiple="" name="catadores_selected[]"
             id="catadores_selected" required="required">
             
-            <option value="" disabled="disabled" selected>Catadores expertos</option>
+            <option value="" disabled="disabled" selected>Jueces expertos (mínimo 6 jueces)</option>
             
             @foreach ($tasters as $taster)
                 <option value="{{$taster->id_usuario}}">{{$taster->nombres . ' ' .$taster->apellidos}}</option>
