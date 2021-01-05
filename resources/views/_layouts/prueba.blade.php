@@ -132,7 +132,6 @@
     <!--  Google Maps Plugin    -->
     <script src="{{asset('js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script>
     <script src="{{asset('js/demo.js')}}"></script>
-    <script src="{{asset('DataTables-1.10.23/datatables.min.js')}}"></script>
 
     <script type="text/javascript">
         $(".nav li").on("click", function(){
